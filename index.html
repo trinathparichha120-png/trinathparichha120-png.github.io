@@ -3,55 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 Board Exam Papers | Free Study Material</title>
-    <!-- Add favicon here -->
+    <title>TP Technology | Free Study Material</title>
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="logo.png">
-    <!-- Importing a professional font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Importing Tailwind CSS for quick, professional styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Poppins', 'sans-serif'], },
                     colors: {
-                        darkBg: '#0f172a', // Deep charcoal blue/black
-                        cardBg: '#1e293b', // Slightly lighter for cards
-                        accentBlue: '#38bdf8',
-                        accentGreen: '#4ade80',
-                        accentPurple: '#c084fc',
-                        accentOrange: '#fb923c'
+                        darkBg: '#0f172a', cardBg: '#1e293b',
+                        accentBlue: '#38bdf8', accentGreen: '#4ade80',
+                        accentPurple: '#c084fc', accentOrange: '#fb923c'
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Custom smooth transition for hover effects */
-        .subject-card {
-            transition: all 0.3s ease;
-        }
-        .subject-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-        }
-        /* Custom scrollbar for dark theme */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569; 
-        }
+        .subject-card { transition: all 0.3s ease; }
+        .subject-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
 <body class="bg-darkBg text-gray-200 font-sans min-h-screen flex flex-col">
@@ -61,13 +38,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-3">
-                    <!-- Your Custom Logo -->
-                    <img src="logo.png" onerror="this.src='https://placehold.co/100x100/1e293b/38bdf8?text=TP'" alt="TP Technology Logo" class="w-10 h-10 rounded-full border-2 border-accentBlue shadow-[0_0_10px_rgba(56,189,248,0.5)] object-cover">
+                    <img src="logo.png" onerror="this.src='https://placehold.co/100x100/1e293b/38bdf8?text=TP'" alt="TP Technology" class="w-10 h-10 rounded-full border-2 border-accentBlue shadow-[0_0_10px_rgba(56,189,248,0.5)] object-cover">
                     <span class="font-bold text-xl tracking-wide text-white">TP <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentBlue to-accentPurple">Technology</span></span>
                 </div>
                 <div>
                     <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                    <a href="#papers" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">All Papers</a>
+                    <a href="#papers" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Study Hub</a>
                 </div>
             </div>
         </div>
@@ -80,475 +56,445 @@
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentBlue to-accentPurple">TP Technology</span>
         </h1>
         <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-400 mx-auto">
-            Download high-quality, completely free question papers. Select your stream and material type below.
+            Select your Board and choose between Question Papers & Answers or Books PDF below.
         </p>
     </header>
 
-    <!-- Navigation Filters (Stream & Type) -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-        <!-- Stream Selection -->
-        <div class="flex flex-wrap justify-center gap-3 mb-6">
-            <button class="bg-accentBlue text-darkBg px-6 py-2 rounded-full font-bold shadow-lg shadow-accentBlue/20">Science</button>
-            <button class="bg-darkBg border border-gray-600 text-gray-300 hover:text-white hover:border-gray-400 px-6 py-2 rounded-full font-semibold transition-all">Arts</button>
-            <button class="bg-darkBg border border-gray-600 text-gray-300 hover:text-white hover:border-gray-400 px-6 py-2 rounded-full font-semibold transition-all">Commerce</button>
+    <!-- DYNAMIC NAVIGATION FILTERS -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 flex flex-col items-center gap-6">
+        
+        <!-- Board Selection Toggles -->
+        <div class="flex flex-wrap justify-center gap-3 bg-gray-900/80 p-2 rounded-2xl border border-gray-700/50 shadow-lg">
+            <button id="btn-chse" onclick="toggleBoard('chse')" class="px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-accentBlue text-darkBg shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+                CHSE (Odisha)
+            </button>
+            <button id="btn-cbse" onclick="toggleBoard('cbse')" class="px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-transparent text-gray-400 hover:text-white">
+                CBSE
+            </button>
         </div>
 
-        <!-- Material Type Selection -->
-        <div class="flex flex-wrap justify-center gap-3">
-            <button class="bg-cardBg border border-accentBlue text-accentBlue px-5 py-2 rounded-lg font-semibold shadow-sm">Question Papers PDF</button>
-            <button class="bg-cardBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-5 py-2 rounded-lg font-semibold transition-all">Answer PDF</button>
-            <button class="bg-cardBg border border-gray-800 text-gray-500 px-5 py-2 rounded-lg font-semibold cursor-not-allowed" title="We will add this system later!">Selection by AI <span class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded ml-1">Soon</span></button>
-        </div>
-    </section>
-
-    <!-- Main Content: Subject Grid -->
-    <main id="papers" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Physics Card -->
-            <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-accentBlue"></div>
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-white">Physics</h2>
-                    <div class="p-2 bg-accentBlue/10 rounded-lg">
-                        <svg class="w-6 h-6 text-accentBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                </div>
-                <p class="text-gray-400 mb-6 text-sm">Theory and Practical question papers including all sets.</p>
-                <div class="space-y-3">
-                    <a href="physics-set-a.pdf" download="Physics_2026_Set_A.pdf" class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors block">
-                        <span>Set A - 2026 Final</span>
-                        <span class="text-accentBlue group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </a>
-                    <a href="physics-set-b.pdf" download="Physics_2026_Set_B.pdf" class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors block">
-                        <span>Set B - 2026 Final</span>
-                        <span class="text-accentBlue group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </a>
-                    <a href="physics-set-c.pdf" download="Physics_2026_Set_C.pdf" class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors block">
-                        <span>Set C - 2026 Final</span>
-                        <span class="text-accentBlue group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </a>
-                    <a href="physics-set-d.pdf" download="Physics_2026_Set_D.pdf" class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors block">
-                        <span>Set D - 2026 Final</span>
-                        <span class="text-accentBlue group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </a>
-                </div>
+        <!-- Material Type & Stream Selection -->
+        <div class="flex flex-col items-center gap-4 w-full transition-all duration-300">
+            <!-- Streams -->
+            <div class="flex flex-wrap justify-center gap-3">
+                <button class="bg-gray-800 text-white px-6 py-2 rounded-full font-bold border border-gray-600 shadow-lg">Science</button>
+                <button class="bg-darkBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-full font-semibold transition-all">Arts</button>
+                <button class="bg-darkBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-full font-semibold transition-all">Commerce</button>
             </div>
-
-            <!-- Chemistry Card -->
-            <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-white">Chemistry</h2>
-                    <div class="p-2 bg-accentGreen/10 rounded-lg">
-                        <svg class="w-6 h-6 text-accentGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                    </div>
-                </div>
-                <p class="text-gray-400 mb-6 text-sm">Organic, Inorganic, and Physical Chemistry papers.</p>
-                <div class="space-y-3">
-                    <a href="chemistry-set-a.pdf" download="Chemistry_2026_Set_A.pdf" class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors block">
-                        <span>Set A - 2026 Final</span>
-                        <span class="text-accentGreen group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </a>
-                    <a href="chemistry-set-b.pdf" download="Chemistry_2026_Set_B.pdf" class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors block">
-                        <span>Set B - 2026 Final</span>
-                        <span class="text-accentGreen group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </a>
-                    <a href="chemistry-set-c.pdf" download="Chemistry_2026_Set_C.pdf" class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors block">
-                        <span>Set C - 2026 Final</span>
-                        <span class="text-accentGreen group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </a>
-                    <a href="chemistry-set-d.pdf" download="Chemistry_2026_Set_D.pdf" class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors block">
-                        <span>Set D - 2026 Final</span>
-                        <span class="text-accentGreen group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </a>
-                </div>
+            <!-- Material Types -->
+            <div class="flex flex-wrap justify-center gap-3">
+                <button id="btn-mat-papers" onclick="toggleMaterial('papers')" class="bg-cardBg border border-accentBlue text-accentBlue px-6 py-2 rounded-lg font-semibold shadow-sm transition-all">Q. Papers & Answers</button>
+                <button id="btn-mat-books" onclick="toggleMaterial('books')" class="bg-cardBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-lg font-semibold transition-all">Books PDF</button>
             </div>
-
-            <!-- Mathematics Card -->
-            <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-white">Mathematics</h2>
-                    <div class="p-2 bg-accentOrange/10 rounded-lg">
-                        <svg class="w-6 h-6 text-accentOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                    </div>
-                </div>
-                <p class="text-gray-400 mb-6 text-sm">Calculus, Algebra, and Geometry complete sets.</p>
-                <div class="space-y-3">
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set A - 2026 Final</span>
-                        <span class="text-accentOrange group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set B - 2026 Final</span>
-                        <span class="text-accentOrange group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set C - 2026 Final</span>
-                        <span class="text-accentOrange group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set D - 2026 Final</span>
-                        <span class="text-accentOrange group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Biology Card -->
-            <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-white">Biology</h2>
-                    <div class="p-2 bg-accentPurple/10 rounded-lg">
-                        <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                    </div>
-                </div>
-                <p class="text-gray-400 mb-6 text-sm">Botany and Zoology question papers with diagrams.</p>
-                <div class="space-y-3">
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set A - 2026 Final</span>
-                        <span class="text-accentPurple group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set B - 2026 Final</span>
-                        <span class="text-accentPurple group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set C - 2026 Final</span>
-                        <span class="text-accentPurple group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set D - 2026 Final</span>
-                        <span class="text-accentPurple group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Computer Science / IT Card -->
-            <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-white">Comp. Science</h2>
-                    <div class="p-2 bg-cyan-400/10 rounded-lg">
-                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    </div>
-                </div>
-                <p class="text-gray-400 mb-6 text-sm">C++, Java, Python, and Networking question papers.</p>
-                <div class="space-y-3">
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set A - 2026 Final</span>
-                        <span class="text-cyan-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set B - 2026 Final</span>
-                        <span class="text-cyan-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set C - 2026 Final</span>
-                        <span class="text-cyan-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set D - 2026 Final</span>
-                        <span class="text-cyan-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- English Card -->
-            <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-white">English</h2>
-                    <div class="p-2 bg-rose-400/10 rounded-lg">
-                        <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    </div>
-                </div>
-                <p class="text-gray-400 mb-6 text-sm">Prose, Poetry, Grammar, and Writing Skill papers.</p>
-                <div class="space-y-3">
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set A - 2026 Final</span>
-                        <span class="text-rose-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set B - 2026 Final</span>
-                        <span class="text-rose-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set C - 2026 Final</span>
-                        <span class="text-rose-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set D - 2026 Final</span>
-                        <span class="text-rose-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- M.I.L (Odia) Card -->
-            <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-yellow-400"></div>
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-white">M.I.L (Odia)</h2>
-                    <div class="p-2 bg-yellow-400/10 rounded-lg">
-                        <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 15h4.498m-4.748 4.5a9.004 9.004 0 01-2.9-9.5"></path></svg>
-                    </div>
-                </div>
-                <p class="text-gray-400 mb-6 text-sm">Modern Indian Language (Odia) literature and grammar.</p>
-                <div class="space-y-3">
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set A - 2026 Final</span>
-                        <span class="text-yellow-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set B - 2026 Final</span>
-                        <span class="text-yellow-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set C - 2026 Final</span>
-                        <span class="text-yellow-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set D - 2026 Final</span>
-                        <span class="text-yellow-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Statistics Card -->
-            <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-emerald-400"></div>
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-white">Statistics</h2>
-                    <div class="p-2 bg-emerald-400/10 rounded-lg">
-                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                    </div>
-                </div>
-                <p class="text-gray-400 mb-6 text-sm">Data analysis, probability, and standard distributions.</p>
-                <div class="space-y-3">
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set A - 2026 Final</span>
-                        <span class="text-emerald-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set B - 2026 Final</span>
-                        <span class="text-emerald-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set C - 2026 Final</span>
-                        <span class="text-emerald-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set D - 2026 Final</span>
-                        <span class="text-emerald-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Electronics Card -->
-            <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-indigo-400"></div>
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-2xl font-bold text-white">Electronics</h2>
-                    <div class="p-2 bg-indigo-400/10 rounded-lg">
-                        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
-                    </div>
-                </div>
-                <p class="text-gray-400 mb-6 text-sm">Circuits, microprocessors, and communication systems.</p>
-                <div class="space-y-3">
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set A - 2026 Final</span>
-                        <span class="text-indigo-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set B - 2026 Final</span>
-                        <span class="text-indigo-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set C - 2026 Final</span>
-                        <span class="text-indigo-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                    <button class="w-full text-left px-4 py-3 bg-darkBg hover:bg-gray-800 rounded-lg text-sm font-medium border border-gray-700 flex justify-between items-center group transition-colors">
-                        <span>Set D - 2026 Final</span>
-                        <span class="text-indigo-400 group-hover:translate-x-1 transition-transform">Download &rarr;</span>
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- About Developer Section -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mt-8 border-t border-gray-800/50">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-white">About Developer</h2>
-            <div class="w-24 h-1 bg-gradient-to-r from-accentBlue to-accentPurple mx-auto mt-4 rounded-full"></div>
-        </div>
-
-        <div class="flex flex-col lg:flex-row gap-12 items-center lg:items-start bg-cardBg/30 p-8 rounded-3xl border border-gray-800/50">
-            
-            <!-- Left: Profile Image with Glow -->
-            <div class="relative group shrink-0">
-                <!-- Glowing background effect -->
-                <div class="absolute -inset-1 bg-gradient-to-r from-accentBlue to-accentPurple rounded-2xl blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
-                <!-- Profile Image (Make sure you have profile.jpg in your folder!) -->
-                <img src="profile.jpg" onerror="this.src='https://placehold.co/400x400/1e293b/38bdf8?text=Your+Photo'" alt="TP Developer" class="relative rounded-2xl w-64 h-64 object-cover border-2 border-gray-700 shadow-2xl z-10">
-                <!-- Floating Button -->
-                <button class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-accentBlue to-blue-600 text-white px-6 py-2 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(56,189,248,0.5)] z-20 hover:scale-105 transition-transform">
-                    Follow Me
+            <!-- AI Features -->
+            <div class="flex flex-wrap justify-center gap-3 mt-2">
+                <button class="bg-cardBg border border-gray-800 text-gray-500 px-6 py-2 rounded-lg font-semibold cursor-not-allowed">
+                    Develop yourself by AI <span class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded ml-1">Soon</span>
                 </button>
             </div>
-
-            <!-- Right: Developer Info -->
-            <div class="flex-1 w-full">
-                <h3 class="text-3xl font-bold text-white mb-2">Hey there! I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentBlue to-accentPurple">TP</span></h3>
-                <p class="text-accentBlue text-sm font-medium mb-4">(Creator of TP Technology)</p>
-                <p class="text-gray-400 leading-relaxed mb-8">
-                    "The only way to learn new software programming languages is by writing programs in them."<br>
-                    I am passionate about technology and education. I built this platform to provide completely free, high-quality study materials and previous year question papers to help students achieve their goals.
-                </p>
-
-                <!-- Info Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                    <!-- Education -->
-                    <div class="bg-darkBg border border-gray-700/50 p-4 rounded-xl flex items-center gap-4 hover:border-accentBlue/50 transition-colors">
-                        <div class="p-2 bg-blue-500/10 rounded-lg text-blue-400">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
-                        </div>
-                        <div>
-                            <p class="text-xs text-gray-500 font-medium">Education</p>
-                            <p class="text-sm font-bold text-gray-200">Self-Taught Developer</p>
-                        </div>
-                    </div>
-                    <!-- Location -->
-                    <div class="bg-darkBg border border-gray-700/50 p-4 rounded-xl flex items-center gap-4 hover:border-accentGreen/50 transition-colors">
-                        <div class="p-2 bg-green-500/10 rounded-lg text-green-400">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        </div>
-                        <div>
-                            <p class="text-xs text-gray-500 font-medium">Location</p>
-                            <p class="text-sm font-bold text-gray-200">Odisha, India</p>
-                        </div>
-                    </div>
-                    <!-- Hobby -->
-                    <div class="bg-darkBg border border-gray-700/50 p-4 rounded-xl flex items-center gap-4 hover:border-accentOrange/50 transition-colors">
-                        <div class="p-2 bg-orange-500/10 rounded-lg text-orange-400">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                        </div>
-                        <div>
-                            <p class="text-xs text-gray-500 font-medium">Hobby</p>
-                            <p class="text-sm font-bold text-gray-200">Coding & Problem Solving</p>
-                        </div>
-                    </div>
-                    <!-- Role -->
-                    <div class="bg-darkBg border border-gray-700/50 p-4 rounded-xl flex items-center gap-4 hover:border-accentPurple/50 transition-colors">
-                        <div class="p-2 bg-purple-500/10 rounded-lg text-purple-400">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        </div>
-                        <div>
-                            <p class="text-xs text-gray-500 font-medium">Role</p>
-                            <p class="text-sm font-bold text-gray-200">Founder, TP Technology</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Skills & Technologies -->
-                <div>
-                    <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-accentBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        Skills & Technologies
-                    </h4>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1.5 bg-darkBg border border-gray-700 hover:border-gray-500 transition-colors rounded-md text-xs font-medium text-gray-300 flex items-center gap-1.5"><svg class="w-3 h-3 text-orange-500" fill="currentColor" viewBox="0 0 24 24"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg> HTML5</span>
-                        <span class="px-3 py-1.5 bg-darkBg border border-gray-700 hover:border-gray-500 transition-colors rounded-md text-xs font-medium text-gray-300 flex items-center gap-1.5"><svg class="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.412H5.41l.233 2.623h10.058l-.23 2.719H8.53l.698 8.01 5.38 1.444 5.378-1.444.745-8.157H15.6l.326-3.426-9.126-.003-.188-2.11h10.48l-.002.344z"/></svg> CSS3</span>
-                        <span class="px-3 py-1.5 bg-darkBg border border-gray-700 hover:border-gray-500 transition-colors rounded-md text-xs font-medium text-gray-300 flex items-center gap-1.5"><svg class="w-3 h-3 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.463.693-.761 1.458-.761.921 0 1.93.35 2.503 1.01l1.58-1.616c-1.053-1.092-2.617-1.758-4.148-1.758-2.222 0-4.113 1.258-4.503 3.125-.262 1.252.126 2.227 1.157 2.912 1.492.898 2.585 1.233 2.673 2.012.067.625-.42 1.114-1.433 1.114-1.378 0-2.668-.698-3.374-1.583l-1.655 1.583c1.096 1.401 2.894 2.224 4.954 2.224 2.531 0 4.604-1.339 4.885-3.411.082-.605-.035-1.144-.251-1.633zm-9.395-6.685h-2.316v10.158h2.316V11.59zM2.876 0L0 2.876v18.248L2.876 24h18.248L24 21.124V2.876L21.124 0H2.876z"/></svg> JavaScript</span>
-                        <span class="px-3 py-1.5 bg-darkBg border border-gray-700 hover:border-gray-500 transition-colors rounded-md text-xs font-medium text-gray-300 flex items-center gap-1.5"><svg class="w-3 h-3 text-accentBlue" fill="currentColor" viewBox="0 0 24 24"><path d="M12.001,4.8c-3.208,0-5.903,2.412-6.478,5.556c-0.106,0.584-0.144,1.189-0.144,1.802c0,4.896,3.992,8.875,8.91,8.875 c4.918,0,8.91-3.979,8.91-8.875C23.2,7.114,18.064,4.8,12.001,4.8z M12.001,21.033c-4.918,0-8.91-3.979-8.91-8.875 c0-0.613,0.038-1.218,0.144-1.802c0.575-3.144,3.27-5.556,6.478-5.556c6.063,0,11.199,2.314,11.199,7.358 C20.911,17.054,16.919,21.033,12.001,21.033z M12.001,2.967c3.92,0,7.345,1.96,9.458,5.03c0.126-0.344,0.194-0.718,0.194-1.107 c0-1.807-1.472-3.279-3.279-3.279c-0.665,0-1.282,0.199-1.8,0.54c-1.077-1.815-3.045-3.029-5.309-3.029 c-2.264,0-4.232,1.214-5.309,3.029c-0.518-0.342-1.135-0.54-1.8-0.54c-1.807,0-3.279,1.472-3.279,3.279 c0,0.389,0.068,0.764,0.194,1.107C3.167,4.927,6.592,2.967,12.001,2.967z"/></svg> Web Development</span>
-                        <span class="px-3 py-1.5 bg-darkBg border border-gray-700 hover:border-gray-500 transition-colors rounded-md text-xs font-medium text-gray-300 flex items-center gap-1.5"><svg class="w-3 h-3 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg> UI/UX Design</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Get In Touch -->
-        <div class="mt-16 text-center">
-            <h3 class="text-2xl font-bold text-white mb-2">Get In Touch</h3>
-            <p class="text-gray-400 mb-8 text-sm">Join our community and stay updated with the latest materials.</p>
-            
-            <div class="flex justify-center flex-wrap gap-4">
-                <a href="#" class="px-5 py-2.5 bg-cardBg border border-gray-700 hover:border-[#25D366] hover:text-[#25D366] text-gray-300 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 group">
-                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.39 0 0 5.39 0 12.031c0 2.12.548 4.135 1.554 5.955L.055 24l6.195-1.625c1.761.944 3.738 1.458 5.781 1.458 6.641 0 12.031-5.39 12.031-12.031S18.672 0 12.031 0zm3.847 17.151c-.164.464-.954.912-1.328.954-.356.042-.818.106-2.61-.637-2.155-.893-3.528-3.08-3.634-3.222-.106-.142-.868-1.155-.868-2.203 0-1.048.54-1.562.73-1.774.19-.212.413-.265.55-.265.138 0 .275.006.397.012.127.006.297-.048.465.355.17.408.582 1.42.635 1.526.053.106.085.233.021.36-.064.127-.095.201-.191.318-.095.116-.201.243-.286.328-.095.095-.196.201-.085.392.111.191.492.812 1.053 1.312.724.646 1.334.847 1.524.943.19.095.302.085.413-.042.111-.127.476-.55.603-.741.127-.191.254-.159.434-.095.18.064 1.143.54 1.339.635.196.095.328.148.376.233.048.085.048.487-.116.95z"/></svg>
-                    WhatsApp Channel
-                </a>
-                <a href="#" class="px-5 py-2.5 bg-cardBg border border-gray-700 hover:border-[#0088cc] hover:text-[#0088cc] text-gray-300 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 group">
-                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.188-2.85 5.18-4.686c.223-.195-.054-.285-.346-.09l-6.4 4.024-2.76-.86c-.6-.185-.615-.6.125-.89l10.736-4.135c.5-.185.945.105.777.892z"/></svg>
-                    Telegram Channel
-                </a>
-                <a href="https://www.instagram.com/mr_tp120?igsh=N2F3MTd4dHNpbnN5" target="_blank" class="px-5 py-2.5 bg-cardBg border border-gray-700 hover:border-[#E1306C] hover:text-[#E1306C] text-gray-300 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 group">
-                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                    Instagram
-                </a>
-                <a href="https://www.youtube.com/@TPTechIndia" target="_blank" class="px-5 py-2.5 bg-cardBg border border-gray-700 hover:border-[#FF0000] hover:text-[#FF0000] text-gray-300 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 group">
-                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                    YouTube
-                </a>
-            </div>
         </div>
     </section>
 
+    <!-- MAIN CONTENT AREA -->
+    <main id="papers" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- ================= CHSE SECTION ================= -->
+        
+        <!-- 1. CHSE PAPERS & ANSWERS -->
+        <div id="content-chse-papers" class="block">
+            <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Papers & Answers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Physics Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-accentBlue"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Physics</h2>
+                        <div class="p-2 bg-accentBlue/10 rounded-lg">
+                            <svg class="w-6 h-6 text-accentBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="physics-set-a.pdf" download class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="physics-set-b.pdf" download class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set C</span><a href="physics-set-c.pdf" download class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set D</span><a href="physics-set-d.pdf" download class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chemistry Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Chemistry</h2>
+                        <div class="p-2 bg-accentGreen/10 rounded-lg">
+                            <svg class="w-6 h-6 text-accentGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="chemistry-set-a.pdf" download class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="chemistry-set-b.pdf" download class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set C</span><a href="chemistry-set-c.pdf" download class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set D</span><a href="chemistry-set-d.pdf" download class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mathematics Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Mathematics</h2>
+                        <div class="p-2 bg-accentOrange/10 rounded-lg">
+                            <svg class="w-6 h-6 text-accentOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set C</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set D</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biology Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Biology</h2>
+                        <div class="p-2 bg-accentPurple/10 rounded-lg">
+                            <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set C</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set D</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Computer Science Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Comp. Sci</h2>
+                        <div class="p-2 bg-cyan-400/10 rounded-lg">
+                            <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set C</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set D</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- English Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">English</h2>
+                        <div class="p-2 bg-rose-400/10 rounded-lg">
+                            <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set C</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set D</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- M.I.L (Odia) Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-yellow-400"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">M.I.L (Odia)</h2>
+                        <div class="p-2 bg-yellow-400/10 rounded-lg">
+                            <span class="text-yellow-400 font-bold text-xl">ଅ</span>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-yellow-400 rounded text-xs text-yellow-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-yellow-400 rounded text-xs text-yellow-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set C</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-yellow-400 rounded text-xs text-yellow-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set D</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-yellow-400 rounded text-xs text-yellow-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-emerald-400"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Statistics</h2>
+                        <div class="p-2 bg-emerald-400/10 rounded-lg">
+                            <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-emerald-400 rounded text-xs text-emerald-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-emerald-400 rounded text-xs text-emerald-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set C</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-emerald-400 rounded text-xs text-emerald-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set D</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-emerald-400 rounded text-xs text-emerald-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Electronics Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-indigo-400"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Electronics</h2>
+                        <div class="p-2 bg-indigo-400/10 rounded-lg">
+                            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-indigo-400 rounded text-xs text-indigo-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-indigo-400 rounded text-xs text-indigo-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set C</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-indigo-400 rounded text-xs text-indigo-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set D</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-indigo-400 rounded text-xs text-indigo-400 transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 2. CHSE BOOKS PDF -->
+        <div id="content-chse-books" class="hidden">
+            <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Books & Textbooks</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Physics Book -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
+                    <div class="w-14 h-16 bg-blue-900/40 border border-blue-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📘</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Physics Bureau Book Part-1</h3>
+                    <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
+                    <a href="#" class="block w-full text-center py-3 bg-accentBlue text-darkBg font-bold rounded-xl hover:bg-blue-400 transition-colors shadow-lg shadow-accentBlue/20">Download Book PDF</a>
+                </div>
+                <!-- Chemistry Book -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
+                    <div class="w-14 h-16 bg-green-900/40 border border-green-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📗</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Chemistry Bureau Book</h3>
+                    <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
+                    <a href="#" class="block w-full text-center py-3 bg-accentGreen text-darkBg font-bold rounded-xl hover:bg-green-400 transition-colors shadow-lg shadow-accentGreen/20">Download Book PDF</a>
+                </div>
+                <!-- Math Book -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
+                    <div class="w-14 h-16 bg-orange-900/40 border border-orange-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📙</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Mathematics Bureau Book</h3>
+                    <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
+                    <a href="#" class="block w-full text-center py-3 bg-accentOrange text-darkBg font-bold rounded-xl hover:bg-orange-400 transition-colors shadow-lg shadow-accentOrange/20">Download Book PDF</a>
+                </div>
+                <!-- Biology Book -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
+                    <div class="w-14 h-16 bg-purple-900/40 border border-purple-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📕</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Biology Bureau Book</h3>
+                    <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
+                    <a href="#" class="block w-full text-center py-3 bg-accentPurple text-darkBg font-bold rounded-xl hover:bg-purple-400 transition-colors shadow-lg shadow-accentPurple/20">Download Book PDF</a>
+                </div>
+                <!-- English Book -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
+                    <div class="w-14 h-16 bg-rose-900/40 border border-rose-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📓</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Invitation to English</h3>
+                    <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
+                    <a href="#" class="block w-full text-center py-3 bg-rose-400 text-darkBg font-bold rounded-xl hover:bg-rose-500 transition-colors shadow-lg shadow-rose-400/20">Download Book PDF</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CBSE SECTION ================= -->
+        
+        <!-- 3. CBSE PAPERS & ANSWERS -->
+        <div id="content-cbse-papers" class="hidden">
+            <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentPurple pl-3">CBSE Science Papers & Answers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- CBSE Physics Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Physics (042)</h2>
+                        <div class="p-2 bg-accentPurple/10 rounded-lg">
+                            <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- YEAR: 2026 -->
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 4</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CBSE Chemistry Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Chemistry (043)</h2>
+                        <div class="p-2 bg-accentGreen/10 rounded-lg">
+                            <svg class="w-6 h-6 text-accentGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- YEAR: 2026 -->
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 4</span><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="#" class="flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 4. CBSE BOOKS PDF -->
+        <div id="content-cbse-books" class="hidden">
+            <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentPurple pl-3">CBSE Science NCERT Books</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- NCERT Physics -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
+                    <div class="w-14 h-16 bg-purple-900/40 border border-purple-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📕</div>
+                    <h3 class="text-xl font-bold text-white mb-2">NCERT Physics Part-1</h3>
+                    <p class="text-gray-400 text-sm mb-6">Class 12 Official NCERT Textbook.</p>
+                    <a href="#" class="block w-full text-center py-3 bg-accentPurple text-darkBg font-bold rounded-xl hover:bg-purple-400 transition-colors shadow-lg shadow-accentPurple/20">Download Book PDF</a>
+                </div>
+                <!-- NCERT Chemistry -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
+                    <div class="w-14 h-16 bg-green-900/40 border border-green-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📗</div>
+                    <h3 class="text-xl font-bold text-white mb-2">NCERT Chemistry Part-1</h3>
+                    <p class="text-gray-400 text-sm mb-6">Class 12 Official NCERT Textbook.</p>
+                    <a href="#" class="block w-full text-center py-3 bg-accentGreen text-darkBg font-bold rounded-xl hover:bg-green-400 transition-colors shadow-lg shadow-accentGreen/20">Download Book PDF</a>
+                </div>
+                <!-- NCERT Math -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
+                    <div class="w-14 h-16 bg-orange-900/40 border border-orange-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📙</div>
+                    <h3 class="text-xl font-bold text-white mb-2">NCERT Mathematics Part-1</h3>
+                    <p class="text-gray-400 text-sm mb-6">Class 12 Official NCERT Textbook.</p>
+                    <a href="#" class="block w-full text-center py-3 bg-accentOrange text-darkBg font-bold rounded-xl hover:bg-orange-400 transition-colors shadow-lg shadow-accentOrange/20">Download Book PDF</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
     <!-- Footer -->
-    <footer class="border-t border-gray-800 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between">
-            <p class="text-gray-500 text-sm">© 2026 TP Technology Hub. Provided free for students.</p>
-            <p class="text-gray-600 text-sm mt-2 md:mt-0 flex items-center gap-1">
-                Built with <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg> for future toppers.
-            </p>
+    <footer class="border-t border-gray-800 mt-auto bg-darkBg">
+        <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col items-center">
+            <p class="text-gray-500 text-sm">© 2026 TP Technology. Provided free for students.</p>
         </div>
     </footer>
 
-    <!-- Custom Download Modal -->
-    <div id="downloadModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
-        <div class="bg-cardBg border border-gray-700 p-8 rounded-2xl max-w-md w-full text-center transform scale-95 transition-transform duration-300 mx-4">
-            <div class="w-16 h-16 bg-accentBlue/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <!-- Download Icon -->
-                <svg class="w-8 h-8 text-accentBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-2">Almost Ready!</h3>
-            <p class="text-gray-400 mb-6">You selected <span id="selectedPaper" class="text-accentBlue font-semibold">a paper</span>. We will link your PDF files to these buttons very soon.</p>
-            <button id="closeModalBtn" class="bg-accentBlue hover:bg-blue-500 text-darkBg font-bold py-3 px-8 rounded-full transition-colors w-full">Got it!</button>
-        </div>
-    </div>
-
-    <!-- Script to handle custom modal -->
+    <!-- JAVASCRIPT LOGIC FOR SWITCHING BOARDS AND MATERIALS -->
     <script>
-        const modal = document.getElementById('downloadModal');
-        const closeBtn = document.getElementById('closeModalBtn');
-        const selectedPaperText = document.getElementById('selectedPaper');
+        // Track the current state
+        let currentBoard = 'chse'; // 'chse' or 'cbse'
+        let currentMaterial = 'papers'; // 'papers' or 'books'
 
-        // Find all the buttons inside our subject cards
-        document.querySelectorAll('.subject-card button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                // Find out exactly which paper they clicked (e.g., "Set C - 2026 Final")
-                const paperName = e.currentTarget.querySelector('span').innerText;
-                selectedPaperText.innerText = paperName;
+        function toggleBoard(board) {
+            currentBoard = board;
+            updateDisplay();
+        }
 
-                // Show the modal smoothly
-                modal.classList.remove('hidden');
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                    modal.querySelector('div').classList.remove('scale-95');
-                }, 10);
-            });
-        });
+        function toggleMaterial(material) {
+            currentMaterial = material;
+            updateDisplay();
+        }
 
-        // Hide the modal when "Got it" is clicked
-        closeBtn.addEventListener('click', () => {
-            modal.classList.add('opacity-0');
-            modal.querySelector('div').classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        });
+        function updateDisplay() {
+            // 1. Update Board Buttons (Visual Style)
+            const btnChse = document.getElementById('btn-chse');
+            const btnCbse = document.getElementById('btn-cbse');
+            
+            btnChse.className = currentBoard === 'chse' 
+                ? "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-accentBlue text-darkBg shadow-[0_0_15px_rgba(56,189,248,0.4)]" 
+                : "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-transparent text-gray-400 hover:text-white";
+                
+            btnCbse.className = currentBoard === 'cbse' 
+                ? "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-accentPurple text-darkBg shadow-[0_0_15px_rgba(192,132,252,0.4)]" 
+                : "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-transparent text-gray-400 hover:text-white";
+
+            // 2. Update Material Buttons (Visual Style)
+            const btnPapers = document.getElementById('btn-mat-papers');
+            const btnBooks = document.getElementById('btn-mat-books');
+            const activeColor = currentBoard === 'chse' ? 'border-accentBlue text-accentBlue' : 'border-accentPurple text-accentPurple';
+
+            btnPapers.className = currentMaterial === 'papers'
+                ? `bg-cardBg border ${activeColor} px-6 py-2 rounded-lg font-semibold shadow-sm transition-all`
+                : "bg-cardBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-lg font-semibold transition-all";
+
+            btnBooks.className = currentMaterial === 'books'
+                ? `bg-cardBg border ${activeColor} px-6 py-2 rounded-lg font-semibold shadow-sm transition-all`
+                : "bg-cardBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-lg font-semibold transition-all";
+
+            // 3. Hide all content containers
+            document.getElementById('content-chse-papers').style.display = 'none';
+            document.getElementById('content-chse-books').style.display = 'none';
+            document.getElementById('content-cbse-papers').style.display = 'none';
+            document.getElementById('content-cbse-books').style.display = 'none';
+
+            // 4. Show the specifically selected container
+            const activeContainerId = `content-${currentBoard}-${currentMaterial}`;
+            document.getElementById(activeContainerId).style.display = 'block';
+        }
     </script>
 </body>
 </html>
