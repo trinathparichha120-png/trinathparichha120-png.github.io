@@ -85,7 +85,7 @@
             
             <!-- Materials AND Dynamic Year Selector -->
             <div class="flex flex-wrap justify-center items-center gap-3 bg-cardBg p-2 rounded-xl border border-gray-700/50 shadow-md">
-                <!-- NEW: 10 Year Selector -->
+                <!-- 10 Year Selector -->
                 <select id="year-selector" onchange="changeYear(this.value)" class="bg-darkBg border border-accentBlue text-white px-4 py-2 rounded-lg font-bold shadow-lg shadow-accentBlue/20 outline-none cursor-pointer hover:bg-gray-800 transition-colors">
                     <option value="2026">🎯 Year: 2026</option>
                     <option value="2025">📅 Year: 2025</option>
@@ -402,6 +402,7 @@
                             <svg class="w-6 h-6 text-accentGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
                         </div>
                     </div>
+                    
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
@@ -453,31 +454,40 @@
             <div class="relative group">
                 <div class="absolute -inset-1 bg-gradient-to-r from-accentBlue to-accentPurple rounded-2xl blur opacity-50"></div>
                 <img src="profile.jpg" alt="Developer Profile" class="relative w-48 h-48 rounded-2xl object-cover border-2 border-gray-800">
-                <div class="absolute -bottom-3 left-4 bg-accentBlue text-darkBg px-4 py-1 rounded-full font-bold text-sm shadow-lg">MadXABhi</div>
+                <div class="absolute -bottom-3 left-4 bg-accentBlue text-darkBg px-4 py-1 rounded-full font-bold text-sm shadow-lg">TP</div>
             </div>
             
             <!-- Info Grid -->
             <div class="flex-1 w-full">
-                <h2 class="text-3xl font-bold text-white mb-1">Hey there! I'm ABhi... Kumar</h2>
-                <p class="text-accentPurple font-semibold mb-4">(a.k.a. MadXABhi)</p>
+                <h2 class="text-3xl font-bold text-white mb-1">Hey there! I'm Trinath Parichha</h2>
+                <p class="text-accentPurple font-semibold mb-4">(TP)</p>
                 <p class="text-gray-400 italic mb-6">"Dream Big, Hustle Hard, and Never Stop Exploring!"</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex items-center gap-3">
                         <span class="text-xl">🎓</span>
-                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Education</p><p class="text-sm font-medium">Class 12th (PCM) | Batch: 2023-25</p></div>
+                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Education</p><p class="text-sm font-medium">Class 12th (PCM) | Batch: 2024-26</p></div>
                     </div>
                     <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex items-center gap-3">
                         <span class="text-xl">📍</span>
-                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Location</p><p class="text-sm font-medium">Bihar, India</p></div>
+                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Location</p><p class="text-sm font-medium">Odisha, India</p></div>
                     </div>
-                    <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex items-center gap-3">
-                        <span class="text-xl">🎂</span>
-                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Birthday</p><p class="text-sm font-medium">21st June | Age: 17</p></div>
+                    <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex flex-col justify-center">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl">🎂</span>
+                            <div>
+                                <p class="text-[10px] text-gray-500 uppercase font-bold">Birthday</p>
+                                <p class="text-sm font-medium">12th April | Age: 17</p>
+                            </div>
+                        </div>
+                        <!-- Live Birthday Countdown Timer -->
+                        <div id="bday-countdown" class="text-[11px] text-accentBlue mt-2 font-mono bg-cardBg border border-gray-700/50 rounded px-2 py-1 inline-block shadow-inner w-full text-center tracking-wider">
+                            Loading countdown...
+                        </div>
                     </div>
                     <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex items-center gap-3">
                         <span class="text-xl">🚀</span>
-                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Founder</p><p class="text-sm font-medium">AS MULTIVERSE - APPs</p></div>
+                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Founder</p><p class="text-sm font-medium">STUDY MATERIAL HUB</p></div>
                     </div>
                 </div>
             </div>
@@ -485,7 +495,7 @@
 
         <!-- Skills Section -->
         <div class="mt-8 bg-cardBg rounded-3xl p-8 border border-gray-700/50">
-            <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">🛠️ Skills & Technologies</h3>
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">🛠️ Skills & Technologies By Ai</h3>
             <div class="flex flex-wrap gap-3">
                 <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300">Python</span>
                 <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300">Java</span>
@@ -511,7 +521,7 @@
 
     <!-- Footer -->
     <footer class="text-center py-6 border-t border-gray-800 text-gray-500 text-sm">
-        <p>© 2026 TP Technology | Developer: MadXABhi</p>
+        <p>© 2026 TP Technology | Developer: TP</p>
     </footer>
 
     <!-- JAVASCRIPT LOGIC FOR SWITCHING BOARDS AND MATERIALS AND YEARS -->
@@ -593,6 +603,36 @@
                 }
             });
         }
+
+        // ================= BIRTHDAY COUNTDOWN LOGIC =================
+        function updateBirthdayCountdown() {
+            const now = new Date();
+            // Set birthday to April 12th (Month is 0-indexed, so 3 = April)
+            let nextBday = new Date(now.getFullYear(), 3, 12); 
+
+            // If April 12th has already passed this year, set for next year
+            if (now.getTime() > nextBday.getTime()) {
+                nextBday.setFullYear(now.getFullYear() + 1);
+            }
+
+            const diff = nextBday - now;
+
+            // Calculate time units
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const countdownEl = document.getElementById('bday-countdown');
+            if (countdownEl) {
+                countdownEl.innerText = `⏳ Next in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+        }
+
+        // Run the countdown immediately and then update every second (1000ms)
+        updateBirthdayCountdown();
+        setInterval(updateBirthdayCountdown, 1000);
+
     </script>
 </body>
 </html>
