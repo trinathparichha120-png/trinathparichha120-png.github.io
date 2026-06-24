@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TP Technology | Free Study Material</title>
+    <title>TP Technology | Ultimate Study Material</title>
+    <meta name="description" content="Get the Ultimate Study Material for CHSE and CBSE Class 12. Free question papers, NCERT books, and one-shot video lectures.">
+    <meta name="keywords" content="ultimate study material, CHSE, CBSE, class 12, free study hub, TP Technology">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -48,11 +50,14 @@
         .modal-overlay.active .modal-content {
             transform: scale(1);
         }
+        
+        /* Custom Scrollbar for Topic List inside Modal */
+        .topic-scroll::-webkit-scrollbar { width: 6px; }
+        .topic-scroll::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
     </style>
 </head>
 <body class="bg-darkBg text-gray-200 font-sans min-h-screen flex flex-col relative">
 
-    <!-- Navigation Bar -->
     <nav class="border-b border-gray-800 bg-darkBg/90 backdrop-blur-md sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -69,42 +74,35 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
         <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
-            Master Your Exams with <br class="hidden md:block" />
+            The Ultimate Study Material by <br class="hidden md:block" />
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentBlue to-accentPurple">TP Technology</span>
         </h1>
         <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-400 mx-auto">
             Select your Board, Year, and choose between Question Papers & Answers or Books PDF below.
         </p>
+
+        <!-- Live Active Learners Badge -->
+        <div class="mt-8 flex justify-center">
+            <div class="bg-gray-900 border border-gray-700 rounded-full px-6 py-2 flex items-center gap-3 shadow-lg shadow-green-500/10">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </span>
+                <span class="text-sm font-semibold text-gray-300">
+                    <span id="active-learners" class="text-white font-bold text-lg">Loading...</span> Active Learners
+                </span>
+            </div>
+        </div>
     </header>
 
     <!-- DYNAMIC NAVIGATION FILTERS & YEAR SELECTOR -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 flex flex-col items-center gap-6">
-        
-        <!-- Board Selection Toggles -->
-        <div class="flex flex-wrap justify-center gap-3 bg-gray-900/80 p-2 rounded-2xl border border-gray-700/50 shadow-lg">
-            <button id="btn-chse" onclick="toggleBoard('chse')" class="px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-accentBlue text-darkBg shadow-[0_0_15px_rgba(56,189,248,0.4)]">
-                CHSE (Odisha)
-            </button>
-            <button id="btn-cbse" onclick="toggleBoard('cbse')" class="px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-transparent text-gray-400 hover:text-white">
-                CBSE
-            </button>
-        </div>
-
-        <!-- Material Type & Stream Selection -->
-        <div class="flex flex-col items-center gap-4 w-full transition-all duration-300">
-            <!-- Streams -->
-            <div class="flex flex-wrap justify-center gap-3">
-                <button class="bg-gray-800 text-white px-6 py-2 rounded-full font-bold border border-gray-600 shadow-lg">Science</button>
                 <button class="bg-darkBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-full font-semibold transition-all">Arts</button>
                 <button class="bg-darkBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-full font-semibold transition-all">Commerce</button>
             </div>
             
-            <!-- Materials AND Dynamic Year Selector -->
             <div class="flex flex-wrap justify-center items-center gap-3 bg-cardBg p-2 rounded-xl border border-gray-700/50 shadow-md">
-                <!-- 10 Year Selector -->
                 <select id="year-selector" onchange="changeYear(this.value)" class="bg-darkBg border border-accentBlue text-white px-4 py-2 rounded-lg font-bold shadow-lg shadow-accentBlue/20 outline-none cursor-pointer hover:bg-gray-800 transition-colors">
                     <option value="2026">🎯 Year: 2026</option>
                     <option value="2025">📅 Year: 2025</option>
@@ -123,7 +121,6 @@
                 <button id="btn-mat-books" onclick="toggleMaterial('books')" class="bg-transparent border border-gray-700 text-gray-400 hover:text-white px-6 py-2 rounded-lg font-semibold transition-all">Books PDF</button>
             </div>
 
-            <!-- AI Features -->
             <div class="flex flex-wrap justify-center gap-3 mt-2">
                 <button class="bg-cardBg border border-gray-800 text-gray-500 px-6 py-2 rounded-lg font-semibold cursor-not-allowed hover:bg-gray-800 transition-colors">
                     Develop yourself by AI <span class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded ml-1">Soon</span>
@@ -132,15 +129,12 @@
         </div>
     </section>
 
-    <!-- MAIN CONTENT AREA -->
     <main id="papers" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         
-        <!-- ================= CHSE SECTION ================= -->
         <div id="content-chse-papers" class="block">
             <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Papers & Answers</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Physics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentBlue"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -153,7 +147,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('chse', 'physics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -169,7 +162,6 @@
                     </div>
                 </div>
 
-                <!-- Chemistry Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -182,7 +174,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('chse', 'chemistry')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -198,7 +189,6 @@
                     </div>
                 </div>
 
-                <!-- Mathematics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -211,7 +201,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('chse', 'mathematics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -227,7 +216,6 @@
                     </div>
                 </div>
 
-                <!-- Biology Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -240,7 +228,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('chse', 'biology')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -256,7 +243,6 @@
                     </div>
                 </div>
 
-                <!-- Computer Science Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -269,7 +255,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('chse', 'compsci')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -285,7 +270,6 @@
                     </div>
                 </div>
 
-                <!-- English Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -298,7 +282,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('chse', 'english')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -314,7 +297,6 @@
                     </div>
                 </div>
 
-                <!-- M.I.L (Odia) Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-yellow-400"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -327,7 +309,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('chse', 'mil-odia')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -343,7 +324,6 @@
                     </div>
                 </div>
 
-                <!-- Statistics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-emerald-400"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -356,7 +336,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('chse', 'statistics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -372,7 +351,6 @@
                     </div>
                 </div>
 
-                <!-- Electronics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-indigo-400"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -385,7 +363,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('chse', 'electronics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -404,39 +381,33 @@
             </div>
         </div>
 
-        <!-- 2. CHSE BOOKS PDF -->
         <div id="content-chse-books" class="hidden">
             <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Books & Textbooks</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Physics Book -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-blue-900/40 border border-blue-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📘</div>
                     <h3 class="text-xl font-bold text-white mb-2">Physics Bureau Book Part-1</h3>
                     <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
                     <a href="physics-book-part1.pdf" download class="block w-full text-center py-3 bg-accentBlue text-darkBg font-bold rounded-xl hover:bg-blue-400 transition-colors shadow-lg shadow-accentBlue/20">Download Book PDF</a>
                 </div>
-                <!-- Chemistry Book -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-green-900/40 border border-green-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📗</div>
                     <h3 class="text-xl font-bold text-white mb-2">Chemistry Bureau Book</h3>
                     <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
                     <a href="chemistry-book-part1.pdf" download class="block w-full text-center py-3 bg-accentGreen text-darkBg font-bold rounded-xl hover:bg-green-400 transition-colors shadow-lg shadow-accentGreen/20">Download Book PDF</a>
                 </div>
-                <!-- Math Book -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-orange-900/40 border border-orange-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📙</div>
                     <h3 class="text-xl font-bold text-white mb-2">Mathematics Bureau Book</h3>
                     <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
                     <a href="maths-book-part1.pdf" download class="block w-full text-center py-3 bg-accentOrange text-darkBg font-bold rounded-xl hover:bg-orange-400 transition-colors shadow-lg shadow-accentOrange/20">Download Book PDF</a>
                 </div>
-                <!-- Biology Book -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-purple-900/40 border border-purple-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📕</div>
                     <h3 class="text-xl font-bold text-white mb-2">Biology Bureau Book</h3>
                     <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
                     <a href="biology-book-part1.pdf" download class="block w-full text-center py-3 bg-accentPurple text-darkBg font-bold rounded-xl hover:bg-purple-400 transition-colors shadow-lg shadow-accentPurple/20">Download Book PDF</a>
                 </div>
-                <!-- English Book -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-rose-900/40 border border-rose-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📓</div>
                     <h3 class="text-xl font-bold text-white mb-2">Invitation to English</h3>
@@ -446,14 +417,10 @@
             </div>
         </div>
 
-        <!-- ================= CBSE SECTION ================= -->
-        
-        <!-- 3. CBSE PAPERS & ANSWERS -->
         <div id="content-cbse-papers" class="hidden">
             <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentPurple pl-3">CBSE Science Papers & Answers</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- CBSE Physics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -467,7 +434,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('cbse', 'physics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -482,7 +448,6 @@
                     </div>
                 </div>
 
-                <!-- CBSE Chemistry Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -496,7 +461,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('cbse', 'chemistry')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -511,7 +475,6 @@
                     </div>
                 </div>
 
-                <!-- CBSE Mathematics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -524,7 +487,6 @@
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
                             
-                            <!-- Watch Video Option -->
                             <button onclick="openVideoModal('cbse', 'mathematics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
                                 <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                                 Watch Lectures
@@ -542,25 +504,21 @@
             </div>
         </div>
 
-        <!-- 4. CBSE BOOKS PDF -->
         <div id="content-cbse-books" class="hidden">
             <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentPurple pl-3">CBSE Science NCERT Books</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- NCERT Physics -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-purple-900/40 border border-purple-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📕</div>
                     <h3 class="text-xl font-bold text-white mb-2">NCERT Physics Part-1</h3>
                     <p class="text-gray-400 text-sm mb-6">Class 12 Official NCERT Textbook.</p>
                     <a href="ncert-physics-part1.pdf" download class="block w-full text-center py-3 bg-accentPurple text-darkBg font-bold rounded-xl hover:bg-purple-400 transition-colors shadow-lg shadow-accentPurple/20">Download Book PDF</a>
                 </div>
-                <!-- NCERT Chemistry -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-green-900/40 border border-green-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📗</div>
                     <h3 class="text-xl font-bold text-white mb-2">NCERT Chemistry Part-1</h3>
                     <p class="text-gray-400 text-sm mb-6">Class 12 Official NCERT Textbook.</p>
                     <a href="ncert-chemistry-part1.pdf" download class="block w-full text-center py-3 bg-accentGreen text-darkBg font-bold rounded-xl hover:bg-green-400 transition-colors shadow-lg shadow-accentGreen/20">Download Book PDF</a>
                 </div>
-                <!-- NCERT Math -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-orange-900/40 border border-orange-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📙</div>
                     <h3 class="text-xl font-bold text-white mb-2">NCERT Mathematics Part-1</h3>
@@ -572,19 +530,16 @@
 
     </main>
 
-    <!-- About Developer Section -->
     <section id="about" class="max-w-5xl mx-auto px-4 py-16">
         <h2 class="text-3xl font-bold text-white mb-10 text-center">Architect Behind the Platform</h2>
         
         <div class="bg-cardBg rounded-3xl p-8 border border-gray-700/50 shadow-2xl flex flex-col md:flex-row gap-8 items-center">
-            <!-- Profile Box with Glow -->
             <div class="relative group">
                 <div class="absolute -inset-1 bg-gradient-to-r from-accentBlue to-accentPurple rounded-2xl blur opacity-50"></div>
                 <img src="profile.jpg" alt="Developer Profile" class="relative w-48 h-48 rounded-2xl object-cover border-2 border-gray-800">
                 <div class="absolute -bottom-3 left-4 bg-accentBlue text-darkBg px-4 py-1 rounded-full font-bold text-sm shadow-lg">TP</div>
             </div>
             
-            <!-- Info Grid -->
             <div class="flex-1 w-full">
                 <h2 class="text-3xl font-bold text-white mb-1">Empowering Future Toppers</h2>
                 <p class="text-accentBlue font-semibold mb-4 text-lg">Building the ultimate study ecosystem.</p>
@@ -619,7 +574,6 @@
             </div>
         </div>
 
-        <!-- Skills Section -->
         <div class="mt-8 bg-cardBg rounded-3xl p-8 border border-gray-700/50">
             <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">🛠️ Skills & Technologies By Ai</h3>
             <div class="flex flex-wrap gap-3">
@@ -634,7 +588,6 @@
         </div>
     </section>
 
-    <!-- Get In Touch -->
     <section class="py-12 text-center">
         <h2 class="text-2xl font-bold text-white mb-8">Get In Touch</h2>
         <div class="flex flex-wrap justify-center gap-4">
@@ -645,115 +598,162 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="text-center py-6 border-t border-gray-800 text-gray-500 text-sm">
         <p>© 2026 TP Technology | Developer: TP</p>
     </footer>
 
-    <!-- Video Modal Container -->
     <div id="videoModal" class="fixed inset-0 z-[100] flex items-center justify-center modal-overlay">
-        <!-- Close background click -->
         <div class="absolute inset-0 bg-black/80" onclick="closeVideoModal()"></div>
         
-        <!-- Modal Content -->
-        <div class="relative bg-cardBg border border-gray-700 shadow-2xl rounded-2xl w-[90%] max-w-4xl overflow-hidden modal-content">
-            <!-- Header -->
-            <div class="flex justify-between items-center p-4 border-b border-gray-700 bg-darkBg">
-                <h3 id="modalTitle" class="text-lg font-bold text-white flex items-center gap-2">
-                    <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                    Study Lecture
-                </h3>
-                <button onclick="closeVideoModal()" class="text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
-                    ✕
-                </button>
+        <div class="relative bg-cardBg border border-gray-700 shadow-2xl rounded-2xl w-[90%] max-w-4xl max-h-[85vh] flex flex-col overflow-hidden modal-content">
+            
+            <div class="flex justify-between items-center p-4 border-b border-gray-700 bg-darkBg shrink-0">
+                <div class="flex items-center gap-3">
+                    <button id="backToTopicsBtn" onclick="showTopicList()" class="hidden text-accentBlue hover:text-blue-400 font-bold text-sm bg-gray-800 hover:bg-gray-700 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
+                        <span>←</span> Back to Topics
+                    </button>
+                    <h3 id="modalTitle" class="text-lg font-bold text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                        Select Topic
+                    </h3>
+                </div>
+                <button onclick="closeVideoModal()" class="text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center transition-colors">✕</button>
             </div>
-            <!-- Video iframe container -->
-            <div class="relative pt-[56.25%] bg-black">
-                <iframe id="youtubePlayer" class="absolute inset-0 w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+            <div id="modalTopicList" class="p-5 overflow-y-auto topic-scroll flex-1 grid grid-cols-1 md:grid-cols-2 gap-3 bg-cardBg">
+                <!-- Topics will be dynamically loaded here -->
             </div>
-            <!-- Playlist links -->
-            <div class="p-4 bg-darkBg text-center">
-                <a id="playlistLink" href="#" target="_blank" class="text-accentBlue hover:text-blue-400 text-sm font-semibold underline">Open Full Playlist on YouTube ↗</a>
+
+            <div id="modalPlayerView" class="hidden flex-col w-full bg-black">
+                <div class="relative pt-[56.25%] w-full">
+                    <iframe id="youtubePlayer" class="absolute inset-0 w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="p-4 bg-darkBg text-center border-t border-gray-800">
+                    <a id="searchYoutubeBtn" href="#" target="_blank" class="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold text-sm shadow-lg transition-colors">
+                        Search This Exact Topic on YouTube ↗
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
-
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Track the current state
-        let currentBoard = 'chse'; // 'chse' or 'cbse'
-        let currentMaterial = 'papers'; // 'papers' or 'books'
+        let currentBoard = 'chse'; 
+        let currentMaterial = 'papers';
 
-        // Video Database Mapping
-        const videoDB = {
-            'chse': {
-                'physics': {
-                    title: 'CHSE Odisha Class 12 Physics',
-                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
-                    playlistUrl: 'https://www.youtube.com/playlist?list=PLqpJQFSM9G88iLTHIj9IOtkomQ1C1sfjm'
-                },
-                'chemistry': {
-                    title: 'CHSE Odisha Class 12 Chemistry',
-                    embedUrl: 'https://www.youtube.com/embed/KjoWYh4Tshw?si=N2vH8_mH2zL5W2-L',
-                    playlistUrl: 'https://www.youtube.com/c/OnlineHighschoolclasses' 
-                },
-                'mathematics': {
-                    title: 'CHSE Odisha Class 12 Mathematics',
-                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
-                    playlistUrl: '#'
-                },
-                'biology': {
-                    title: 'CHSE Odisha Class 12 Biology',
-                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
-                    playlistUrl: '#'
-                },
-                'compsci': {
-                    title: 'CHSE Odisha Class 12 Computer Science',
-                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
-                    playlistUrl: '#'
-                },
-                'english': {
-                    title: 'CHSE Odisha Class 12 English',
-                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
-                    playlistUrl: '#'
-                },
-                'mil-odia': {
-                    title: 'CHSE Odisha Class 12 M.I.L (Odia)',
-                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
-                    playlistUrl: '#'
-                },
-                'statistics': {
-                    title: 'CHSE Odisha Class 12 Statistics',
-                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
-                    playlistUrl: '#'
-                },
-                'electronics': {
-                    title: 'CHSE Odisha Class 12 Electronics',
-                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
-                    playlistUrl: '#'
-                }
-            },
+        // ==========================================
+        // SYLLABUS & VIDEO DATABASE (Science and Fun)
+        // ==========================================
+        const syllabusDB = {
             'cbse': {
-                'physics': {
-                    title: 'CBSE Class 12 Physics Marathon',
-                    embedUrl: 'https://www.youtube.com/embed/bplDwHQXspQ?si=GzK1zM9QZ9-8vK1N',
-                    playlistUrl: 'https://www.youtube.com/watch?v=bplDwHQXspQ'
-                },
-                'chemistry': {
-                    title: 'CBSE Class 12 Chemistry One Shot',
-                    embedUrl: 'https://www.youtube.com/embed/rEUYpKt9V20?si=J2b2P2_o7Y8l9_O7',
-                    playlistUrl: 'https://www.youtube.com/watch?v=rEUYpKt9V20'
-                },
-                'mathematics': {
-                    title: 'CBSE Class 12 Mathematics One Shot',
-                    embedUrl: 'https://www.youtube.com/embed/bplDwHQXspQ?si=GzK1zM9QZ9-8vK1N',
-                    playlistUrl: '#'
-                }
+                'physics': [
+                    { name: '1. Electric Charges and Fields', videoId: 'z1gy8O-9a-0' }, // Ashu Sir
+                    { name: '2. Electrostatic Potential and Capacitance', videoId: '9Hf-v8-WTtY' }, // Ashu Sir
+                    { name: '3. Current Electricity', videoId: '24YuubvxVLY' }, // Ashu Sir
+                    { name: '4. Moving Charges and Magnetism', videoId: 'UFQx9UuT_Y0' }, // Ashu Sir
+                    { name: '5. Magnetism and Matter', videoId: 'MS6MtjQMWuU' }, // Ashu Sir
+                    { name: '6. Electromagnetic Induction', videoId: 'wNJTLxXfDS8' }, // Ashu Sir
+                    { name: '7. Alternating Current', videoId: '-tCdzYEotgQ' }, // Ashu Sir
+                    { name: '8. Electromagnetic Waves', videoId: '-tCdzYEotgQ' }, // Ashu Sir
+                    { name: '9. Ray Optics and Optical Instruments', videoId: 'cH0zuEoY4r0' }, // Ashu Sir
+                    { name: '10. Wave Optics', videoId: 'Y2BrCETu9EU' }, // Ashu Sir
+                    { name: '11. Dual Nature of Radiation and Matter', videoId: 'Y2BrCETu9EU' }, // Ashu Sir
+                    { name: '12. Atoms', videoId: 'uOaOviIfCTU' }, // Ashu Sir
+                    { name: '13. Nuclei', videoId: 'uOaOviIfCTU' }, // Ashu Sir
+                    { name: '14. Semiconductor Electronics', videoId: 'Y2BrCETu9EU' } // Ashu Sir
+                ],
+                'chemistry': [
+                    { name: '1. Solutions', videoId: 'rEUYpKt9V20' }, // Ashu Sir
+                    { name: '2. Electrochemistry', videoId: 'rEUYpKt9V20' },
+                    { name: '3. Chemical Kinetics', videoId: 'rEUYpKt9V20' },
+                    { name: '4. d and f Block Elements', videoId: 'rEUYpKt9V20' },
+                    { name: '5. Coordination Compounds', videoId: 'rEUYpKt9V20' },
+                    { name: '6. Haloalkanes and Haloarenes', videoId: 'rEUYpKt9V20' },
+                    { name: '7. Alcohols, Phenols and Ethers', videoId: 'rEUYpKt9V20' },
+                    { name: '8. Aldehydes, Ketones and Carboxylic Acids', videoId: 'rEUYpKt9V20' },
+                    { name: '9. Amines', videoId: 'rEUYpKt9V20' },
+                    { name: '10. Biomolecules', videoId: 'rEUYpKt9V20' }
+                ],
+                'mathematics': [
+                    { name: '1. Relations and Functions', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '2. Inverse Trigonometric Functions', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '3. Matrices', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '4. Determinants', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '5. Continuity and Differentiability', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '6. Application of Derivatives', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '7. Integrals', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '8. Application of Integrals', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '9. Differential Equations', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '10. Vector Algebra', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '11. Three Dimensional Geometry', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '12. Linear Programming', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
+                    { name: '13. Probability', videoId: 'uTx3zRNqwwM' } // Ushank Sir
+                ]
             }
         };
 
-        // --- Board & Material Logic ---
+        // Copy CBSE syllabus to CHSE and append State Specific Subjects
+        syllabusDB['chse'] = JSON.parse(JSON.stringify(syllabusDB['cbse']));
+        
+        // Appending the rest of your CHSE subjects
+        syllabusDB['chse']['biology'] = [
+            { name: '1. Reproduction in Organisms', videoId: 'Mqnd9Jnmo5c' },
+            { name: '2. Sexual Reproduction in Flowering Plants', videoId: 'Mqnd9Jnmo5c' },
+            { name: '3. Human Reproduction', videoId: 'Mqnd9Jnmo5c' },
+            { name: '4. Reproductive Health', videoId: 'Mqnd9Jnmo5c' },
+            { name: '5. Principles of Inheritance and Variation', videoId: 'Mqnd9Jnmo5c' },
+            { name: '6. Molecular Basis of Inheritance', videoId: 'Mqnd9Jnmo5c' },
+            { name: '7. Evolution', videoId: 'Mqnd9Jnmo5c' },
+            { name: '8. Human Health and Disease', videoId: 'Mqnd9Jnmo5c' },
+            { name: '9. Biotechnology: Principles and Processes', videoId: 'Mqnd9Jnmo5c' },
+            { name: '10. Ecology and Environment', videoId: 'Mqnd9Jnmo5c' }
+        ];
+
+        syllabusDB['chse']['compsci'] = [
+            { name: '1. Python Revision Tour', videoId: 'Mqnd9Jnmo5c' },
+            { name: '2. Functions & Modules', videoId: 'Mqnd9Jnmo5c' },
+            { name: '3. File Handling', videoId: 'Mqnd9Jnmo5c' },
+            { name: '4. Data Structures (Stacks)', videoId: 'Mqnd9Jnmo5c' },
+            { name: '5. Computer Networks', videoId: 'Mqnd9Jnmo5c' },
+            { name: '6. Database Management (SQL)', videoId: 'Mqnd9Jnmo5c' },
+            { name: '7. Interface Python with MySQL', videoId: 'Mqnd9Jnmo5c' }
+        ];
+
+        syllabusDB['chse']['english'] = [
+            { name: '1. Reading Comprehension', videoId: 'Mqnd9Jnmo5c' },
+            { name: '2. Writing Skills & Grammar', videoId: 'Mqnd9Jnmo5c' },
+            { name: '3. Prose: My Greatest Olympic Prize', videoId: 'Mqnd9Jnmo5c' },
+            { name: '4. Prose: On Examinations', videoId: 'Mqnd9Jnmo5c' },
+            { name: '5. Poetry: Daffodils', videoId: 'Mqnd9Jnmo5c' },
+            { name: '6. Poetry: The Ballad of Father Gilligan', videoId: 'Mqnd9Jnmo5c' },
+            { name: '7. Non-Detailed: The Doctor\'s Word', videoId: 'Mqnd9Jnmo5c' }
+        ];
+
+        syllabusDB['chse']['mil-odia'] = [
+            { name: '1. Prose (ଗଦ୍ୟ)', videoId: 'Mqnd9Jnmo5c' },
+            { name: '2. Poetry (ପଦ୍ୟ)', videoId: 'Mqnd9Jnmo5c' },
+            { name: '3. Short Story (ଗଳ୍ପ)', videoId: 'Mqnd9Jnmo5c' },
+            { name: '4. Grammar (ବ୍ୟାକରଣ)', videoId: 'Mqnd9Jnmo5c' },
+            { name: '5. Essay Writing (ପ୍ରବନ୍ଧ ରଚନା)', videoId: 'Mqnd9Jnmo5c' }
+        ];
+
+        syllabusDB['chse']['statistics'] = [
+            { name: '1. Probability Theory', videoId: 'Mqnd9Jnmo5c' },
+            { name: '2. Random Variables', videoId: 'Mqnd9Jnmo5c' },
+            { name: '3. Theoretical Distributions', videoId: 'Mqnd9Jnmo5c' },
+            { name: '4. Statistical Inference', videoId: 'Mqnd9Jnmo5c' },
+            { name: '5. Time Series Analysis', videoId: 'Mqnd9Jnmo5c' }
+        ];
+
+        syllabusDB['chse']['electronics'] = [
+            { name: '1. Semiconductor Physics', videoId: 'Mqnd9Jnmo5c' },
+            { name: '2. Junction Diodes', videoId: 'Mqnd9Jnmo5c' },
+            { name: '3. Bipolar Junction Transistors', videoId: 'Mqnd9Jnmo5c' },
+            { name: '4. Amplifiers', videoId: 'Mqnd9Jnmo5c' },
+            { name: '5. Oscillators', videoId: 'Mqnd9Jnmo5c' },
+            { name: '6. Digital Electronics Basics', videoId: 'Mqnd9Jnmo5c' }
+        ];
+
         function toggleBoard(board) {
             currentBoard = board;
             updateDisplay();
@@ -797,7 +797,6 @@
             document.getElementById(activeContainerId).style.display = 'block';
         }
 
-        // --- Year Changer Logic ---
         function changeYear(selectedYear) {
             const yearDisplays = document.querySelectorAll('.year-display');
             yearDisplays.forEach(display => {
@@ -820,10 +819,9 @@
             });
         }
 
-        // --- Live Age Timer Logic ---
         function updateAgeTimer() {
             const now = new Date();
-            const birthDate = new Date(2009, 3, 12); // April 12, 2009 (Month is 0-indexed)
+            const birthDate = new Date(2009, 3, 12); 
             
             let years = now.getFullYear() - birthDate.getFullYear();
             let months = now.getMonth() - birthDate.getMonth();
@@ -831,7 +829,6 @@
             
             if (days < 0) {
                 months--;
-                // Get the number of days in the previous month
                 const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
                 days += prevMonth.getDate();
             }
@@ -851,48 +848,96 @@
             }
         }
         
-        // Run immediately, then update every second
         updateAgeTimer();
         setInterval(updateAgeTimer, 1000);
 
-        // --- Video Modal Logic ---
         function openVideoModal(board, subject) {
             const modal = document.getElementById('videoModal');
-            const player = document.getElementById('youtubePlayer');
+            const topicListContainer = document.getElementById('modalTopicList');
             const title = document.getElementById('modalTitle');
-            const playlistLink = document.getElementById('playlistLink');
-
-            // Look up the video data based on board and subject
-            const data = videoDB[board]?.[subject];
-
-            if (data) {
-                // Set the specific video URL (with autoplay enabled)
-                player.src = data.embedUrl + "&autoplay=1";
-                title.innerHTML = `<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> ${data.title}`;
-                playlistLink.href = data.playlistUrl;
+            
+            const topics = syllabusDB[board]?.[subject] || [];
+            
+            topicListContainer.innerHTML = '';
+            if(topics.length > 0) {
+                topics.forEach(topic => {
+                    const btn = document.createElement('button');
+                    btn.className = "text-left bg-darkBg border border-gray-700 hover:border-red-500 p-4 rounded-xl text-gray-300 hover:text-white transition-all shadow-sm flex justify-between items-center group";
+                    btn.innerHTML = `<span class="font-medium text-sm pr-2">${topic.name}</span> <span class="text-xs bg-red-600 text-white px-3 py-1 rounded shadow opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Play ▶</span>`;
+                    
+                    btn.onclick = () => playTopicVideo(topic.name, topic.videoId, board, subject);
+                    topicListContainer.appendChild(btn);
+                });
             } else {
-                // Fallback
-                player.src = "https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ"; 
-                title.innerHTML = "Study Lecture";
-                playlistLink.href = "#";
+                 topicListContainer.innerHTML = `<p class="text-gray-400 col-span-2 text-center py-10 font-medium">Topic list arriving soon for ${subject.toUpperCase()}!</p>`;
             }
 
-            // Show modal
-            modal.classList.add('active');
+            const formattedSubject = subject.replace('-', ' ').toUpperCase();
+            title.innerHTML = `<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> ${formattedSubject} Chapters`;
+            
+            showTopicList();
+            modal.classList.add('active'); 
+        }
+
+        function playTopicVideo(topicName, videoId, board, subject) {
+            document.getElementById('modalTopicList').classList.add('hidden');
+            document.getElementById('modalPlayerView').classList.remove('hidden');
+            document.getElementById('modalPlayerView').classList.add('flex');
+            document.getElementById('backToTopicsBtn').classList.remove('hidden');
+            
+            document.getElementById('modalTitle').innerText = topicName;
+            
+            const player = document.getElementById('youtubePlayer');
+            player.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+            
+            // Generate exact YouTube Search Link targeting Ashu Sir or Ushank Sir
+            let teacher = "Science and Fun";
+            if(subject === 'physics' || subject === 'chemistry') teacher = "Ashu Sir Science and Fun";
+            if(subject === 'mathematics') teacher = "Ushank Sir Science and Fun";
+
+            const searchBtn = document.getElementById('searchYoutubeBtn');
+            const exactSearchQuery = encodeURIComponent(`Class 12 ${subject.replace('-', ' ')} ${topicName} one shot ${teacher}`);
+            searchBtn.href = `https://www.youtube.com/results?search_query=${exactSearchQuery}`;
+        }
+
+        function showTopicList() {
+             document.getElementById('modalTopicList').classList.remove('hidden');
+             document.getElementById('modalPlayerView').classList.add('hidden');
+             document.getElementById('modalPlayerView').classList.remove('flex');
+             document.getElementById('backToTopicsBtn').classList.add('hidden');
+             
+             document.getElementById('youtubePlayer').src = ''; 
         }
 
         function closeVideoModal() {
-            const modal = document.getElementById('videoModal');
-            const player = document.getElementById('youtubePlayer');
-            
-            // Hide modal
-            modal.classList.remove('active');
-            
-            // Stop video playing in background by clearing src
+            document.getElementById('videoModal').classList.remove('active');
             setTimeout(() => {
-                player.src = "";
+                document.getElementById('youtubePlayer').src = "";
+                showTopicList(); 
             }, 300);
         }
+
+        // --- Simulate Live Active Learners ---
+        function simulateActiveLearners() {
+            const learnersEl = document.getElementById('active-learners');
+            if (!learnersEl) return;
+            
+            // Start with a realistic random number between 120 and 350
+            let currentLearners = Math.floor(Math.random() * (350 - 120 + 1)) + 120;
+            learnersEl.innerText = currentLearners;
+
+            setInterval(() => {
+                // Randomly add or subtract a few users every 5 seconds to look live
+                const fluctuation = Math.floor(Math.random() * 7) - 2; // ranges from -2 to +4
+                currentLearners += fluctuation;
+                if (currentLearners < 50) currentLearners = 50; // Don't let it drop too low
+                
+                learnersEl.innerText = currentLearners;
+            }, 5000); 
+        }
+        
+        // Start the simulation when page loads
+        simulateActiveLearners();
     </script>
 </body>
 </html>
