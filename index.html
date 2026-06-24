@@ -29,12 +29,31 @@
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        
+        /* Modal Animation */
+        .modal-overlay {
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.95);
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
     </style>
 </head>
-<body class="bg-darkBg text-gray-200 font-sans min-h-screen flex flex-col">
+<body class="bg-darkBg text-gray-200 font-sans min-h-screen flex flex-col relative">
 
     <!-- Navigation Bar -->
-    <nav class="border-b border-gray-800 bg-darkBg/90 backdrop-blur-md sticky top-0 z-50">
+    <nav class="border-b border-gray-800 bg-darkBg/90 backdrop-blur-md sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-3">
@@ -133,6 +152,13 @@
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('chse', 'physics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="physics-2026-set-a.pdf" data-subject="physics" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Q. Paper</a><a href="physics-2026-set-a-ans.pdf" data-subject="physics" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="physics-2026-set-b.pdf" data-subject="physics" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Q. Paper</a><a href="physics-2026-set-b-ans.pdf" data-subject="physics" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -155,6 +181,13 @@
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('chse', 'chemistry')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="chemistry-2026-set-a.pdf" data-subject="chemistry" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="chemistry-2026-set-a-ans.pdf" data-subject="chemistry" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="chemistry-2026-set-b.pdf" data-subject="chemistry" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="chemistry-2026-set-b-ans.pdf" data-subject="chemistry" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
@@ -177,6 +210,13 @@
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('chse', 'mathematics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="mathematics-2026-set-a.pdf" data-subject="mathematics" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="mathematics-2026-set-a-ans.pdf" data-subject="mathematics" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="mathematics-2026-set-b.pdf" data-subject="mathematics" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="mathematics-2026-set-b-ans.pdf" data-subject="mathematics" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -199,6 +239,13 @@
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('chse', 'biology')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="biology-2026-set-a.pdf" data-subject="biology" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="biology-2026-set-a-ans.pdf" data-subject="biology" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="biology-2026-set-b.pdf" data-subject="biology" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="biology-2026-set-b-ans.pdf" data-subject="biology" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -221,6 +268,13 @@
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('chse', 'compsci')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="compsci-2026-set-a.pdf" data-subject="compsci" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="compsci-2026-set-a-ans.pdf" data-subject="compsci" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="compsci-2026-set-b.pdf" data-subject="compsci" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="compsci-2026-set-b-ans.pdf" data-subject="compsci" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -243,6 +297,13 @@
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('chse', 'english')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="english-2026-set-a.pdf" data-subject="english" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="english-2026-set-a-ans.pdf" data-subject="english" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="english-2026-set-b.pdf" data-subject="english" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="english-2026-set-b-ans.pdf" data-subject="english" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -265,6 +326,13 @@
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('chse', 'mil-odia')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="mil-odia-2026-set-a.pdf" data-subject="mil-odia" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-yellow-400 rounded text-xs text-yellow-400 transition-colors">Q. Paper</a><a href="mil-odia-2026-set-a-ans.pdf" data-subject="mil-odia" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="mil-odia-2026-set-b.pdf" data-subject="mil-odia" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-yellow-400 rounded text-xs text-yellow-400 transition-colors">Q. Paper</a><a href="mil-odia-2026-set-b-ans.pdf" data-subject="mil-odia" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -287,6 +355,13 @@
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('chse', 'statistics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="statistics-2026-set-a.pdf" data-subject="statistics" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-emerald-400 rounded text-xs text-emerald-400 transition-colors">Q. Paper</a><a href="statistics-2026-set-a-ans.pdf" data-subject="statistics" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="statistics-2026-set-b.pdf" data-subject="statistics" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-emerald-400 rounded text-xs text-emerald-400 transition-colors">Q. Paper</a><a href="statistics-2026-set-b-ans.pdf" data-subject="statistics" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -309,6 +384,13 @@
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('chse', 'electronics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="electronics-2026-set-a.pdf" data-subject="electronics" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-indigo-400 rounded text-xs text-indigo-400 transition-colors">Q. Paper</a><a href="electronics-2026-set-a-ans.pdf" data-subject="electronics" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="electronics-2026-set-b.pdf" data-subject="electronics" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-indigo-400 rounded text-xs text-indigo-400 transition-colors">Q. Paper</a><a href="electronics-2026-set-b-ans.pdf" data-subject="electronics" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -384,6 +466,13 @@
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('cbse', 'physics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-physics-2026-set-1.pdf" data-subject="cbse-physics" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-physics-2026-set-1-ans.pdf" data-subject="cbse-physics" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-physics-2026-set-2.pdf" data-subject="cbse-physics" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-physics-2026-set-2-ans.pdf" data-subject="cbse-physics" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
@@ -406,10 +495,45 @@
                     <div class="space-y-4">
                         <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                             <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('cbse', 'chemistry')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-chemistry-2026-set-1.pdf" data-subject="cbse-chemistry" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="cbse-chemistry-2026-set-1-ans.pdf" data-subject="cbse-chemistry" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Marking Scheme</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-chemistry-2026-set-2.pdf" data-subject="cbse-chemistry" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="cbse-chemistry-2026-set-2-ans.pdf" data-subject="cbse-chemistry" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Marking Scheme</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-chemistry-2026-set-3.pdf" data-subject="cbse-chemistry" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="cbse-chemistry-2026-set-3-ans.pdf" data-subject="cbse-chemistry" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Marking Scheme</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CBSE Mathematics Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Mathematics (041)</h2>
+                        <div class="p-2 bg-accentOrange/10 rounded-lg">
+                            <svg class="w-6 h-6 text-accentOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                            
+                            <!-- Watch Video Option -->
+                            <button onclick="openVideoModal('cbse', 'mathematics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-mathematics-2026-set-1.pdf" data-subject="cbse-mathematics" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-1-ans.pdf" data-subject="cbse-mathematics" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-mathematics-2026-set-2.pdf" data-subject="cbse-mathematics" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-2-ans.pdf" data-subject="cbse-mathematics" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-mathematics-2026-set-3.pdf" data-subject="cbse-mathematics" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-3-ans.pdf" data-subject="cbse-mathematics" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
                             </div>
                         </div>
                     </div>
@@ -422,18 +546,21 @@
         <div id="content-cbse-books" class="hidden">
             <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentPurple pl-3">CBSE Science NCERT Books</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- NCERT Physics -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-purple-900/40 border border-purple-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📕</div>
                     <h3 class="text-xl font-bold text-white mb-2">NCERT Physics Part-1</h3>
                     <p class="text-gray-400 text-sm mb-6">Class 12 Official NCERT Textbook.</p>
                     <a href="ncert-physics-part1.pdf" download class="block w-full text-center py-3 bg-accentPurple text-darkBg font-bold rounded-xl hover:bg-purple-400 transition-colors shadow-lg shadow-accentPurple/20">Download Book PDF</a>
                 </div>
+                <!-- NCERT Chemistry -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-green-900/40 border border-green-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📗</div>
                     <h3 class="text-xl font-bold text-white mb-2">NCERT Chemistry Part-1</h3>
                     <p class="text-gray-400 text-sm mb-6">Class 12 Official NCERT Textbook.</p>
                     <a href="ncert-chemistry-part1.pdf" download class="block w-full text-center py-3 bg-accentGreen text-darkBg font-bold rounded-xl hover:bg-green-400 transition-colors shadow-lg shadow-accentGreen/20">Download Book PDF</a>
                 </div>
+                <!-- NCERT Math -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-orange-900/40 border border-orange-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📙</div>
                     <h3 class="text-xl font-bold text-white mb-2">NCERT Mathematics Part-1</h3>
@@ -447,7 +574,7 @@
 
     <!-- About Developer Section -->
     <section id="about" class="max-w-5xl mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold text-white mb-10 text-center">About Developer</h2>
+        <h2 class="text-3xl font-bold text-white mb-10 text-center">Architect Behind the Platform</h2>
         
         <div class="bg-cardBg rounded-3xl p-8 border border-gray-700/50 shadow-2xl flex flex-col md:flex-row gap-8 items-center">
             <!-- Profile Box with Glow -->
@@ -459,35 +586,34 @@
             
             <!-- Info Grid -->
             <div class="flex-1 w-full">
-                <h2 class="text-3xl font-bold text-white mb-1">Hey there! I'm Trinath Parichha</h2>
-                <p class="text-accentPurple font-semibold mb-4">(TP)</p>
-                <p class="text-gray-400 italic mb-6">"Dream Big, Hustle Hard, and Never Stop Exploring!"</p>
+                <h2 class="text-3xl font-bold text-white mb-1">Empowering Future Toppers</h2>
+                <p class="text-accentBlue font-semibold mb-4 text-lg">Building the ultimate study ecosystem.</p>
+                <p class="text-gray-400 italic mb-6">"Coding the future of education, one student at a time. I don't just build platforms; I build pathways to success."</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex items-center gap-3">
                         <span class="text-xl">🎓</span>
-                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Education</p><p class="text-sm font-medium">Class 12th (PCM) | Batch: 2024-26</p></div>
+                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Background</p><p class="text-sm font-medium">Class 12th (PCM) | Batch: 2024-26</p></div>
                     </div>
                     <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex items-center gap-3">
                         <span class="text-xl">📍</span>
-                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Location</p><p class="text-sm font-medium">Odisha, India</p></div>
+                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Based In</p><p class="text-sm font-medium">Odisha, India</p></div>
                     </div>
                     <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex flex-col justify-center">
                         <div class="flex items-center gap-3">
                             <span class="text-xl">🎂</span>
                             <div>
-                                <p class="text-[10px] text-gray-500 uppercase font-bold">Birthday</p>
-                                <p class="text-sm font-medium">12th April | Age: 17</p>
+                                <p class="text-[10px] text-gray-500 uppercase font-bold">Born</p>
+                                <p class="text-sm font-medium">12th April 2009</p>
                             </div>
                         </div>
-                        <!-- Live Birthday Countdown Timer -->
                         <div id="bday-countdown" class="text-[11px] text-accentBlue mt-2 font-mono bg-cardBg border border-gray-700/50 rounded px-2 py-1 inline-block shadow-inner w-full text-center tracking-wider">
-                            Loading countdown...
+                            Loading age...
                         </div>
                     </div>
                     <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex items-center gap-3">
                         <span class="text-xl">🚀</span>
-                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Founder</p><p class="text-sm font-medium">STUDY MATERIAL HUB</p></div>
+                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Project</p><p class="text-sm font-medium">TP Technology Hub</p></div>
                     </div>
                 </div>
             </div>
@@ -524,12 +650,110 @@
         <p>© 2026 TP Technology | Developer: TP</p>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC FOR SWITCHING BOARDS AND MATERIALS AND YEARS -->
+    <!-- Video Modal Container -->
+    <div id="videoModal" class="fixed inset-0 z-[100] flex items-center justify-center modal-overlay">
+        <!-- Close background click -->
+        <div class="absolute inset-0 bg-black/80" onclick="closeVideoModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative bg-cardBg border border-gray-700 shadow-2xl rounded-2xl w-[90%] max-w-4xl overflow-hidden modal-content">
+            <!-- Header -->
+            <div class="flex justify-between items-center p-4 border-b border-gray-700 bg-darkBg">
+                <h3 id="modalTitle" class="text-lg font-bold text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    Study Lecture
+                </h3>
+                <button onclick="closeVideoModal()" class="text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                    ✕
+                </button>
+            </div>
+            <!-- Video iframe container -->
+            <div class="relative pt-[56.25%] bg-black">
+                <iframe id="youtubePlayer" class="absolute inset-0 w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <!-- Playlist links -->
+            <div class="p-4 bg-darkBg text-center">
+                <a id="playlistLink" href="#" target="_blank" class="text-accentBlue hover:text-blue-400 text-sm font-semibold underline">Open Full Playlist on YouTube ↗</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         // Track the current state
         let currentBoard = 'chse'; // 'chse' or 'cbse'
         let currentMaterial = 'papers'; // 'papers' or 'books'
 
+        // Video Database Mapping
+        const videoDB = {
+            'chse': {
+                'physics': {
+                    title: 'CHSE Odisha Class 12 Physics',
+                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
+                    playlistUrl: 'https://www.youtube.com/playlist?list=PLqpJQFSM9G88iLTHIj9IOtkomQ1C1sfjm'
+                },
+                'chemistry': {
+                    title: 'CHSE Odisha Class 12 Chemistry',
+                    embedUrl: 'https://www.youtube.com/embed/KjoWYh4Tshw?si=N2vH8_mH2zL5W2-L',
+                    playlistUrl: 'https://www.youtube.com/c/OnlineHighschoolclasses' 
+                },
+                'mathematics': {
+                    title: 'CHSE Odisha Class 12 Mathematics',
+                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
+                    playlistUrl: '#'
+                },
+                'biology': {
+                    title: 'CHSE Odisha Class 12 Biology',
+                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
+                    playlistUrl: '#'
+                },
+                'compsci': {
+                    title: 'CHSE Odisha Class 12 Computer Science',
+                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
+                    playlistUrl: '#'
+                },
+                'english': {
+                    title: 'CHSE Odisha Class 12 English',
+                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
+                    playlistUrl: '#'
+                },
+                'mil-odia': {
+                    title: 'CHSE Odisha Class 12 M.I.L (Odia)',
+                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
+                    playlistUrl: '#'
+                },
+                'statistics': {
+                    title: 'CHSE Odisha Class 12 Statistics',
+                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
+                    playlistUrl: '#'
+                },
+                'electronics': {
+                    title: 'CHSE Odisha Class 12 Electronics',
+                    embedUrl: 'https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ',
+                    playlistUrl: '#'
+                }
+            },
+            'cbse': {
+                'physics': {
+                    title: 'CBSE Class 12 Physics Marathon',
+                    embedUrl: 'https://www.youtube.com/embed/bplDwHQXspQ?si=GzK1zM9QZ9-8vK1N',
+                    playlistUrl: 'https://www.youtube.com/watch?v=bplDwHQXspQ'
+                },
+                'chemistry': {
+                    title: 'CBSE Class 12 Chemistry One Shot',
+                    embedUrl: 'https://www.youtube.com/embed/rEUYpKt9V20?si=J2b2P2_o7Y8l9_O7',
+                    playlistUrl: 'https://www.youtube.com/watch?v=rEUYpKt9V20'
+                },
+                'mathematics': {
+                    title: 'CBSE Class 12 Mathematics One Shot',
+                    embedUrl: 'https://www.youtube.com/embed/bplDwHQXspQ?si=GzK1zM9QZ9-8vK1N',
+                    playlistUrl: '#'
+                }
+            }
+        };
+
+        // --- Board & Material Logic ---
         function toggleBoard(board) {
             currentBoard = board;
             updateDisplay();
@@ -541,7 +765,6 @@
         }
 
         function updateDisplay() {
-            // 1. Update Board Buttons (Visual Style)
             const btnChse = document.getElementById('btn-chse');
             const btnCbse = document.getElementById('btn-cbse');
             
@@ -553,7 +776,6 @@
                 ? "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-accentPurple text-darkBg shadow-[0_0_15px_rgba(192,132,252,0.4)]" 
                 : "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-transparent text-gray-400 hover:text-white";
 
-            // 2. Update Material Buttons (Visual Style)
             const btnPapers = document.getElementById('btn-mat-papers');
             const btnBooks = document.getElementById('btn-mat-books');
             const activeColor = currentBoard === 'chse' ? 'border-accentBlue text-accentBlue' : 'border-accentPurple text-accentPurple';
@@ -566,73 +788,111 @@
                 ? `bg-cardBg border ${activeColor} px-6 py-2 rounded-lg font-semibold shadow-sm transition-all`
                 : "bg-transparent border border-gray-700 text-gray-400 hover:text-white px-6 py-2 rounded-lg font-semibold transition-all";
 
-            // 3. Hide all content containers
             document.getElementById('content-chse-papers').style.display = 'none';
             document.getElementById('content-chse-books').style.display = 'none';
             document.getElementById('content-cbse-papers').style.display = 'none';
             document.getElementById('content-cbse-books').style.display = 'none';
 
-            // 4. Show the specifically selected container
             const activeContainerId = `content-${currentBoard}-${currentMaterial}`;
             document.getElementById(activeContainerId).style.display = 'block';
         }
 
-        // ================= DYNAMIC YEAR CHANGER LOGIC =================
+        // --- Year Changer Logic ---
         function changeYear(selectedYear) {
-            // Update the text in all the card headers (e.g. "📅 Year: 2026 Final")
             const yearDisplays = document.querySelectorAll('.year-display');
             yearDisplays.forEach(display => {
                 display.innerHTML = `📅 Year: ${selectedYear} Final`;
             });
 
-            // Update all the PDF download links dynamically
             const pdfLinks = document.querySelectorAll('.pdf-link');
             pdfLinks.forEach(link => {
                 const subject = link.getAttribute('data-subject');
                 const set = link.getAttribute('data-set'); 
-                const type = link.getAttribute('data-type'); // 'qpaper' or 'answer'
+                const type = link.getAttribute('data-type'); 
                 
                 if (type === 'qpaper') {
-                    // Example: physics-2024-set-a.pdf
                     link.href = `${subject}-${selectedYear}-set-${set}.pdf`;
                     link.download = `${subject}-${selectedYear}-set-${set}.pdf`;
                 } else if (type === 'answer') {
-                    // Example: physics-2024-set-a-ans.pdf
                     link.href = `${subject}-${selectedYear}-set-${set}-ans.pdf`;
                     link.download = `${subject}-${selectedYear}-set-${set}-ans.pdf`;
                 }
             });
         }
 
-        // ================= BIRTHDAY COUNTDOWN LOGIC =================
-        function updateBirthdayCountdown() {
+        // --- Live Age Timer Logic ---
+        function updateAgeTimer() {
             const now = new Date();
-            // Set birthday to April 12th (Month is 0-indexed, so 3 = April)
-            let nextBday = new Date(now.getFullYear(), 3, 12); 
-
-            // If April 12th has already passed this year, set for next year
-            if (now.getTime() > nextBday.getTime()) {
-                nextBday.setFullYear(now.getFullYear() + 1);
+            const birthDate = new Date(2009, 3, 12); // April 12, 2009 (Month is 0-indexed)
+            
+            let years = now.getFullYear() - birthDate.getFullYear();
+            let months = now.getMonth() - birthDate.getMonth();
+            let days = now.getDate() - birthDate.getDate();
+            
+            if (days < 0) {
+                months--;
+                // Get the number of days in the previous month
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += prevMonth.getDate();
             }
-
-            const diff = nextBday - now;
-
-            // Calculate time units
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            const diff = now - birthDate;
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
             const countdownEl = document.getElementById('bday-countdown');
             if (countdownEl) {
-                countdownEl.innerText = `⏳ Next in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                countdownEl.innerText = `⏳ Age: ${years}y ${months}m ${days}d ${hours}h ${minutes}m ${seconds}s`;
             }
         }
+        
+        // Run immediately, then update every second
+        updateAgeTimer();
+        setInterval(updateAgeTimer, 1000);
 
-        // Run the countdown immediately and then update every second (1000ms)
-        updateBirthdayCountdown();
-        setInterval(updateBirthdayCountdown, 1000);
+        // --- Video Modal Logic ---
+        function openVideoModal(board, subject) {
+            const modal = document.getElementById('videoModal');
+            const player = document.getElementById('youtubePlayer');
+            const title = document.getElementById('modalTitle');
+            const playlistLink = document.getElementById('playlistLink');
 
+            // Look up the video data based on board and subject
+            const data = videoDB[board]?.[subject];
+
+            if (data) {
+                // Set the specific video URL (with autoplay enabled)
+                player.src = data.embedUrl + "&autoplay=1";
+                title.innerHTML = `<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> ${data.title}`;
+                playlistLink.href = data.playlistUrl;
+            } else {
+                // Fallback
+                player.src = "https://www.youtube.com/embed/Mqnd9Jnmo5c?si=RjTfN5vTzV4kOQXQ"; 
+                title.innerHTML = "Study Lecture";
+                playlistLink.href = "#";
+            }
+
+            // Show modal
+            modal.classList.add('active');
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const player = document.getElementById('youtubePlayer');
+            
+            // Hide modal
+            modal.classList.remove('active');
+            
+            // Stop video playing in background by clearing src
+            setTimeout(() => {
+                player.src = "";
+            }, 300);
+        }
     </script>
 </body>
 </html>
