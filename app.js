@@ -1,9 +1,15 @@
 // --- Global State Variables ---
+let currentLevel = 'plus2-2nd'; // New root level state
 let currentBoard = 'chse';
 let currentMaterial = 'papers';
 let currentStream = 'science';
 
 // --- Routing Functions ---
+function toggleLevel(level) {
+    currentLevel = level;
+    updateDisplay();
+}
+
 function toggleBoard(board) {
     currentBoard = board;
     updateDisplay();
@@ -21,19 +27,43 @@ function toggleMaterial(material) {
 
 // --- Main Display Logic ---
 function updateDisplay() {
-    // 1. Update Board Buttons
+    // 1. Update Level Buttons
+    ['plus2-1st', 'plus2-2nd', 'plus3'].forEach(lvl => {
+        const btn = document.getElementById(`btn-level-${lvl}`);
+        if(btn) {
+            if(lvl === currentLevel) {
+                btn.className = "flex-1 py-2 px-4 rounded-xl font-bold text-sm transition-all bg-emerald-500 text-darkBg shadow-[0_0_15px_rgba(16,185,129,0.4)]";
+            } else {
+                btn.className = "flex-1 py-2 px-4 rounded-xl font-bold text-sm transition-all text-gray-400 hover:text-white bg-transparent";
+            }
+        }
+    });
+
+    // 2. Hide all Level Containers, show the active one
+    ['plus2-1st', 'plus2-2nd', 'plus3'].forEach(lvl => {
+        const container = document.getElementById(`level-${lvl}`);
+        if(container) {
+            container.style.display = (lvl === currentLevel) ? 'block' : 'none';
+        }
+    });
+
+    // 3. Update Board Buttons
     const btnChse = document.getElementById('btn-chse');
     const btnCbse = document.getElementById('btn-cbse');
     
-    btnChse.className = currentBoard === 'chse' 
-        ? "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-accentBlue text-darkBg shadow-[0_0_15px_rgba(56,189,248,0.4)]" 
-        : "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-transparent text-gray-400 hover:text-white";
+    if(btnChse) {
+        btnChse.className = currentBoard === 'chse' 
+            ? "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-accentBlue text-darkBg shadow-[0_0_15px_rgba(56,189,248,0.4)]" 
+            : "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-transparent text-gray-400 hover:text-white";
+    }
         
-    btnCbse.className = currentBoard === 'cbse' 
-        ? "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-accentPurple text-darkBg shadow-[0_0_15px_rgba(192,132,252,0.4)]" 
-        : "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-transparent text-gray-400 hover:text-white";
+    if(btnCbse) {
+        btnCbse.className = currentBoard === 'cbse' 
+            ? "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-accentPurple text-darkBg shadow-[0_0_15px_rgba(192,132,252,0.4)]" 
+            : "px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-transparent text-gray-400 hover:text-white";
+    }
 
-    // 2. Update Stream Buttons
+    // 4. Update Stream Buttons
     ['science', 'arts', 'commerce'].forEach(s => {
         const btn = document.getElementById(`btn-stream-${s}`);
         if(btn) {
@@ -45,38 +75,42 @@ function updateDisplay() {
         }
     });
 
-    // 3. Update Material Buttons
+    // 5. Update Material Buttons
     const btnPapers = document.getElementById('btn-mat-papers');
     const btnBooks = document.getElementById('btn-mat-books');
     const activeColor = currentBoard === 'chse' ? 'border-accentBlue text-accentBlue' : 'border-accentPurple text-accentPurple';
 
-    btnPapers.className = currentMaterial === 'papers'
-        ? `bg-cardBg border ${activeColor} px-6 py-2 rounded-lg font-semibold shadow-sm transition-all`
-        : "bg-transparent border border-gray-700 text-gray-400 hover:text-white px-6 py-2 rounded-lg font-semibold transition-all";
+    if(btnPapers) {
+        btnPapers.className = currentMaterial === 'papers'
+            ? `bg-cardBg border ${activeColor} px-6 py-2 rounded-lg font-semibold shadow-sm transition-all`
+            : "bg-transparent border border-gray-700 text-gray-400 hover:text-white px-6 py-2 rounded-lg font-semibold transition-all";
+    }
 
-    btnBooks.className = currentMaterial === 'books'
-        ? `bg-cardBg border ${activeColor} px-6 py-2 rounded-lg font-semibold shadow-sm transition-all`
-        : "bg-transparent border border-gray-700 text-gray-400 hover:text-white px-6 py-2 rounded-lg font-semibold transition-all";
+    if(btnBooks) {
+        btnBooks.className = currentMaterial === 'books'
+            ? `bg-cardBg border ${activeColor} px-6 py-2 rounded-lg font-semibold shadow-sm transition-all`
+            : "bg-transparent border border-gray-700 text-gray-400 hover:text-white px-6 py-2 rounded-lg font-semibold transition-all";
+    }
 
-    // 4. Hide all major sections safely
-    const chsePapers = document.getElementById('content-chse-papers');
-    const chseBooks = document.getElementById('content-chse-books');
-    const cbsePapers = document.getElementById('content-cbse-papers');
-    const cbseBooks = document.getElementById('content-cbse-books');
-    
-    if(chsePapers) chsePapers.style.display = 'none';
-    if(chseBooks) chseBooks.style.display = 'none';
-    if(cbsePapers) cbsePapers.style.display = 'none';
-    if(cbseBooks) cbseBooks.style.display = 'none';
+    // 6. Handle the Internal Display (only applies if we are in +2 2nd year currently)
+    if (currentLevel === 'plus2-2nd') {
+        const chsePapers = document.getElementById('content-chse-papers');
+        const chseBooks = document.getElementById('content-chse-books');
+        const cbsePapers = document.getElementById('content-cbse-papers');
+        const cbseBooks = document.getElementById('content-cbse-books');
+        
+        if(chsePapers) chsePapers.style.display = 'none';
+        if(chseBooks) chseBooks.style.display = 'none';
+        if(cbsePapers) cbsePapers.style.display = 'none';
+        if(cbseBooks) cbseBooks.style.display = 'none';
 
-    // 5. Show active major section
-    const activeContainerId = `content-${currentBoard}-${currentMaterial}`;
-    const activeContainer = document.getElementById(activeContainerId);
-    if(activeContainer) activeContainer.style.display = 'block';
+        const activeContainerId = `content-${currentBoard}-${currentMaterial}`;
+        const activeContainer = document.getElementById(activeContainerId);
+        if(activeContainer) activeContainer.style.display = 'block';
 
-    // 6. Hide/Show Stream Sub-sections inside the active major section
-    document.querySelectorAll('.stream-section').forEach(el => el.style.display = 'none');
-    document.querySelectorAll(`.stream-${currentStream}`).forEach(el => el.style.display = 'block');
+        document.querySelectorAll('.stream-section').forEach(el => el.style.display = 'none');
+        document.querySelectorAll(`.stream-${currentStream}`).forEach(el => el.style.display = 'block');
+    }
 }
 
 // --- Dynamic File Year Routing ---
@@ -141,7 +175,7 @@ function openVideoModal(board, subject) {
     const topicListContainer = document.getElementById('modalTopicList');
     const title = document.getElementById('modalTitle');
     
-    const topics = syllabusDB[board]?.[subject] || [];
+    const topics = syllabusDB[currentLevel]?.[board]?.[subject] || [];
     
     topicListContainer.innerHTML = '';
     if(topics.length > 0) {
