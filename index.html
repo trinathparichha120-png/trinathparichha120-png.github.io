@@ -98,10 +98,28 @@
     </header>
 
     <!-- DYNAMIC NAVIGATION FILTERS & YEAR SELECTOR -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 flex flex-col items-center gap-6">
+        
+        <!-- Board Selection Toggles -->
+        <div class="flex flex-wrap justify-center gap-3 bg-gray-900/80 p-2 rounded-2xl border border-gray-700/50 shadow-lg">
+            <button id="btn-chse" onclick="toggleBoard('chse')" class="px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-accentBlue text-darkBg shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+                CHSE (Odisha)
+            </button>
+            <button id="btn-cbse" onclick="toggleBoard('cbse')" class="px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-transparent text-gray-400 hover:text-white">
+                CBSE
+            </button>
+        </div>
+
+        <!-- Material Type & Stream Selection -->
+        <div class="flex flex-col items-center gap-4 w-full transition-all duration-300">
+            <!-- Streams -->
+            <div class="flex flex-wrap justify-center gap-3">
+                <button class="bg-gray-800 text-white px-6 py-2 rounded-full font-bold border border-gray-600 shadow-lg">Science</button>
                 <button class="bg-darkBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-full font-semibold transition-all">Arts</button>
                 <button class="bg-darkBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-full font-semibold transition-all">Commerce</button>
             </div>
             
+            <!-- Materials AND Dynamic Year Selector -->
             <div class="flex flex-wrap justify-center items-center gap-3 bg-cardBg p-2 rounded-xl border border-gray-700/50 shadow-md">
                 <select id="year-selector" onchange="changeYear(this.value)" class="bg-darkBg border border-accentBlue text-white px-4 py-2 rounded-lg font-bold shadow-lg shadow-accentBlue/20 outline-none cursor-pointer hover:bg-gray-800 transition-colors">
                     <option value="2026">🎯 Year: 2026</option>
@@ -121,6 +139,7 @@
                 <button id="btn-mat-books" onclick="toggleMaterial('books')" class="bg-transparent border border-gray-700 text-gray-400 hover:text-white px-6 py-2 rounded-lg font-semibold transition-all">Books PDF</button>
             </div>
 
+            <!-- AI Features -->
             <div class="flex flex-wrap justify-center gap-3 mt-2">
                 <button class="bg-cardBg border border-gray-800 text-gray-500 px-6 py-2 rounded-lg font-semibold cursor-not-allowed hover:bg-gray-800 transition-colors">
                     Develop yourself by AI <span class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded ml-1">Soon</span>
@@ -131,10 +150,12 @@
 
     <main id="papers" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         
+        <!-- ================= CHSE SECTION ================= -->
         <div id="content-chse-papers" class="block">
             <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Papers & Answers</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
+                <!-- Physics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentBlue"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -162,6 +183,7 @@
                     </div>
                 </div>
 
+                <!-- Chemistry Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -189,6 +211,7 @@
                     </div>
                 </div>
 
+                <!-- Mathematics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -216,6 +239,7 @@
                     </div>
                 </div>
 
+                <!-- Biology Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -243,6 +267,7 @@
                     </div>
                 </div>
 
+                <!-- Computer Science Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -270,6 +295,7 @@
                     </div>
                 </div>
 
+                <!-- English Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -297,6 +323,7 @@
                     </div>
                 </div>
 
+                <!-- M.I.L (Odia) Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-yellow-400"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -324,6 +351,7 @@
                     </div>
                 </div>
 
+                <!-- Statistics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-emerald-400"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -351,6 +379,7 @@
                     </div>
                 </div>
 
+                <!-- Electronics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-indigo-400"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -381,33 +410,39 @@
             </div>
         </div>
 
+        <!-- 2. CHSE BOOKS PDF -->
         <div id="content-chse-books" class="hidden">
             <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Books & Textbooks</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Physics Book -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-blue-900/40 border border-blue-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📘</div>
                     <h3 class="text-xl font-bold text-white mb-2">Physics Bureau Book Part-1</h3>
                     <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
                     <a href="physics-book-part1.pdf" download class="block w-full text-center py-3 bg-accentBlue text-darkBg font-bold rounded-xl hover:bg-blue-400 transition-colors shadow-lg shadow-accentBlue/20">Download Book PDF</a>
                 </div>
+                <!-- Chemistry Book -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-green-900/40 border border-green-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📗</div>
                     <h3 class="text-xl font-bold text-white mb-2">Chemistry Bureau Book</h3>
                     <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
                     <a href="chemistry-book-part1.pdf" download class="block w-full text-center py-3 bg-accentGreen text-darkBg font-bold rounded-xl hover:bg-green-400 transition-colors shadow-lg shadow-accentGreen/20">Download Book PDF</a>
                 </div>
+                <!-- Math Book -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-orange-900/40 border border-orange-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📙</div>
                     <h3 class="text-xl font-bold text-white mb-2">Mathematics Bureau Book</h3>
                     <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
                     <a href="maths-book-part1.pdf" download class="block w-full text-center py-3 bg-accentOrange text-darkBg font-bold rounded-xl hover:bg-orange-400 transition-colors shadow-lg shadow-accentOrange/20">Download Book PDF</a>
                 </div>
+                <!-- Biology Book -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-purple-900/40 border border-purple-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📕</div>
                     <h3 class="text-xl font-bold text-white mb-2">Biology Bureau Book</h3>
                     <p class="text-gray-400 text-sm mb-6">Official +2 Science Textbook for CHSE Odisha.</p>
                     <a href="biology-book-part1.pdf" download class="block w-full text-center py-3 bg-accentPurple text-darkBg font-bold rounded-xl hover:bg-purple-400 transition-colors shadow-lg shadow-accentPurple/20">Download Book PDF</a>
                 </div>
+                <!-- English Book -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50">
                     <div class="w-14 h-16 bg-rose-900/40 border border-rose-500/50 rounded-lg flex items-center justify-center mb-4 text-2xl shadow-lg">📓</div>
                     <h3 class="text-xl font-bold text-white mb-2">Invitation to English</h3>
@@ -417,10 +452,14 @@
             </div>
         </div>
 
+        <!-- ================= CBSE SECTION ================= -->
+        
+        <!-- 3. CBSE PAPERS & ANSWERS -->
         <div id="content-cbse-papers" class="hidden">
             <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentPurple pl-3">CBSE Science Papers & Answers</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
+                <!-- CBSE Physics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -448,6 +487,7 @@
                     </div>
                 </div>
 
+                <!-- CBSE Chemistry Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -475,6 +515,7 @@
                     </div>
                 </div>
 
+                <!-- CBSE Mathematics Card -->
                 <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
                     <div class="flex items-center justify-between mb-4">
@@ -496,6 +537,87 @@
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-mathematics-2026-set-1.pdf" data-subject="cbse-mathematics" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-1-ans.pdf" data-subject="cbse-mathematics" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-mathematics-2026-set-2.pdf" data-subject="cbse-mathematics" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-2-ans.pdf" data-subject="cbse-mathematics" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
                                 <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-mathematics-2026-set-3.pdf" data-subject="cbse-mathematics" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-3-ans.pdf" data-subject="cbse-mathematics" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CBSE Biology Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Biology (044)</h2>
+                        <div class="p-2 bg-accentPurple/10 rounded-lg">
+                            <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                            
+                            <button onclick="openVideoModal('cbse', 'biology')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-biology-2026-set-1.pdf" data-subject="cbse-biology" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-biology-2026-set-1-ans.pdf" data-subject="cbse-biology" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-biology-2026-set-2.pdf" data-subject="cbse-biology" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-biology-2026-set-2-ans.pdf" data-subject="cbse-biology" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-biology-2026-set-3.pdf" data-subject="cbse-biology" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-biology-2026-set-3-ans.pdf" data-subject="cbse-biology" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CBSE English Core Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">English Core</h2>
+                        <div class="p-2 bg-rose-400/10 rounded-lg">
+                            <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                            
+                            <button onclick="openVideoModal('cbse', 'english')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-english-2026-set-1.pdf" data-subject="cbse-english" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="cbse-english-2026-set-1-ans.pdf" data-subject="cbse-english" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-english-2026-set-2.pdf" data-subject="cbse-english" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="cbse-english-2026-set-2-ans.pdf" data-subject="cbse-english" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-english-2026-set-3.pdf" data-subject="cbse-english" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="cbse-english-2026-set-3-ans.pdf" data-subject="cbse-english" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CBSE Computer Science Card -->
+                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-2xl font-bold text-white">Comp. Sci (083)</h2>
+                        <div class="p-2 bg-cyan-400/10 rounded-lg">
+                            <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                            <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                            
+                            <button onclick="openVideoModal('cbse', 'compsci')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                Watch Lectures
+                            </button>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-compsci-2026-set-1.pdf" data-subject="cbse-compsci" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="cbse-compsci-2026-set-1-ans.pdf" data-subject="cbse-compsci" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-compsci-2026-set-2.pdf" data-subject="cbse-compsci" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="cbse-compsci-2026-set-2-ans.pdf" data-subject="cbse-compsci" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-compsci-2026-set-3.pdf" data-subject="cbse-compsci" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="cbse-compsci-2026-set-3-ans.pdf" data-subject="cbse-compsci" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
                             </div>
                         </div>
                     </div>
@@ -602,6 +724,7 @@
         <p>© 2026 TP Technology | Developer: TP</p>
     </footer>
 
+    <!-- Video Modal Setup -->
     <div id="videoModal" class="fixed inset-0 z-[100] flex items-center justify-center modal-overlay">
         <div class="absolute inset-0 bg-black/80" onclick="closeVideoModal()"></div>
         
@@ -621,7 +744,7 @@
             </div>
 
             <div id="modalTopicList" class="p-5 overflow-y-auto topic-scroll flex-1 grid grid-cols-1 md:grid-cols-2 gap-3 bg-cardBg">
-                <!-- Topics will be dynamically loaded here -->
+                <!-- Topics will load here -->
             </div>
 
             <div id="modalPlayerView" class="hidden flex-col w-full bg-black">
@@ -637,33 +760,33 @@
         </div>
     </div>
 
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         let currentBoard = 'chse'; 
         let currentMaterial = 'papers';
 
-        // ==========================================
-        // SYLLABUS & VIDEO DATABASE (Science and Fun)
-        // ==========================================
+        // SYLLABUS DATABASE
+        // IMPORTANT: Replace the 'videoId' fields below with actual YouTube video IDs for specific videos.
         const syllabusDB = {
             'cbse': {
                 'physics': [
-                    { name: '1. Electric Charges and Fields', videoId: 'z1gy8O-9a-0' }, // Ashu Sir
-                    { name: '2. Electrostatic Potential and Capacitance', videoId: '9Hf-v8-WTtY' }, // Ashu Sir
-                    { name: '3. Current Electricity', videoId: '24YuubvxVLY' }, // Ashu Sir
-                    { name: '4. Moving Charges and Magnetism', videoId: 'UFQx9UuT_Y0' }, // Ashu Sir
-                    { name: '5. Magnetism and Matter', videoId: 'MS6MtjQMWuU' }, // Ashu Sir
-                    { name: '6. Electromagnetic Induction', videoId: 'wNJTLxXfDS8' }, // Ashu Sir
-                    { name: '7. Alternating Current', videoId: '-tCdzYEotgQ' }, // Ashu Sir
-                    { name: '8. Electromagnetic Waves', videoId: '-tCdzYEotgQ' }, // Ashu Sir
-                    { name: '9. Ray Optics and Optical Instruments', videoId: 'cH0zuEoY4r0' }, // Ashu Sir
-                    { name: '10. Wave Optics', videoId: 'Y2BrCETu9EU' }, // Ashu Sir
-                    { name: '11. Dual Nature of Radiation and Matter', videoId: 'Y2BrCETu9EU' }, // Ashu Sir
-                    { name: '12. Atoms', videoId: 'uOaOviIfCTU' }, // Ashu Sir
-                    { name: '13. Nuclei', videoId: 'uOaOviIfCTU' }, // Ashu Sir
-                    { name: '14. Semiconductor Electronics', videoId: 'Y2BrCETu9EU' } // Ashu Sir
+                    { name: '1. Electric Charges and Fields', videoId: 'z1gy8O-9a-0' }, 
+                    { name: '2. Electrostatic Potential and Capacitance', videoId: '9Hf-v8-WTtY' }, 
+                    { name: '3. Current Electricity', videoId: '24YuubvxVLY' }, 
+                    { name: '4. Moving Charges and Magnetism', videoId: 'UFQx9UuT_Y0' }, 
+                    { name: '5. Magnetism and Matter', videoId: 'MS6MtjQMWuU' }, 
+                    { name: '6. Electromagnetic Induction', videoId: 'wNJTLxXfDS8' }, 
+                    { name: '7. Alternating Current', videoId: '-tCdzYEotgQ' }, 
+                    { name: '8. Electromagnetic Waves', videoId: '-tCdzYEotgQ' }, 
+                    { name: '9. Ray Optics and Optical Instruments', videoId: 'cH0zuEoY4r0' }, 
+                    { name: '10. Wave Optics', videoId: 'Y2BrCETu9EU' }, 
+                    { name: '11. Dual Nature of Radiation and Matter', videoId: 'Y2BrCETu9EU' }, 
+                    { name: '12. Atoms', videoId: 'uOaOviIfCTU' }, 
+                    { name: '13. Nuclei', videoId: 'uOaOviIfCTU' }, 
+                    { name: '14. Semiconductor Electronics', videoId: 'Y2BrCETu9EU' } 
                 ],
                 'chemistry': [
-                    { name: '1. Solutions', videoId: 'rEUYpKt9V20' }, // Ashu Sir
+                    { name: '1. Solutions', videoId: 'rEUYpKt9V20' }, 
                     { name: '2. Electrochemistry', videoId: 'rEUYpKt9V20' },
                     { name: '3. Chemical Kinetics', videoId: 'rEUYpKt9V20' },
                     { name: '4. d and f Block Elements', videoId: 'rEUYpKt9V20' },
@@ -675,19 +798,32 @@
                     { name: '10. Biomolecules', videoId: 'rEUYpKt9V20' }
                 ],
                 'mathematics': [
-                    { name: '1. Relations and Functions', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '2. Inverse Trigonometric Functions', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '3. Matrices', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '4. Determinants', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '5. Continuity and Differentiability', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '6. Application of Derivatives', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '7. Integrals', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '8. Application of Integrals', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '9. Differential Equations', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '10. Vector Algebra', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '11. Three Dimensional Geometry', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '12. Linear Programming', videoId: 'uTx3zRNqwwM' }, // Ushank Sir
-                    { name: '13. Probability', videoId: 'uTx3zRNqwwM' } // Ushank Sir
+                    { name: '1. Relations and Functions', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '2. Inverse Trigonometric Functions', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '3. Matrices', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '4. Determinants', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '5. Continuity and Differentiability', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '6. Application of Derivatives', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '7. Integrals', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '8. Application of Integrals', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '9. Differential Equations', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '10. Vector Algebra', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '11. Three Dimensional Geometry', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '12. Linear Programming', videoId: 'uTx3zRNqwwM' }, 
+                    { name: '13. Probability', videoId: 'uTx3zRNqwwM' } 
+                ],
+                'biology': [
+                    { name: '1. Reproduction in Organisms', videoId: 'oF4xQe3u92E' },
+                    { name: '2. Human Reproduction', videoId: 'oF4xQe3u92E' },
+                    { name: '3. Genetics', videoId: 'oF4xQe3u92E' }
+                ],
+                'english': [
+                    { name: '1. Reading Comprehension', videoId: 'hQ6-B7R4Yiw' },
+                    { name: '2. Literature', videoId: 'hQ6-B7R4Yiw' }
+                ],
+                'compsci': [
+                    { name: '1. Python Fundamentals', videoId: 'Y8Tko2YAui0' },
+                    { name: '2. Database Concepts', videoId: 'Y8Tko2YAui0' }
                 ]
             }
         };
@@ -695,65 +831,66 @@
         // Copy CBSE syllabus to CHSE and append State Specific Subjects
         syllabusDB['chse'] = JSON.parse(JSON.stringify(syllabusDB['cbse']));
         
-        // Appending the rest of your CHSE subjects
+        // Appending the rest of CHSE subjects
         syllabusDB['chse']['biology'] = [
-            { name: '1. Reproduction in Organisms', videoId: 'Mqnd9Jnmo5c' },
-            { name: '2. Sexual Reproduction in Flowering Plants', videoId: 'Mqnd9Jnmo5c' },
-            { name: '3. Human Reproduction', videoId: 'Mqnd9Jnmo5c' },
-            { name: '4. Reproductive Health', videoId: 'Mqnd9Jnmo5c' },
-            { name: '5. Principles of Inheritance and Variation', videoId: 'Mqnd9Jnmo5c' },
-            { name: '6. Molecular Basis of Inheritance', videoId: 'Mqnd9Jnmo5c' },
-            { name: '7. Evolution', videoId: 'Mqnd9Jnmo5c' },
-            { name: '8. Human Health and Disease', videoId: 'Mqnd9Jnmo5c' },
-            { name: '9. Biotechnology: Principles and Processes', videoId: 'Mqnd9Jnmo5c' },
-            { name: '10. Ecology and Environment', videoId: 'Mqnd9Jnmo5c' }
+            { name: '1. Reproduction in Organisms', videoId: 'oF4xQe3u92E' },
+            { name: '2. Sexual Reproduction in Flowering Plants', videoId: 'oF4xQe3u92E' },
+            { name: '3. Human Reproduction', videoId: 'oF4xQe3u92E' },
+            { name: '4. Reproductive Health', videoId: 'oF4xQe3u92E' },
+            { name: '5. Principles of Inheritance and Variation', videoId: 'oF4xQe3u92E' },
+            { name: '6. Molecular Basis of Inheritance', videoId: 'oF4xQe3u92E' },
+            { name: '7. Evolution', videoId: 'oF4xQe3u92E' },
+            { name: '8. Human Health and Disease', videoId: 'oF4xQe3u92E' },
+            { name: '9. Biotechnology: Principles and Processes', videoId: 'oF4xQe3u92E' },
+            { name: '10. Ecology and Environment', videoId: 'oF4xQe3u92E' }
         ];
 
         syllabusDB['chse']['compsci'] = [
-            { name: '1. Python Revision Tour', videoId: 'Mqnd9Jnmo5c' },
-            { name: '2. Functions & Modules', videoId: 'Mqnd9Jnmo5c' },
-            { name: '3. File Handling', videoId: 'Mqnd9Jnmo5c' },
-            { name: '4. Data Structures (Stacks)', videoId: 'Mqnd9Jnmo5c' },
-            { name: '5. Computer Networks', videoId: 'Mqnd9Jnmo5c' },
-            { name: '6. Database Management (SQL)', videoId: 'Mqnd9Jnmo5c' },
-            { name: '7. Interface Python with MySQL', videoId: 'Mqnd9Jnmo5c' }
+            { name: '1. Python Revision Tour', videoId: 'Y8Tko2YAui0' },
+            { name: '2. Functions & Modules', videoId: 'Y8Tko2YAui0' },
+            { name: '3. File Handling', videoId: 'Y8Tko2YAui0' },
+            { name: '4. Data Structures (Stacks)', videoId: 'Y8Tko2YAui0' },
+            { name: '5. Computer Networks', videoId: 'Y8Tko2YAui0' },
+            { name: '6. Database Management (SQL)', videoId: 'Y8Tko2YAui0' },
+            { name: '7. Interface Python with MySQL', videoId: 'Y8Tko2YAui0' }
         ];
 
         syllabusDB['chse']['english'] = [
-            { name: '1. Reading Comprehension', videoId: 'Mqnd9Jnmo5c' },
-            { name: '2. Writing Skills & Grammar', videoId: 'Mqnd9Jnmo5c' },
-            { name: '3. Prose: My Greatest Olympic Prize', videoId: 'Mqnd9Jnmo5c' },
-            { name: '4. Prose: On Examinations', videoId: 'Mqnd9Jnmo5c' },
-            { name: '5. Poetry: Daffodils', videoId: 'Mqnd9Jnmo5c' },
-            { name: '6. Poetry: The Ballad of Father Gilligan', videoId: 'Mqnd9Jnmo5c' },
-            { name: '7. Non-Detailed: The Doctor\'s Word', videoId: 'Mqnd9Jnmo5c' }
+            { name: '1. Reading Comprehension', videoId: 'hQ6-B7R4Yiw' },
+            { name: '2. Writing Skills & Grammar', videoId: 'hQ6-B7R4Yiw' },
+            { name: '3. Prose: My Greatest Olympic Prize', videoId: 'hQ6-B7R4Yiw' },
+            { name: '4. Prose: On Examinations', videoId: 'hQ6-B7R4Yiw' },
+            { name: '5. Poetry: Daffodils', videoId: 'hQ6-B7R4Yiw' },
+            { name: '6. Poetry: The Ballad of Father Gilligan', videoId: 'hQ6-B7R4Yiw' },
+            { name: '7. Non-Detailed: The Doctor\'s Word', videoId: 'hQ6-B7R4Yiw' }
         ];
 
         syllabusDB['chse']['mil-odia'] = [
-            { name: '1. Prose (ଗଦ୍ୟ)', videoId: 'Mqnd9Jnmo5c' },
-            { name: '2. Poetry (ପଦ୍ୟ)', videoId: 'Mqnd9Jnmo5c' },
-            { name: '3. Short Story (ଗଳ୍ପ)', videoId: 'Mqnd9Jnmo5c' },
-            { name: '4. Grammar (ବ୍ୟାକରଣ)', videoId: 'Mqnd9Jnmo5c' },
-            { name: '5. Essay Writing (ପ୍ରବନ୍ଧ ରଚନା)', videoId: 'Mqnd9Jnmo5c' }
+            { name: '1. Prose (ଗଦ୍ୟ)', videoId: 'zT2W44kC6bQ' },
+            { name: '2. Poetry (ପଦ୍ୟ)', videoId: 'zT2W44kC6bQ' },
+            { name: '3. Short Story (ଗଳ୍ପ)', videoId: 'zT2W44kC6bQ' },
+            { name: '4. Grammar (ବ୍ୟାକରଣ)', videoId: 'zT2W44kC6bQ' },
+            { name: '5. Essay Writing (ପ୍ରବନ୍ଧ ରଚନା)', videoId: 'zT2W44kC6bQ' }
         ];
 
         syllabusDB['chse']['statistics'] = [
-            { name: '1. Probability Theory', videoId: 'Mqnd9Jnmo5c' },
-            { name: '2. Random Variables', videoId: 'Mqnd9Jnmo5c' },
-            { name: '3. Theoretical Distributions', videoId: 'Mqnd9Jnmo5c' },
-            { name: '4. Statistical Inference', videoId: 'Mqnd9Jnmo5c' },
-            { name: '5. Time Series Analysis', videoId: 'Mqnd9Jnmo5c' }
+            { name: '1. Probability Theory', videoId: '9b8Dhh-Pq1w' },
+            { name: '2. Random Variables', videoId: '9b8Dhh-Pq1w' },
+            { name: '3. Theoretical Distributions', videoId: '9b8Dhh-Pq1w' },
+            { name: '4. Statistical Inference', videoId: '9b8Dhh-Pq1w' },
+            { name: '5. Time Series Analysis', videoId: '9b8Dhh-Pq1w' }
         ];
 
         syllabusDB['chse']['electronics'] = [
-            { name: '1. Semiconductor Physics', videoId: 'Mqnd9Jnmo5c' },
-            { name: '2. Junction Diodes', videoId: 'Mqnd9Jnmo5c' },
-            { name: '3. Bipolar Junction Transistors', videoId: 'Mqnd9Jnmo5c' },
-            { name: '4. Amplifiers', videoId: 'Mqnd9Jnmo5c' },
-            { name: '5. Oscillators', videoId: 'Mqnd9Jnmo5c' },
-            { name: '6. Digital Electronics Basics', videoId: 'Mqnd9Jnmo5c' }
+            { name: '1. Semiconductor Physics', videoId: 'wNJTLxXfDS8' },
+            { name: '2. Junction Diodes', videoId: 'wNJTLxXfDS8' },
+            { name: '3. Bipolar Junction Transistors', videoId: 'wNJTLxXfDS8' },
+            { name: '4. Amplifiers', videoId: 'wNJTLxXfDS8' },
+            { name: '5. Oscillators', videoId: 'wNJTLxXfDS8' },
+            { name: '6. Digital Electronics Basics', videoId: 'wNJTLxXfDS8' }
         ];
 
+        // Functions
         function toggleBoard(board) {
             currentBoard = board;
             updateDisplay();
@@ -819,9 +956,10 @@
             });
         }
 
+        // --- Live Age Timer Logic ---
         function updateAgeTimer() {
             const now = new Date();
-            const birthDate = new Date(2009, 3, 12); 
+            const birthDate = new Date(2009, 3, 12); // April 12, 2009
             
             let years = now.getFullYear() - birthDate.getFullYear();
             let months = now.getMonth() - birthDate.getMonth();
@@ -851,6 +989,7 @@
         updateAgeTimer();
         setInterval(updateAgeTimer, 1000);
 
+        // --- Video Modal Logic ---
         function openVideoModal(board, subject) {
             const modal = document.getElementById('videoModal');
             const topicListContainer = document.getElementById('modalTopicList');
@@ -890,13 +1029,19 @@
             const player = document.getElementById('youtubePlayer');
             player.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
             
-            // Generate exact YouTube Search Link targeting Ashu Sir or Ushank Sir
-            let teacher = "Science and Fun";
+            // Highly specific Search Query generator based on Subject
+            let teacher = "Class 12";
             if(subject === 'physics' || subject === 'chemistry') teacher = "Ashu Sir Science and Fun";
-            if(subject === 'mathematics') teacher = "Ushank Sir Science and Fun";
+            else if(subject === 'mathematics') teacher = "Ushank Sir Science and Fun";
+            else if(subject === 'biology') teacher = "Class 12 Biology One Shot";
+            else if(subject === 'english') teacher = "Class 12 English One Shot";
+            else if(subject === 'compsci') teacher = "Class 12 Computer Science Python One Shot";
+            else if(subject === 'mil-odia') teacher = "CHSE Odisha MIL Odia";
+            else if(subject === 'statistics') teacher = "Class 12 Statistics One Shot";
+            else if(subject === 'electronics') teacher = "Class 12 Electronics One Shot";
 
             const searchBtn = document.getElementById('searchYoutubeBtn');
-            const exactSearchQuery = encodeURIComponent(`Class 12 ${subject.replace('-', ' ')} ${topicName} one shot ${teacher}`);
+            const exactSearchQuery = encodeURIComponent(`${board.toUpperCase()} ${topicName} ${teacher}`);
             searchBtn.href = `https://www.youtube.com/results?search_query=${exactSearchQuery}`;
         }
 
@@ -917,26 +1062,22 @@
             }, 300);
         }
 
-        // --- Simulate Live Active Learners ---
         function simulateActiveLearners() {
             const learnersEl = document.getElementById('active-learners');
             if (!learnersEl) return;
             
-            // Start with a realistic random number between 120 and 350
             let currentLearners = Math.floor(Math.random() * (350 - 120 + 1)) + 120;
             learnersEl.innerText = currentLearners;
 
             setInterval(() => {
-                // Randomly add or subtract a few users every 5 seconds to look live
-                const fluctuation = Math.floor(Math.random() * 7) - 2; // ranges from -2 to +4
+                const fluctuation = Math.floor(Math.random() * 7) - 2;
                 currentLearners += fluctuation;
-                if (currentLearners < 50) currentLearners = 50; // Don't let it drop too low
+                if (currentLearners < 50) currentLearners = 50;
                 
                 learnersEl.innerText = currentLearners;
             }, 5000); 
         }
         
-        // Start the simulation when page loads
         simulateActiveLearners();
     </script>
 </body>
