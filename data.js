@@ -62,26 +62,88 @@ const syllabusDB = {
     }
 };
 
-// Copy CBSE to CHSE within the new hierarchy
+// 1. Deep Copy CBSE to CHSE within the strict hierarchy
 syllabusDB['plus2-2nd']['chse'] = JSON.parse(JSON.stringify(syllabusDB['plus2-2nd']['cbse']));
 
-// Update CHSE Physics to align with strict syllabus boundaries
+// 2. Syllabus Constraint Overrides
 syllabusDB['plus2-2nd']['chse']['physics'][13].name = '14. Semiconductor Electronics (Excluding Logic Gates)';
 
-// Append CHSE Specific Subjects
-syllabusDB['plus2-2nd']['chse']['biology'] = [
-    { name: '1. Reproduction in Organisms', videoId: 'oF4xQe3u92E' },
-    { name: '2. Sexual Reproduction in Flowering Plants', videoId: 'oF4xQe3u92E' },
-    { name: '3. Human Reproduction', videoId: 'oF4xQe3u92E' },
-    { name: '4. Reproductive Health', videoId: 'oF4xQe3u92E' },
-    { name: '5. Principles of Inheritance and Variation', videoId: 'oF4xQe3u92E' },
-    { name: '6. Molecular Basis of Inheritance', videoId: 'oF4xQe3u92E' },
-    { name: '7. Evolution', videoId: 'oF4xQe3u92E' },
-    { name: '8. Human Health and Disease', videoId: 'oF4xQe3u92E' },
-    { name: '9. Biotechnology: Principles and Processes', videoId: 'oF4xQe3u92E' },
-    { name: '10. Ecology and Environment', videoId: 'oF4xQe3u92E' }
+// 3. Remove inherited flat arrays prior to restructuring
+delete syllabusDB['plus2-2nd']['chse']['biology'];
+delete syllabusDB['plus2-2nd']['chse']['english'];
+
+// 4. Implement Biology Split (Botany & Zoology)
+syllabusDB['plus2-2nd']['chse']['botany'] = [
+    { name: '1. Reproduction in Organisms', videoId: '' },
+    { name: '2. Sexual Reproduction in Flowering Plants', videoId: '' },
+    { name: '3. Plant Water Relations', videoId: '' },
+    { name: '4. Mineral Nutrition', videoId: '' },
+    { name: '5. Photosynthesis', videoId: '' },
+    { name: '6. Respiration', videoId: '' },
+    { name: '7. Plant Growth & Development', videoId: '' },
+    { name: '8. Mendelian Genetics', videoId: '' },
+    { name: '9. Molecular Basis of Inheritance', videoId: '' }
 ];
 
+syllabusDB['plus2-2nd']['chse']['zoology'] = [
+    { name: '1. Human Reproduction', videoId: '' },
+    { name: '2. Reproductive Health', videoId: '' },
+    { name: '3. Evolution', videoId: '' },
+    { name: '4. Human Health and Disease', videoId: '' },
+    { name: '5. Biotechnology: Principles and Processes', videoId: '' },
+    { name: '6. Biotechnology and its Applications', videoId: '' },
+    { name: '7. Ecology', videoId: '' }
+];
+
+// 5. Implement English Split (Invitations 1-4)
+syllabusDB['plus2-2nd']['chse']['english-inv1'] = [
+    { name: 'Prose: My Greatest Olympic Prize', videoId: '' },
+    { name: 'Prose: On Examinations', videoId: '' },
+    { name: 'Prose: The Magic of Teamwork', videoId: '' },
+    { name: 'Poetry: Daffodils', videoId: '' },
+    { name: 'Poetry: The Ballad of Father Gilligan', videoId: '' },
+    { name: 'Poetry: A Psalm of Life', videoId: '' }
+];
+
+syllabusDB['plus2-2nd']['chse']['english-inv2'] = [
+    { name: '1. The Doctor\'s Word', videoId: '' },
+    { name: '2. The Nightingale and the Rose', videoId: '' },
+    { name: '3. Mystery of the Missing Cap', videoId: '' },
+    { name: '4. The Monkey\'s Paw', videoId: '' }
+];
+
+syllabusDB['plus2-2nd']['chse']['english-inv3'] = [
+    { name: '1. Essay Writing', videoId: '' },
+    { name: '2. Report Writing', videoId: '' },
+    { name: '3. Note Making', videoId: '' }
+];
+
+syllabusDB['plus2-2nd']['chse']['english-inv4'] = [
+    { name: '1. Tense Patterns', videoId: '' },
+    { name: '2. Modals', videoId: '' },
+    { name: '3. Conditionals', videoId: '' },
+    { name: '4. Passive Voice', videoId: '' }
+];
+
+// 6. Curate MIL Odia 
+syllabusDB['plus2-2nd']['chse']['mil-odia'] = [
+    { name: 'Prose: Itihasa', videoId: '' },
+    { name: 'Prose: Pushpapura re Varshabarana', videoId: '' },
+    { name: 'Prose: Swadhina Deshare Sikshya Chinta', videoId: '' },
+    { name: 'Poetry: Bada Pana', videoId: '' },
+    { name: 'Poetry: Tapaswinira Patra', videoId: '' },
+    { name: 'Poetry: Bandira Viraha Vyatha', videoId: '' },
+    { name: 'Poetry: Pingalara Abhisara', videoId: '' },
+    { name: 'Short Story: Sabhya Zamindar', videoId: '' },
+    { name: 'Short Story: Pataka Uttolana', videoId: '' },
+    { name: 'Short Story: Rup Narayan Saha', videoId: '' },
+    { name: 'Grammar: Samasa', videoId: '' },
+    { name: 'Grammar: Roudhi', videoId: '' },
+    { name: 'Grammar: Krudanta', videoId: '' },
+    { name: 'Grammar: Tadhita', videoId: '' }
+];
+
+// 7. Retain other CHSE Specific Subjects
 syllabusDB['plus2-2nd']['chse']['compsci'] = [
     { name: '1. Python Revision Tour', videoId: 'Y8Tko2YAui0' },
     { name: '2. Functions & Modules', videoId: 'Y8Tko2YAui0' },
@@ -90,24 +152,6 @@ syllabusDB['plus2-2nd']['chse']['compsci'] = [
     { name: '5. Computer Networks', videoId: 'Y8Tko2YAui0' },
     { name: '6. Database Management (SQL)', videoId: 'Y8Tko2YAui0' },
     { name: '7. Interface Python with MySQL', videoId: 'Y8Tko2YAui0' }
-];
-
-syllabusDB['plus2-2nd']['chse']['english'] = [
-    { name: '1. Reading Comprehension', videoId: 'hQ6-B7R4Yiw' },
-    { name: '2. Writing Skills & Grammar', videoId: 'hQ6-B7R4Yiw' },
-    { name: '3. Prose: My Greatest Olympic Prize', videoId: 'hQ6-B7R4Yiw' },
-    { name: '4. Prose: On Examinations', videoId: 'hQ6-B7R4Yiw' },
-    { name: '5. Poetry: Daffodils', videoId: 'hQ6-B7R4Yiw' },
-    { name: '6. Poetry: The Ballad of Father Gilligan', videoId: 'hQ6-B7R4Yiw' },
-    { name: '7. Non-Detailed: The Doctor\'s Word', videoId: 'hQ6-B7R4Yiw' }
-];
-
-syllabusDB['plus2-2nd']['chse']['mil-odia'] = [
-    { name: '1. Prose (ଗଦ୍ୟ)', videoId: 'zT2W44kC6bQ' },
-    { name: '2. Poetry (ପଦ୍ୟ)', videoId: 'zT2W44kC6bQ' },
-    { name: '3. Short Story (ଗଳ୍ପ)', videoId: 'zT2W44kC6bQ' },
-    { name: '4. Grammar (ବ୍ୟାକରଣ)', videoId: 'zT2W44kC6bQ' },
-    { name: '5. Essay Writing (ପ୍ରବନ୍ଧ ରଚନା)', videoId: 'zT2W44kC6bQ' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['statistics'] = [
