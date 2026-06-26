@@ -23,7 +23,37 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        .subject-card { transition: all 0.3s ease; }
+        .subject-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        
+        /* Modal Animation */
+        .modal-overlay {
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.95);
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        
+        /* Custom Scrollbar for Topic List inside Modal */
+        .topic-scroll::-webkit-scrollbar { width: 6px; }
+        .topic-scroll::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+    </style>
 </head>
 <body class="bg-darkBg text-gray-200 font-sans min-h-screen flex flex-col relative">
 
@@ -49,17 +79,17 @@
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentBlue to-accentPurple">TP Technology</span>
         </h1>
         <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-400 mx-auto">
-            Select your Board, Year, and choose between Question Papers & Answers or Books PDF below.
+            Select your Board, Year, and choose between Question Papers, Books, or Video Lectures below.
         </p>
 
         <div class="mt-8 flex justify-center">
-            <div class="flex items-center gap-2 bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-700 shadow-lg shadow-emerald-500/10">
-                <span class="relative flex h-2.5 w-2.5">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            <div class="bg-gray-900 border border-gray-700 rounded-full px-6 py-2 flex items-center gap-3 shadow-lg shadow-green-500/10">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                 </span>
-                <span class="text-sm text-gray-300 font-medium">
-                    <span id="active-learners" class="font-bold text-emerald-400 text-lg transition-all duration-300">Loading...</span> active learners online
+                <span class="text-sm font-semibold text-gray-300">
+                    <span id="active-learners" class="text-white font-bold text-lg">Loading...</span> Active Learners
                 </span>
             </div>
         </div>
@@ -67,18 +97,6 @@
 
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 flex flex-col items-center gap-6">
         
-        <div class="flex flex-wrap justify-center gap-3 bg-gray-900 border border-gray-700 p-2 rounded-2xl shadow-lg w-full max-w-2xl">
-            <button id="btn-level-plus2-1st" onclick="toggleLevel('plus2-1st')" class="flex-1 py-2 px-4 rounded-xl font-bold text-sm transition-all text-gray-400 hover:text-white">
-                +2 1st Year
-            </button>
-            <button id="btn-level-plus2-2nd" onclick="toggleLevel('plus2-2nd')" class="flex-1 py-2 px-4 rounded-xl font-bold text-sm transition-all bg-emerald-500 text-darkBg shadow-[0_0_15px_rgba(16,185,129,0.4)]">
-                +2 2nd Year
-            </button>
-            <button id="btn-level-plus3" onclick="toggleLevel('plus3')" class="flex-1 py-2 px-4 rounded-xl font-bold text-sm transition-all text-gray-400 hover:text-white">
-                +3 Degree
-            </button>
-        </div>
-
         <div class="flex flex-wrap justify-center gap-3 bg-gray-900/80 p-2 rounded-2xl border border-gray-700/50 shadow-lg">
             <button id="btn-chse" onclick="toggleBoard('chse')" class="px-8 py-3 rounded-xl font-bold transition-all duration-300 bg-accentBlue text-darkBg shadow-[0_0_15px_rgba(56,189,248,0.4)]">
                 CHSE (Odisha)
@@ -102,15 +120,22 @@
                     <option value="2024">📅 Year: 2024</option>
                     <option value="2023">📅 Year: 2023</option>
                     <option value="2022">📅 Year: 2022</option>
+                    <option value="2021">📅 Year: 2021</option>
+                    <option value="2020">📅 Year: 2020</option>
+                    <option value="2019">📅 Year: 2019</option>
+                    <option value="2018">📅 Year: 2018</option>
+                    <option value="2017">📅 Year: 2017</option>
+                    <option value="2016">📅 Year: 2016</option>
                 </select>
                 <div class="w-px h-8 bg-gray-700 mx-1 hidden sm:block"></div>
                 <button id="btn-mat-papers" onclick="toggleMaterial('papers')" class="bg-accentBlue text-darkBg px-6 py-2 rounded-lg font-semibold shadow-sm transition-all">Q. Papers & Answers</button>
                 <button id="btn-mat-books" onclick="toggleMaterial('books')" class="bg-transparent border border-gray-700 text-gray-400 hover:text-white px-6 py-2 rounded-lg font-semibold transition-all">Books PDF</button>
+                <button id="btn-mat-lectures" onclick="toggleMaterial('lectures')" data-material="lectures" class="bg-transparent border border-gray-700 text-gray-400 hover:text-white px-6 py-2 rounded-lg font-semibold transition-all">Video Lectures</button>
             </div>
 
             <div class="flex flex-wrap justify-center gap-3 mt-2">
-                <button class="bg-cardBg border border-gray-700 text-gray-400 hover:text-accentBlue hover:border-accentBlue px-6 py-2 rounded-lg font-bold transition-all shadow-sm">
-                    Develop yourself by AI <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded ml-1 font-semibold">Soon</span>
+                <button class="bg-cardBg border border-gray-800 text-gray-500 px-6 py-2 rounded-lg font-semibold cursor-not-allowed hover:bg-gray-800 transition-colors">
+                    Develop yourself by AI <span class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded ml-1">Soon</span>
                 </button>
             </div>
         </div>
@@ -119,11 +144,10 @@
     <main id="papers" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         
         <div id="content-chse-papers" class="block">
-            
             <div class="stream-section stream-science block">
                 <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Papers & Answers</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-                
+                    
                     <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentBlue"></div>
                         <div class="flex items-center justify-between mb-4">
@@ -135,12 +159,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                            
-                                <button onclick="openVideoModal('chse', 'physics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                    Watch Lectures
-                                </button>
-
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="physics-2026-set-a.pdf" data-subject="physics" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Q. Paper</a><a href="physics-2026-set-a-ans.pdf" data-subject="physics" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="physics-2026-set-b.pdf" data-subject="physics" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Q. Paper</a><a href="physics-2026-set-b-ans.pdf" data-subject="physics" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -162,12 +180,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                            
-                                <button onclick="openVideoModal('chse', 'chemistry')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                    Watch Lectures
-                                </button>
-
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="chemistry-2026-set-a.pdf" data-subject="chemistry" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="chemistry-2026-set-a-ans.pdf" data-subject="chemistry" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="chemistry-2026-set-b.pdf" data-subject="chemistry" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="chemistry-2026-set-b-ans.pdf" data-subject="chemistry" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Answer</a></div>
@@ -189,12 +201,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                            
-                                <button onclick="openVideoModal('chse', 'mathematics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                    Watch Lectures
-                                </button>
-
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="mathematics-2026-set-a.pdf" data-subject="mathematics" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="mathematics-2026-set-a-ans.pdf" data-subject="mathematics" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="mathematics-2026-set-b.pdf" data-subject="mathematics" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="mathematics-2026-set-b-ans.pdf" data-subject="mathematics" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -216,12 +222,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                            
-                                <button onclick="openVideoModal('chse', 'biology')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                    Watch Lectures
-                                </button>
-
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="biology-2026-set-a.pdf" data-subject="biology" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="biology-2026-set-a-ans.pdf" data-subject="biology" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="biology-2026-set-b.pdf" data-subject="biology" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="biology-2026-set-b-ans.pdf" data-subject="biology" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -243,12 +243,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                            
-                                <button onclick="openVideoModal('chse', 'compsci')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                    Watch Lectures
-                                </button>
-
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="compsci-2026-set-a.pdf" data-subject="compsci" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="compsci-2026-set-a-ans.pdf" data-subject="compsci" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="compsci-2026-set-b.pdf" data-subject="compsci" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="compsci-2026-set-b-ans.pdf" data-subject="compsci" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -264,18 +258,12 @@
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">English</h2>
                             <div class="p-2 bg-rose-400/10 rounded-lg">
-                                <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477-4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                             </div>
                         </div>
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                            
-                                <button onclick="openVideoModal('chse', 'english')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                    Watch Lectures
-                                </button>
-
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="english-2026-set-a.pdf" data-subject="english" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="english-2026-set-a-ans.pdf" data-subject="english" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="english-2026-set-b.pdf" data-subject="english" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="english-2026-set-b-ans.pdf" data-subject="english" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -297,12 +285,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                            
-                                <button onclick="openVideoModal('chse', 'mil-odia')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                    Watch Lectures
-                                </button>
-
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="mil-odia-2026-set-a.pdf" data-subject="mil-odia" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-yellow-400 rounded text-xs text-yellow-400 transition-colors">Q. Paper</a><a href="mil-odia-2026-set-a-ans.pdf" data-subject="mil-odia" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="mil-odia-2026-set-b.pdf" data-subject="mil-odia" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-yellow-400 rounded text-xs text-yellow-400 transition-colors">Q. Paper</a><a href="mil-odia-2026-set-b-ans.pdf" data-subject="mil-odia" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -324,12 +306,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                            
-                                <button onclick="openVideoModal('chse', 'statistics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                    Watch Lectures
-                                </button>
-
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="statistics-2026-set-a.pdf" data-subject="statistics" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-emerald-400 rounded text-xs text-emerald-400 transition-colors">Q. Paper</a><a href="statistics-2026-set-a-ans.pdf" data-subject="statistics" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="statistics-2026-set-b.pdf" data-subject="statistics" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-emerald-400 rounded text-xs text-emerald-400 transition-colors">Q. Paper</a><a href="statistics-2026-set-b-ans.pdf" data-subject="statistics" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -351,12 +327,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                            
-                                <button onclick="openVideoModal('chse', 'electronics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                    Watch Lectures
-                                </button>
-
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="electronics-2026-set-a.pdf" data-subject="electronics" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-indigo-400 rounded text-xs text-indigo-400 transition-colors">Q. Paper</a><a href="electronics-2026-set-a-ans.pdf" data-subject="electronics" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="electronics-2026-set-b.pdf" data-subject="electronics" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-indigo-400 rounded text-xs text-indigo-400 transition-colors">Q. Paper</a><a href="electronics-2026-set-b-ans.pdf" data-subject="electronics" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -382,9 +352,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                                <button onclick="openVideoModal('chse', 'history')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    Watch Lectures
-                                </button>
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" data-subject="history" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-yellow-500 rounded text-xs text-yellow-500 transition-colors">Q. Paper</a><a href="#" data-subject="history" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" data-subject="history" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-yellow-500 rounded text-xs text-yellow-500 transition-colors">Q. Paper</a><a href="#" data-subject="history" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -402,9 +369,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                                <button onclick="openVideoModal('chse', 'political-science')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    Watch Lectures
-                                </button>
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" data-subject="political-science" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-500 rounded text-xs text-rose-500 transition-colors">Q. Paper</a><a href="#" data-subject="political-science" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" data-subject="political-science" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-500 rounded text-xs text-rose-500 transition-colors">Q. Paper</a><a href="#" data-subject="political-science" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -422,9 +386,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                                <button onclick="openVideoModal('chse', 'economics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    Watch Lectures
-                                </button>
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" data-subject="economics" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-emerald-500 rounded text-xs text-emerald-500 transition-colors">Q. Paper</a><a href="#" data-subject="economics" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" data-subject="economics" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-emerald-500 rounded text-xs text-emerald-500 transition-colors">Q. Paper</a><a href="#" data-subject="economics" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -449,9 +410,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                                <button onclick="openVideoModal('chse', 'accountancy')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    Watch Lectures
-                                </button>
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" data-subject="accountancy" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-blue-500 rounded text-xs text-blue-500 transition-colors">Q. Paper</a><a href="#" data-subject="accountancy" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" data-subject="accountancy" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-blue-500 rounded text-xs text-blue-500 transition-colors">Q. Paper</a><a href="#" data-subject="accountancy" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -469,9 +427,6 @@
                         <div class="space-y-4">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
-                                <button onclick="openVideoModal('chse', 'business-studies')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                    Watch Lectures
-                                </button>
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set A</span><a href="#" data-subject="business-studies" data-set="a" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-purple-500 rounded text-xs text-purple-500 transition-colors">Q. Paper</a><a href="#" data-subject="business-studies" data-set="a" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
                                     <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set B</span><a href="#" data-subject="business-studies" data-set="b" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-purple-500 rounded text-xs text-purple-500 transition-colors">Q. Paper</a><a href="#" data-subject="business-studies" data-set="b" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Answer</a></div>
@@ -519,168 +474,371 @@
             </div>
         </div>
 
+        <div id="content-chse-lectures" class="hidden">
+            <div class="stream-section stream-science block">
+                <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Video Lectures</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentBlue"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Physics</h3>
+                            <div class="p-2 bg-accentBlue/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'physics')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Chemistry</h3>
+                            <div class="p-2 bg-accentGreen/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'chemistry')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Mathematics</h3>
+                            <div class="p-2 bg-accentOrange/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'mathematics')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Biology</h3>
+                            <div class="p-2 bg-accentPurple/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'biology')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Comp. Sci</h3>
+                            <div class="p-2 bg-cyan-400/10 rounded-lg">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'compsci')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">English</h3>
+                            <div class="p-2 bg-rose-400/10 rounded-lg">
+                                <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'english')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-yellow-400"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">M.I.L (Odia)</h3>
+                            <div class="p-2 bg-yellow-400/10 rounded-lg">
+                                <span class="text-yellow-400 font-bold text-xl">ଅ</span>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'mil-odia')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-emerald-400"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Statistics</h3>
+                            <div class="p-2 bg-emerald-400/10 rounded-lg">
+                                <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'statistics')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-indigo-400"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Electronics</h3>
+                            <div class="p-2 bg-indigo-400/10 rounded-lg">
+                                <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'electronics')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
+            <div class="stream-section stream-arts hidden">
+                <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-yellow-400 pl-3">CHSE Arts Video Lectures</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-yellow-500"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">History</h3>
+                            <div class="p-2 bg-yellow-500/10 rounded-lg text-yellow-500 font-bold">🏛️</div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'history')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-rose-500"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Pol. Science</h3>
+                            <div class="p-2 bg-rose-500/10 rounded-lg text-rose-500 font-bold">⚖️</div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'political-science')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Economics</h3>
+                            <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-500 font-bold">📈</div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'economics')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
+            <div class="stream-section stream-commerce hidden">
+                <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-blue-400 pl-3">CHSE Commerce Video Lectures</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Accountancy</h3>
+                            <div class="p-2 bg-blue-500/10 rounded-lg text-blue-500 font-bold">📊</div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'accountancy')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Business St.</h3>
+                            <div class="p-2 bg-purple-500/10 rounded-lg text-purple-500 font-bold">💼</div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('chse', 'business-studies')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </div>
+
         <div id="content-cbse-papers" class="hidden">
-            <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentPurple pl-3">CBSE Science Papers & Answers</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-                
-                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-2xl font-bold text-white">Physics (042)</h2>
-                        <div class="p-2 bg-accentPurple/10 rounded-lg">
-                            <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        </div>
-                    </div>
+            <div class="stream-section stream-science block">
+                <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentPurple pl-3">CBSE Science Papers & Answers</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                     
-                    <div class="space-y-4">
-                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
-                            <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
-                            
-                            <button onclick="openVideoModal('cbse', 'physics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                Watch Lectures
-                            </button>
-
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-physics-2026-set-1.pdf" data-subject="cbse-physics" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-physics-2026-set-1-ans.pdf" data-subject="cbse-physics" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-physics-2026-set-2.pdf" data-subject="cbse-physics" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-physics-2026-set-2-ans.pdf" data-subject="cbse-physics" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-physics-2026-set-3.pdf" data-subject="cbse-physics" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-physics-2026-set-3-ans.pdf" data-subject="cbse-physics" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-2xl font-bold text-white">Physics (042)</h2>
+                            <div class="p-2 bg-accentPurple/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                                <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-physics-2026-set-1.pdf" data-subject="cbse-physics" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-physics-2026-set-1-ans.pdf" data-subject="cbse-physics" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-physics-2026-set-2.pdf" data-subject="cbse-physics" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-physics-2026-set-2-ans.pdf" data-subject="cbse-physics" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-physics-2026-set-3.pdf" data-subject="cbse-physics" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-physics-2026-set-3-ans.pdf" data-subject="cbse-physics" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-2xl font-bold text-white">Chemistry (043)</h2>
-                        <div class="p-2 bg-accentGreen/10 rounded-lg">
-                            <svg class="w-6 h-6 text-accentGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-2xl font-bold text-white">Chemistry (043)</h2>
+                            <div class="p-2 bg-accentGreen/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
-                            <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
-                            
-                            <button onclick="openVideoModal('cbse', 'chemistry')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                Watch Lectures
-                            </button>
-
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-chemistry-2026-set-1.pdf" data-subject="cbse-chemistry" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="cbse-chemistry-2026-set-1-ans.pdf" data-subject="cbse-chemistry" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-chemistry-2026-set-2.pdf" data-subject="cbse-chemistry" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="cbse-chemistry-2026-set-2-ans.pdf" data-subject="cbse-chemistry" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-chemistry-2026-set-3.pdf" data-subject="cbse-chemistry" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="cbse-chemistry-2026-set-3-ans.pdf" data-subject="cbse-chemistry" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Marking Scheme</a></div>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                                <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-chemistry-2026-set-1.pdf" data-subject="cbse-chemistry" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="cbse-chemistry-2026-set-1-ans.pdf" data-subject="cbse-chemistry" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-chemistry-2026-set-2.pdf" data-subject="cbse-chemistry" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="cbse-chemistry-2026-set-2-ans.pdf" data-subject="cbse-chemistry" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-chemistry-2026-set-3.pdf" data-subject="cbse-chemistry" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Q. Paper</a><a href="cbse-chemistry-2026-set-3-ans.pdf" data-subject="cbse-chemistry" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentBlue rounded text-xs text-accentBlue transition-colors">Marking Scheme</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-2xl font-bold text-white">Mathematics (041)</h2>
-                        <div class="p-2 bg-accentOrange/10 rounded-lg">
-                            <svg class="w-6 h-6 text-accentOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-2xl font-bold text-white">Mathematics (041)</h2>
+                            <div class="p-2 bg-accentOrange/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
                         </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
-                            <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
-                            
-                            <button onclick="openVideoModal('cbse', 'mathematics')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                Watch Lectures
-                            </button>
-
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-mathematics-2026-set-1.pdf" data-subject="cbse-mathematics" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-1-ans.pdf" data-subject="cbse-mathematics" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-mathematics-2026-set-2.pdf" data-subject="cbse-mathematics" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-2-ans.pdf" data-subject="cbse-mathematics" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-mathematics-2026-set-3.pdf" data-subject="cbse-mathematics" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-3-ans.pdf" data-subject="cbse-mathematics" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                        <div class="space-y-4">
+                            <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                                <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-mathematics-2026-set-1.pdf" data-subject="cbse-mathematics" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-1-ans.pdf" data-subject="cbse-mathematics" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-mathematics-2026-set-2.pdf" data-subject="cbse-mathematics" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-2-ans.pdf" data-subject="cbse-mathematics" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-mathematics-2026-set-3.pdf" data-subject="cbse-mathematics" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentOrange rounded text-xs text-accentOrange transition-colors">Q. Paper</a><a href="cbse-mathematics-2026-set-3-ans.pdf" data-subject="cbse-mathematics" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-2xl font-bold text-white">Biology (044)</h2>
-                        <div class="p-2 bg-accentPurple/10 rounded-lg">
-                            <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-2xl font-bold text-white">Biology (044)</h2>
+                            <div class="p-2 bg-accentPurple/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            </div>
                         </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
-                            <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
-                            
-                            <button onclick="openVideoModal('cbse', 'biology')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                Watch Lectures
-                            </button>
-
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-biology-2026-set-1.pdf" data-subject="cbse-biology" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-biology-2026-set-1-ans.pdf" data-subject="cbse-biology" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-biology-2026-set-2.pdf" data-subject="cbse-biology" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-biology-2026-set-2-ans.pdf" data-subject="cbse-biology" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-biology-2026-set-3.pdf" data-subject="cbse-biology" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-biology-2026-set-3-ans.pdf" data-subject="cbse-biology" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                        <div class="space-y-4">
+                            <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                                <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-biology-2026-set-1.pdf" data-subject="cbse-biology" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-biology-2026-set-1-ans.pdf" data-subject="cbse-biology" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-biology-2026-set-2.pdf" data-subject="cbse-biology" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-biology-2026-set-2-ans.pdf" data-subject="cbse-biology" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-biology-2026-set-3.pdf" data-subject="cbse-biology" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentPurple rounded text-xs text-accentPurple transition-colors">Q. Paper</a><a href="cbse-biology-2026-set-3-ans.pdf" data-subject="cbse-biology" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-2xl font-bold text-white">English Core</h2>
-                        <div class="p-2 bg-rose-400/10 rounded-lg">
-                            <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477-4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-2xl font-bold text-white">English Core</h2>
+                            <div class="p-2 bg-rose-400/10 rounded-lg">
+                                <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            </div>
                         </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
-                            <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
-                            
-                            <button onclick="openVideoModal('cbse', 'english')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                Watch Lectures
-                            </button>
-
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-english-2026-set-1.pdf" data-subject="cbse-english" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="cbse-english-2026-set-1-ans.pdf" data-subject="cbse-english" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-english-2026-set-2.pdf" data-subject="cbse-english" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="cbse-english-2026-set-2-ans.pdf" data-subject="cbse-english" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-english-2026-set-3.pdf" data-subject="cbse-english" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="cbse-english-2026-set-3-ans.pdf" data-subject="cbse-english" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                        <div class="space-y-4">
+                            <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                                <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-english-2026-set-1.pdf" data-subject="cbse-english" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="cbse-english-2026-set-1-ans.pdf" data-subject="cbse-english" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-english-2026-set-2.pdf" data-subject="cbse-english" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="cbse-english-2026-set-2-ans.pdf" data-subject="cbse-english" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-english-2026-set-3.pdf" data-subject="cbse-english" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-rose-400 rounded text-xs text-rose-400 transition-colors">Q. Paper</a><a href="cbse-english-2026-set-3-ans.pdf" data-subject="cbse-english" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-2xl font-bold text-white">Comp. Sci (083)</h2>
-                        <div class="p-2 bg-cyan-400/10 rounded-lg">
-                            <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-2xl font-bold text-white">Comp. Sci (083)</h2>
+                            <div class="p-2 bg-cyan-400/10 rounded-lg">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
                         </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
-                            <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
-                            
-                            <button onclick="openVideoModal('cbse', 'compsci')" class="w-full mb-3 flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
-                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                Watch Lectures
-                            </button>
-
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-compsci-2026-set-1.pdf" data-subject="cbse-compsci" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="cbse-compsci-2026-set-1-ans.pdf" data-subject="cbse-compsci" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-compsci-2026-set-2.pdf" data-subject="cbse-compsci" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="cbse-compsci-2026-set-2-ans.pdf" data-subject="cbse-compsci" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-compsci-2026-set-3.pdf" data-subject="cbse-compsci" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="cbse-compsci-2026-set-3-ans.pdf" data-subject="cbse-compsci" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                        <div class="space-y-4">
+                            <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
+                                <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 1</span><a href="cbse-compsci-2026-set-1.pdf" data-subject="cbse-compsci" data-set="1" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="cbse-compsci-2026-set-1-ans.pdf" data-subject="cbse-compsci" data-set="1" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 2</span><a href="cbse-compsci-2026-set-2.pdf" data-subject="cbse-compsci" data-set="2" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="cbse-compsci-2026-set-2-ans.pdf" data-subject="cbse-compsci" data-set="2" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                    <div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-gray-400 w-10">Set 3</span><a href="cbse-compsci-2026-set-3.pdf" data-subject="cbse-compsci" data-set="3" data-type="qpaper" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-cyan-400 rounded text-xs text-cyan-400 transition-colors">Q. Paper</a><a href="cbse-compsci-2026-set-3-ans.pdf" data-subject="cbse-compsci" data-set="3" data-type="answer" class="pdf-link flex-1 text-center py-1.5 bg-darkBg border border-gray-600 hover:border-accentGreen rounded text-xs text-accentGreen transition-colors">Marking Scheme</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
 
@@ -704,6 +862,111 @@
                     <h3 class="text-xl font-bold text-white mb-2">NCERT Mathematics Part-1</h3>
                     <p class="text-gray-400 text-sm mb-6">Class 12 Official NCERT Textbook.</p>
                     <a href="ncert-maths-part1.pdf" download class="block w-full text-center py-3 bg-accentOrange text-darkBg font-bold rounded-xl hover:bg-orange-400 transition-colors shadow-lg shadow-accentOrange/20">Download Book PDF</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-cbse-lectures" class="hidden">
+            <div class="stream-section stream-science block">
+                <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentPurple pl-3">CBSE Science Video Lectures</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Physics (042)</h3>
+                            <div class="p-2 bg-accentPurple/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('cbse', 'physics')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Chemistry (043)</h3>
+                            <div class="p-2 bg-accentGreen/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('cbse', 'chemistry')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Mathematics (041)</h3>
+                            <div class="p-2 bg-accentOrange/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('cbse', 'mathematics')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Biology (044)</h3>
+                            <div class="p-2 bg-accentPurple/10 rounded-lg">
+                                <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('cbse', 'biology')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">Comp. Sci (083)</h3>
+                            <div class="p-2 bg-cyan-400/10 rounded-lg">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('cbse', 'compsci')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-white">English Core</h3>
+                            <div class="p-2 bg-rose-400/10 rounded-lg">
+                                <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-gray-400 text-sm mb-4">Watch top teacher one-shot lectures.</p>
+                            <button onclick="openVideoModal('cbse', 'english')" class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600/20 hover:text-red-400 text-gray-300 py-2.5 rounded-lg border border-gray-600 transition-colors text-sm font-semibold">
+                                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> Open Lectures
+                            </button>
+                        </div>
+                    </article>
+
                 </div>
             </div>
         </div>
@@ -815,6 +1078,7 @@
             </div>
         </div>
     </div>
+
     <script src="data.js"></script>
      <script src="app.js"></script>
 </body>
