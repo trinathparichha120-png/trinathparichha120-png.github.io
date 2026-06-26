@@ -235,15 +235,38 @@ function playTopicVideo(topicName, videoId, board, subject) {
     const player = document.getElementById('youtubePlayer');
     player.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
     
+    // --- Search Fallback Engine ---
     let teacher = "Class 12";
-    if(subject === 'physics' || subject === 'chemistry') teacher = "Ashu Sir Science and Fun";
-    else if(subject === 'mathematics') teacher = "Ushank Sir Science and Fun";
-    else if(subject === 'biology') teacher = "Class 12 Biology One Shot";
-    else if(subject === 'english') teacher = "Class 12 English One Shot";
-    else if(subject === 'compsci') teacher = "Class 12 Computer Science Python One Shot";
-    else if(subject === 'mil-odia') teacher = "CHSE Odisha MIL Odia";
-    else if(subject === 'statistics') teacher = "Class 12 Statistics One Shot";
-    else if(subject === 'electronics') teacher = "Class 12 Electronics One Shot";
+
+    // Enforce Ashu Sir for Physics & Chemistry
+    if (subject === 'physics' || subject === 'chemistry') {
+        teacher = "Ashu Sir Science and Fun";
+    } 
+    // Enforce Vipin Sir for Botany, Zoology, and generalized Biology
+    else if (subject === 'botany' || subject === 'zoology' || subject === 'biology') {
+        teacher = "Vipin Sir PW";
+    } 
+    // Enforce specific Odia search
+    else if (subject === 'mil-odia') {
+        teacher = "CHSE Odisha Board";
+    } 
+    // Handle the new English formats (inv1, inv2, etc.)
+    else if (subject.includes('english')) {
+        teacher = "CHSE Odisha English";
+    } 
+    // Keep existing fallbacks
+    else if (subject === 'mathematics') {
+        teacher = "Ushank Sir Science and Fun";
+    }
+    else if (subject === 'compsci') {
+        teacher = "Class 12 Computer Science Python One Shot";
+    }
+    else if (subject === 'statistics') {
+        teacher = "Class 12 Statistics One Shot";
+    }
+    else if (subject === 'electronics') {
+        teacher = "Class 12 Electronics One Shot";
+    }
 
     const searchBtn = document.getElementById('searchYoutubeBtn');
     const exactSearchQuery = encodeURIComponent(`${board.toUpperCase()} ${topicName} ${teacher}`);
