@@ -233,28 +233,34 @@ function playTopicVideo(topicName, videoId, board, subject) {
     document.getElementById('modalTitle').innerText = topicName;
     
     const player = document.getElementById('youtubePlayer');
-    player.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+    
+    // --- NEW: Safety Shield for Empty Video IDs ---
+    if (videoId && videoId.trim() !== '') {
+        // If we have an ID, display and play it normally
+        player.style.display = 'block';
+        player.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+    } else {
+        // If the ID is empty, clear the source and fully hide the player to prevent empty gaps/errors
+        player.src = "";
+        player.style.display = 'none'; 
+        // User now relies entirely on the "Search YouTube" fallback button below
+    }
     
     // --- Search Fallback Engine ---
     let teacher = "Class 12";
 
-    // Enforce Ashu Sir for Physics & Chemistry
     if (subject === 'physics' || subject === 'chemistry') {
         teacher = "Ashu Sir Science and Fun";
     } 
-    // Enforce Vipin Sir for Botany, Zoology, and generalized Biology
     else if (subject === 'botany' || subject === 'zoology' || subject === 'biology') {
         teacher = "Vipin Sir PW";
     } 
-    // Enforce specific Odia search
     else if (subject === 'mil-odia') {
         teacher = "CHSE Odisha Board";
     } 
-    // Handle the new English formats (inv1, inv2, etc.)
     else if (subject.includes('english')) {
         teacher = "CHSE Odisha English";
     } 
-    // Keep existing fallbacks
     else if (subject === 'mathematics') {
         teacher = "Ushank Sir Science and Fun";
     }
