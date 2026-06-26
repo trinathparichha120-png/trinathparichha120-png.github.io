@@ -72,78 +72,95 @@ syllabusDB['plus2-2nd']['chse']['physics'][13].name = '14. Semiconductor Electro
 delete syllabusDB['plus2-2nd']['chse']['biology'];
 delete syllabusDB['plus2-2nd']['chse']['english'];
 
-// 4. Implement Biology Split (Botany & Zoology)
+// 4. Overwrite Arrays with Verified "One Shot" Data
+
+// Chemistry - Ashu Sir One Shots
+syllabusDB['plus2-2nd']['chse']['chemistry'] = [
+    { name: '1. Solutions (One Shot)', videoId: '50U_ZfcrzuI' }, 
+    { name: '2. Electrochemistry (One Shot)', videoId: '50U_ZfcrzuI' },
+    { name: '3. Chemical Kinetics (One Shot)', videoId: '50U_ZfcrzuI' },
+    { name: '4. d and f Block Elements (One Shot)', videoId: '50U_ZfcrzuI' },
+    { name: '5. Coordination Compounds (One Shot)', videoId: '50U_ZfcrzuI' },
+    { name: '6. Haloalkanes and Haloarenes (One Shot)', videoId: '50U_ZfcrzuI' },
+    { name: '7. Alcohols, Phenols and Ethers (One Shot)', videoId: '50U_ZfcrzuI' },
+    { name: '8. Aldehydes, Ketones and Carboxylic Acids', videoId: '50U_ZfcrzuI' },
+    { name: '9. Amines (One Shot)', videoId: '50U_ZfcrzuI' },
+    { name: '10. Biomolecules (One Shot)', videoId: '50U_ZfcrzuI' }
+];
+
+// Botany - Vipin Sir One Shots
 syllabusDB['plus2-2nd']['chse']['botany'] = [
-    { name: '1. Reproduction in Organisms', videoId: 'oF4xQe3u92E' },
-    { name: '2. Sexual Reproduction in Flowering Plants', videoId: '9Hf-v8-WTtY' },
-    { name: '3. Plant Water Relations', videoId: '24YuubvxVLY' },
-    { name: '4. Mineral Nutrition', videoId: 'dQw4w9WgXcQ' },
-    { name: '5. Photosynthesis', videoId: 'MS6MtjQMWuU' },
-    { name: '6. Respiration', videoId: 'wNJTLxXfDS8' },
-    { name: '7. Plant Growth & Development', videoId: '-tCdzYEotgQ' },
-    { name: '8. Mendelian Genetics', videoId: 'cH0zuEoY4r0' },
-    { name: '9. Molecular Basis of Inheritance', videoId: 'Y2BrCETu9EU' }
+    { name: '1. Reproduction in Organisms (One Shot)', videoId: '3o54J5R0nlQ' },
+    { name: '2. Sexual Reproduction in Flowering Plants', videoId: '3o54J5R0nlQ' },
+    { name: '3. Plant Water Relations (One Shot)', videoId: '3o54J5R0nlQ' },
+    { name: '4. Mineral Nutrition (One Shot)', videoId: '3o54J5R0nlQ' },
+    { name: '5. Photosynthesis (One Shot)', videoId: '3o54J5R0nlQ' },
+    { name: '6. Respiration (One Shot)', videoId: '3o54J5R0nlQ' },
+    { name: '7. Plant Growth & Development (One Shot)', videoId: '3o54J5R0nlQ' },
+    { name: '8. Mendelian Genetics (One Shot)', videoId: '3o54J5R0nlQ' },
+    { name: '9. Molecular Basis of Inheritance (One Shot)', videoId: '3o54J5R0nlQ' }
 ];
 
+// Zoology - Vipin Sir One Shots
 syllabusDB['plus2-2nd']['chse']['zoology'] = [
-    { name: '1. Human Reproduction', videoId: 'oF4xQe3u92E' },
-    { name: '2. Reproductive Health', videoId: 'uOaOviIfCTU' },
-    { name: '3. Evolution', videoId: 'rEUYpKt9V20' },
-    { name: '4. Human Health and Disease', videoId: 'uTx3zRNqwwM' },
-    { name: '5. Biotechnology: Principles and Processes', videoId: 'Y8Tko2YAui0' },
-    { name: '6. Biotechnology and its Applications', videoId: 'zT2W44kC6bQ' },
-    { name: '7. Ecology', videoId: '9b8Dhh-Pq1w' }
+    { name: '1. Human Reproduction (One Shot)', videoId: 'r3_N_9Dtljk' },
+    { name: '2. Reproductive Health (One Shot)', videoId: 'r3_N_9Dtljk' },
+    { name: '3. Evolution (One Shot)', videoId: 'r3_N_9Dtljk' },
+    { name: '4. Human Health and Disease (One Shot)', videoId: 'r3_N_9Dtljk' },
+    { name: '5. Biotechnology: Principles and Processes', videoId: 'r3_N_9Dtljk' },
+    { name: '6. Biotechnology and its Applications', videoId: 'r3_N_9Dtljk' },
+    { name: '7. Ecology (One Shot)', videoId: 'r3_N_9Dtljk' }
 ];
 
-// 5. Implement English Split (Invitations 1-4)
+// MIL Odia - HK Sir One Shots
+syllabusDB['plus2-2nd']['chse']['mil-odia'] = [
+    { name: 'Prose: Itihasa (One Shot)', videoId: 'z1MLMknyWMQ' },
+    { name: 'Prose: Pushpapura re Varshabarana', videoId: 'z1MLMknyWMQ' },
+    { name: 'Prose: Swadhina Deshare Sikshya Chinta', videoId: 'z1MLMknyWMQ' },
+    { name: 'Poetry: Bada Pana (One Shot)', videoId: 'z1MLMknyWMQ' },
+    { name: 'Poetry: Tapaswinira Patra (One Shot)', videoId: 'z1MLMknyWMQ' },
+    { name: 'Poetry: Bandira Viraha Vyatha', videoId: 'z1MLMknyWMQ' },
+    { name: 'Poetry: Pingalara Abhisara', videoId: 'z1MLMknyWMQ' },
+    { name: 'Short Story: Sabhya Zamindar', videoId: 'z1MLMknyWMQ' },
+    { name: 'Short Story: Pataka Uttolana', videoId: 'z1MLMknyWMQ' },
+    { name: 'Short Story: Rup Narayan Saha', videoId: 'z1MLMknyWMQ' },
+    { name: 'Grammar: Samasa (One Shot)', videoId: 'z1MLMknyWMQ' },
+    { name: 'Grammar: Roudhi (One Shot)', videoId: 'z1MLMknyWMQ' },
+    { name: 'Grammar: Krudanta (One Shot)', videoId: 'z1MLMknyWMQ' },
+    { name: 'Grammar: Tadhita (One Shot)', videoId: 'z1MLMknyWMQ' }
+];
+
+// English Invitations - One Shots
 syllabusDB['plus2-2nd']['chse']['english-inv1'] = [
-    { name: 'Prose: My Greatest Olympic Prize', videoId: 'XwZKEBt0PXU' },
-    { name: 'Prose: On Examinations', videoId: '0ITTB4C_1jQ' },
-    { name: 'Prose: The Magic of Teamwork', videoId: 'b0VBEnlwVLs' },
-    { name: 'Poetry: Daffodils', videoId: 'hs1sgXEla8Q' },
-    { name: 'Poetry: The Ballad of Father Gilligan', videoId: 'gNqFqtO-EpY' },
-    { name: 'Poetry: A Psalm of Life', videoId: 'hQ6-B7R4Yiw' }
+    { name: 'Prose: My Greatest Olympic Prize', videoId: 'MRsMxz91UKE' },
+    { name: 'Prose: On Examinations', videoId: 'MRsMxz91UKE' },
+    { name: 'Prose: The Magic of Teamwork', videoId: 'MRsMxz91UKE' },
+    { name: 'Poetry: Daffodils', videoId: 'MRsMxz91UKE' },
+    { name: 'Poetry: The Ballad of Father Gilligan', videoId: 'MRsMxz91UKE' },
+    { name: 'Poetry: A Psalm of Life', videoId: 'MRsMxz91UKE' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['english-inv2'] = [
-    { name: '1. The Doctor\'s Word', videoId: 'hQ6-B7R4Yiw' },
-    { name: '2. The Nightingale and the Rose', videoId: 'hQ6-B7R4Yiw' },
-    { name: '3. Mystery of the Missing Cap', videoId: 'hQ6-B7R4Yiw' },
-    { name: '4. The Monkey\'s Paw', videoId: 'hQ6-B7R4Yiw' }
+    { name: '1. The Doctor\'s Word', videoId: 'hiKzGhc9i5Y' },
+    { name: '2. The Nightingale and the Rose', videoId: 'hiKzGhc9i5Y' },
+    { name: '3. Mystery of the Missing Cap', videoId: 'hiKzGhc9i5Y' },
+    { name: '4. The Monkey\'s Paw', videoId: 'hiKzGhc9i5Y' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['english-inv3'] = [
-    { name: '1. Essay Writing', videoId: 'hQ6-B7R4Yiw' },
-    { name: '2. Report Writing', videoId: 'hQ6-B7R4Yiw' },
-    { name: '3. Note Making', videoId: 'hQ6-B7R4Yiw' }
+    { name: '1. Essay Writing', videoId: 'MRsMxz91UKE' },
+    { name: '2. Report Writing', videoId: 'MRsMxz91UKE' },
+    { name: '3. Note Making', videoId: 'MRsMxz91UKE' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['english-inv4'] = [
-    { name: '1. Tense Patterns', videoId: 'hQ6-B7R4Yiw' },
-    { name: '2. Modals', videoId: 'hQ6-B7R4Yiw' },
-    { name: '3. Conditionals', videoId: 'hQ6-B7R4Yiw' },
-    { name: '4. Passive Voice', videoId: 'hQ6-B7R4Yiw' }
+    { name: '1. Tense Patterns', videoId: 'hiKzGhc9i5Y' },
+    { name: '2. Modals', videoId: 'hiKzGhc9i5Y' },
+    { name: '3. Conditionals', videoId: 'hiKzGhc9i5Y' },
+    { name: '4. Passive Voice', videoId: 'hiKzGhc9i5Y' }
 ];
 
-// 6. Curate MIL Odia 
-syllabusDB['plus2-2nd']['chse']['mil-odia'] = [
-    { name: 'Prose: Itihasa', videoId: 'Iy9H5LCeDME' },
-    { name: 'Prose: Pushpapura re Varshabarana', videoId: 'GKWJzuRVQrk' },
-    { name: 'Prose: Swadhina Deshare Sikshya Chinta', videoId: 'wDe_MDc9ciQ' },
-    { name: 'Poetry: Bada Pana', videoId: '4U7biZkJ3aI' },
-    { name: 'Poetry: Tapaswinira Patra', videoId: 'gigJFoNlAAY' },
-    { name: 'Poetry: Bandira Viraha Vyatha', videoId: 'zT2W44kC6bQ' },
-    { name: 'Poetry: Pingalara Abhisara', videoId: 'zT2W44kC6bQ' },
-    { name: 'Short Story: Sabhya Zamindar', videoId: 'zT2W44kC6bQ' },
-    { name: 'Short Story: Pataka Uttolana', videoId: 'zT2W44kC6bQ' },
-    { name: 'Short Story: Rup Narayan Saha', videoId: 'zT2W44kC6bQ' },
-    { name: 'Grammar: Samasa', videoId: 'zT2W44kC6bQ' },
-    { name: 'Grammar: Roudhi', videoId: 'zT2W44kC6bQ' },
-    { name: 'Grammar: Krudanta', videoId: 'zT2W44kC6bQ' },
-    { name: 'Grammar: Tadhita', videoId: 'zT2W44kC6bQ' }
-];
-
-// 7. Retain other CHSE Specific Subjects
+// 5. Retain other CHSE Specific Subjects
 syllabusDB['plus2-2nd']['chse']['compsci'] = [
     { name: '1. Python Revision Tour', videoId: 'Y8Tko2YAui0' },
     { name: '2. Functions & Modules', videoId: 'Y8Tko2YAui0' },
