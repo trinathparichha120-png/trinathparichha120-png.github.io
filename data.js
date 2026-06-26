@@ -160,7 +160,16 @@ syllabusDB['plus2-2nd']['chse']['english-inv4'] = [
     { name: '4. Passive Voice', videoId: 'hiKzGhc9i5Y' }
 ];
 
-// 5. Retain other CHSE Specific Subjects
+// 5. Appending IT Module
+syllabusDB['plus2-2nd']['chse']['it'] = [
+    { name: '1. Networking & Internet', videoId: '' },
+    { name: '2. HTML & Web Development', videoId: '' },
+    { name: '3. Database Management System', videoId: '' },
+    { name: '4. IT Applications & E-Commerce', videoId: '' },
+    { name: '5. Cyber Security & Ethics', videoId: '' }
+];
+
+// 6. Retain other CHSE Specific Subjects
 syllabusDB['plus2-2nd']['chse']['compsci'] = [
     { name: '1. Python Revision Tour', videoId: 'Y8Tko2YAui0' },
     { name: '2. Functions & Modules', videoId: 'Y8Tko2YAui0' },
