@@ -234,7 +234,7 @@ function playTopicVideo(topicName, videoId, board, subject) {
     
     const player = document.getElementById('youtubePlayer');
     
-    // --- NEW: Safety Shield for Empty Video IDs ---
+    // --- Safety Shield for Empty Video IDs ---
     if (videoId && videoId.trim() !== '') {
         // If we have an ID, display and play it normally
         player.style.display = 'block';
@@ -243,26 +243,30 @@ function playTopicVideo(topicName, videoId, board, subject) {
         // If the ID is empty, clear the source and fully hide the player to prevent empty gaps/errors
         player.src = "";
         player.style.display = 'none'; 
-        // User now relies entirely on the "Search YouTube" fallback button below
     }
     
-    // --- Search Fallback Engine ---
-    let teacher = "Class 12";
+    // --- Search Fallback Engine (Strict One Shot Version) ---
+    let teacher = "Class 12 One Shot";
 
+    // Enforce Ashu Sir for Physics & Chemistry
     if (subject === 'physics' || subject === 'chemistry') {
-        teacher = "Ashu Sir Science and Fun";
+        teacher = "Ashu Sir Science and Fun One Shot";
     } 
+    // Enforce Vipin Sir for Botany, Zoology, and generalized Biology
     else if (subject === 'botany' || subject === 'zoology' || subject === 'biology') {
-        teacher = "Vipin Sir PW";
+        teacher = "Vipin Sir PW One Shot";
     } 
+    // Enforce specific Odia search
     else if (subject === 'mil-odia') {
-        teacher = "CHSE Odisha Board";
+        teacher = "CHSE Odisha Board HK Sir One Shot";
     } 
+    // Handle the new English formats (inv1, inv2, etc.)
     else if (subject.includes('english')) {
-        teacher = "CHSE Odisha English";
+        teacher = "CHSE Odisha English One Shot";
     } 
+    // Keep existing fallbacks
     else if (subject === 'mathematics') {
-        teacher = "Ushank Sir Science and Fun";
+        teacher = "Ushank Sir Science and Fun One Shot";
     }
     else if (subject === 'compsci') {
         teacher = "Class 12 Computer Science Python One Shot";
