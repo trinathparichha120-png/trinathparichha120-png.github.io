@@ -245,34 +245,29 @@ function playTopicVideo(topicName, videoId, board, subject) {
         player.style.display = 'none'; 
     }
     
-    // --- Search Fallback Engine (Strict One Shot Version) ---
+    // --- Search Fallback Engine (Strict Educator Routing) ---
     let teacher = "Class 12 One Shot";
 
-    // Enforce Ashu Sir for Physics & Chemistry
     if (subject === 'physics' || subject === 'chemistry') {
         teacher = "Ashu Sir Science and Fun One Shot";
     } 
-    // Enforce Vipin Sir for Botany, Zoology, and generalized Biology
     else if (subject === 'botany' || subject === 'zoology' || subject === 'biology') {
         teacher = "Vipin Sir PW One Shot";
     } 
-    // Enforce specific Odia search
     else if (subject === 'mil-odia') {
-        teacher = "CHSE Odisha Board HK Sir One Shot";
+        teacher = "HK Sir CHSE Odisha One Shot"; // Assigned to HK Sir
     } 
-    // Handle the new English formats (inv1, inv2, etc.)
     else if (subject.includes('english')) {
-        teacher = "CHSE Odisha English One Shot";
+        teacher = "Nihar Ranjan Nanda CHSE One Shot"; // Assigned to Nihar Ranjan Nanda
     } 
-    // Keep existing fallbacks
+    else if (subject === 'compsci') {
+        teacher = "MatSci Odia CHSE Hub One Shot"; // Assigned to MatSci Odia
+    }
+    else if (subject === 'it') {
+        teacher = "MatSci Science IT One Shot"; // Assigned to MatSci Science
+    }
     else if (subject === 'mathematics') {
         teacher = "Ushank Sir Science and Fun One Shot";
-    }
-    else if (subject === 'compsci') {
-        teacher = "Class 12 Computer Science Python One Shot";
-    }
-    else if (subject === 'statistics') {
-        teacher = "Class 12 Statistics One Shot";
     }
     else if (subject === 'electronics') {
         teacher = "Class 12 Electronics One Shot";
