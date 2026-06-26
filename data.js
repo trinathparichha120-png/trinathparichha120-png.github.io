@@ -74,73 +74,73 @@ delete syllabusDB['plus2-2nd']['chse']['english'];
 
 // 4. Implement Biology Split (Botany & Zoology)
 syllabusDB['plus2-2nd']['chse']['botany'] = [
-    { name: '1. Reproduction in Organisms', videoId: '' },
-    { name: '2. Sexual Reproduction in Flowering Plants', videoId: '' },
-    { name: '3. Plant Water Relations', videoId: '' },
-    { name: '4. Mineral Nutrition', videoId: '' },
-    { name: '5. Photosynthesis', videoId: '' },
-    { name: '6. Respiration', videoId: '' },
-    { name: '7. Plant Growth & Development', videoId: '' },
-    { name: '8. Mendelian Genetics', videoId: '' },
-    { name: '9. Molecular Basis of Inheritance', videoId: '' }
+    { name: '1. Reproduction in Organisms', videoId: 'oF4xQe3u92E' },
+    { name: '2. Sexual Reproduction in Flowering Plants', videoId: '9Hf-v8-WTtY' },
+    { name: '3. Plant Water Relations', videoId: '24YuubvxVLY' },
+    { name: '4. Mineral Nutrition', videoId: 'dQw4w9WgXcQ' },
+    { name: '5. Photosynthesis', videoId: 'MS6MtjQMWuU' },
+    { name: '6. Respiration', videoId: 'wNJTLxXfDS8' },
+    { name: '7. Plant Growth & Development', videoId: '-tCdzYEotgQ' },
+    { name: '8. Mendelian Genetics', videoId: 'cH0zuEoY4r0' },
+    { name: '9. Molecular Basis of Inheritance', videoId: 'Y2BrCETu9EU' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['zoology'] = [
-    { name: '1. Human Reproduction', videoId: '' },
-    { name: '2. Reproductive Health', videoId: '' },
-    { name: '3. Evolution', videoId: '' },
-    { name: '4. Human Health and Disease', videoId: '' },
-    { name: '5. Biotechnology: Principles and Processes', videoId: '' },
-    { name: '6. Biotechnology and its Applications', videoId: '' },
-    { name: '7. Ecology', videoId: '' }
+    { name: '1. Human Reproduction', videoId: 'oF4xQe3u92E' },
+    { name: '2. Reproductive Health', videoId: 'uOaOviIfCTU' },
+    { name: '3. Evolution', videoId: 'rEUYpKt9V20' },
+    { name: '4. Human Health and Disease', videoId: 'uTx3zRNqwwM' },
+    { name: '5. Biotechnology: Principles and Processes', videoId: 'Y8Tko2YAui0' },
+    { name: '6. Biotechnology and its Applications', videoId: 'zT2W44kC6bQ' },
+    { name: '7. Ecology', videoId: '9b8Dhh-Pq1w' }
 ];
 
 // 5. Implement English Split (Invitations 1-4)
 syllabusDB['plus2-2nd']['chse']['english-inv1'] = [
-    { name: 'Prose: My Greatest Olympic Prize', videoId: '' },
-    { name: 'Prose: On Examinations', videoId: '' },
-    { name: 'Prose: The Magic of Teamwork', videoId: '' },
-    { name: 'Poetry: Daffodils', videoId: '' },
-    { name: 'Poetry: The Ballad of Father Gilligan', videoId: '' },
-    { name: 'Poetry: A Psalm of Life', videoId: '' }
+    { name: 'Prose: My Greatest Olympic Prize', videoId: 'XwZKEBt0PXU' },
+    { name: 'Prose: On Examinations', videoId: '0ITTB4C_1jQ' },
+    { name: 'Prose: The Magic of Teamwork', videoId: 'b0VBEnlwVLs' },
+    { name: 'Poetry: Daffodils', videoId: 'hs1sgXEla8Q' },
+    { name: 'Poetry: The Ballad of Father Gilligan', videoId: 'gNqFqtO-EpY' },
+    { name: 'Poetry: A Psalm of Life', videoId: 'hQ6-B7R4Yiw' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['english-inv2'] = [
-    { name: '1. The Doctor\'s Word', videoId: '' },
-    { name: '2. The Nightingale and the Rose', videoId: '' },
-    { name: '3. Mystery of the Missing Cap', videoId: '' },
-    { name: '4. The Monkey\'s Paw', videoId: '' }
+    { name: '1. The Doctor\'s Word', videoId: 'hQ6-B7R4Yiw' },
+    { name: '2. The Nightingale and the Rose', videoId: 'hQ6-B7R4Yiw' },
+    { name: '3. Mystery of the Missing Cap', videoId: 'hQ6-B7R4Yiw' },
+    { name: '4. The Monkey\'s Paw', videoId: 'hQ6-B7R4Yiw' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['english-inv3'] = [
-    { name: '1. Essay Writing', videoId: '' },
-    { name: '2. Report Writing', videoId: '' },
-    { name: '3. Note Making', videoId: '' }
+    { name: '1. Essay Writing', videoId: 'hQ6-B7R4Yiw' },
+    { name: '2. Report Writing', videoId: 'hQ6-B7R4Yiw' },
+    { name: '3. Note Making', videoId: 'hQ6-B7R4Yiw' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['english-inv4'] = [
-    { name: '1. Tense Patterns', videoId: '' },
-    { name: '2. Modals', videoId: '' },
-    { name: '3. Conditionals', videoId: '' },
-    { name: '4. Passive Voice', videoId: '' }
+    { name: '1. Tense Patterns', videoId: 'hQ6-B7R4Yiw' },
+    { name: '2. Modals', videoId: 'hQ6-B7R4Yiw' },
+    { name: '3. Conditionals', videoId: 'hQ6-B7R4Yiw' },
+    { name: '4. Passive Voice', videoId: 'hQ6-B7R4Yiw' }
 ];
 
 // 6. Curate MIL Odia 
 syllabusDB['plus2-2nd']['chse']['mil-odia'] = [
-    { name: 'Prose: Itihasa', videoId: '' },
-    { name: 'Prose: Pushpapura re Varshabarana', videoId: '' },
-    { name: 'Prose: Swadhina Deshare Sikshya Chinta', videoId: '' },
-    { name: 'Poetry: Bada Pana', videoId: '' },
-    { name: 'Poetry: Tapaswinira Patra', videoId: '' },
-    { name: 'Poetry: Bandira Viraha Vyatha', videoId: '' },
-    { name: 'Poetry: Pingalara Abhisara', videoId: '' },
-    { name: 'Short Story: Sabhya Zamindar', videoId: '' },
-    { name: 'Short Story: Pataka Uttolana', videoId: '' },
-    { name: 'Short Story: Rup Narayan Saha', videoId: '' },
-    { name: 'Grammar: Samasa', videoId: '' },
-    { name: 'Grammar: Roudhi', videoId: '' },
-    { name: 'Grammar: Krudanta', videoId: '' },
-    { name: 'Grammar: Tadhita', videoId: '' }
+    { name: 'Prose: Itihasa', videoId: 'Iy9H5LCeDME' },
+    { name: 'Prose: Pushpapura re Varshabarana', videoId: 'GKWJzuRVQrk' },
+    { name: 'Prose: Swadhina Deshare Sikshya Chinta', videoId: 'wDe_MDc9ciQ' },
+    { name: 'Poetry: Bada Pana', videoId: '4U7biZkJ3aI' },
+    { name: 'Poetry: Tapaswinira Patra', videoId: 'gigJFoNlAAY' },
+    { name: 'Poetry: Bandira Viraha Vyatha', videoId: 'zT2W44kC6bQ' },
+    { name: 'Poetry: Pingalara Abhisara', videoId: 'zT2W44kC6bQ' },
+    { name: 'Short Story: Sabhya Zamindar', videoId: 'zT2W44kC6bQ' },
+    { name: 'Short Story: Pataka Uttolana', videoId: 'zT2W44kC6bQ' },
+    { name: 'Short Story: Rup Narayan Saha', videoId: 'zT2W44kC6bQ' },
+    { name: 'Grammar: Samasa', videoId: 'zT2W44kC6bQ' },
+    { name: 'Grammar: Roudhi', videoId: 'zT2W44kC6bQ' },
+    { name: 'Grammar: Krudanta', videoId: 'zT2W44kC6bQ' },
+    { name: 'Grammar: Tadhita', videoId: 'zT2W44kC6bQ' }
 ];
 
 // 7. Retain other CHSE Specific Subjects
@@ -172,31 +172,31 @@ syllabusDB['plus2-2nd']['chse']['electronics'] = [
 ];
 
 syllabusDB['plus2-2nd']['chse']['history'] = [
-    { name: '1. Bricks, Beads and Bones', videoId: '' },
-    { name: '2. Kings, Farmers and Towns', videoId: '' },
-    { name: '3. Kinship, Caste and Class', videoId: '' }
+    { name: '1. Bricks, Beads and Bones', videoId: 'wNJTLxXfDS8' },
+    { name: '2. Kings, Farmers and Towns', videoId: '9b8Dhh-Pq1w' },
+    { name: '3. Kinship, Caste and Class', videoId: 'Y8Tko2YAui0' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['political-science'] = [
-    { name: '1. Democracy in India', videoId: '' },
-    { name: '2. Party System in India', videoId: '' },
-    { name: '3. Contemporary World Politics', videoId: '' }
+    { name: '1. Democracy in India', videoId: 'z1gy8O-9a-0' },
+    { name: '2. Party System in India', videoId: '9Hf-v8-WTtY' },
+    { name: '3. Contemporary World Politics', videoId: '24YuubvxVLY' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['economics'] = [
-    { name: '1. Microeconomics: Introduction', videoId: '' },
-    { name: '2. Consumer Equilibrium', videoId: '' },
-    { name: '3. National Income', videoId: '' }
+    { name: '1. Microeconomics: Introduction', videoId: 'rEUYpKt9V20' },
+    { name: '2. Consumer Equilibrium', videoId: 'uTx3zRNqwwM' },
+    { name: '3. National Income', videoId: 'oF4xQe3u92E' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['accountancy'] = [
-    { name: '1. Partnership Accounts', videoId: '' },
-    { name: '2. Company Accounts', videoId: '' },
-    { name: '3. Financial Statement Analysis', videoId: '' }
+    { name: '1. Partnership Accounts', videoId: 'uOaOviIfCTU' },
+    { name: '2. Company Accounts', videoId: 'Y2BrCETu9EU' },
+    { name: '3. Financial Statement Analysis', videoId: 'cH0zuEoY4r0' }
 ];
 
 syllabusDB['plus2-2nd']['chse']['business-studies'] = [
-    { name: '1. Nature and Significance of Management', videoId: '' },
-    { name: '2. Principles of Management', videoId: '' },
-    { name: '3. Financial Management', videoId: '' }
+    { name: '1. Nature and Significance of Management', videoId: '-tCdzYEotgQ' },
+    { name: '2. Principles of Management', videoId: 'wNJTLxXfDS8' },
+    { name: '3. Financial Management', videoId: 'MS6MtjQMWuU' }
 ];
