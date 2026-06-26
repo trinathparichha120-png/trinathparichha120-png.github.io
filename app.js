@@ -2,6 +2,8 @@
 let currentBoard = 'chse';
 let currentMaterial = 'papers';
 let currentStream = 'science';
+let currentLevel = '12th';
+let currentSubLevel = '2nd-year';
 
 // --- Routing Functions ---
 function toggleBoard(board) {
@@ -16,6 +18,16 @@ function toggleStream(stream) {
 
 function toggleMaterial(material) {
     currentMaterial = material;
+    updateDisplay();
+}
+
+function toggleLevel(level) {
+    currentLevel = level;
+    updateDisplay();
+}
+
+function toggleSubLevel(subLevel) {
+    currentSubLevel = subLevel;
     updateDisplay();
 }
 
@@ -41,11 +53,9 @@ function updateDisplay() {
     ['science', 'arts', 'commerce'].forEach(s => {
         const btn = document.getElementById(`btn-stream-${s}`);
         if (btn) {
-            if (s === currentStream) {
-                btn.className = "bg-gray-800 text-white px-6 py-2 rounded-full font-bold border border-gray-600 shadow-lg";
-            } else {
-                btn.className = "bg-darkBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-full font-semibold transition-all";
-            }
+            btn.className = s === currentStream 
+                ? "bg-gray-800 text-white px-6 py-2 rounded-full font-bold border border-gray-600 shadow-lg"
+                : "bg-darkBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-full font-semibold transition-all";
         }
     });
 
@@ -72,7 +82,37 @@ function updateDisplay() {
             : "bg-transparent border border-gray-700 text-gray-400 hover:text-white px-6 py-2 rounded-lg font-semibold transition-all";
     }
 
-    // 4. Hide all major sections safely
+    // 4. Update Level Button Styling
+    ['10th', '12th', 'plus3'].forEach(l => {
+        const btn = document.getElementById(`btn-level-${l}`);
+        if (btn) {
+            btn.className = l === currentLevel 
+                ? "px-5 py-2.5 rounded-xl font-bold transition-all duration-300 bg-accentBlue text-darkBg shadow-[0_0_15px_rgba(56,189,248,0.4)]"
+                : "px-5 py-2.5 rounded-xl font-bold transition-all duration-300 bg-transparent text-gray-400 hover:text-white flex items-center border border-transparent hover:border-gray-700";
+        }
+    });
+
+    // 5. Update Sub-Level Button Styling
+    ['1st-year', '2nd-year'].forEach(sl => {
+        const btn = document.getElementById(`btn-sub-${sl}`);
+        if (btn) {
+            btn.className = sl === currentSubLevel 
+                ? "bg-gray-800 text-white px-6 py-2 rounded-full font-bold border border-gray-500 shadow-lg"
+                : "bg-darkBg border border-gray-700 text-gray-400 hover:text-white hover:border-gray-500 px-6 py-2 rounded-full font-semibold transition-all flex items-center shadow-md";
+        }
+    });
+
+    // 6. Sub-Level Visibility (Wrapper for 1st/2nd year buttons)
+    const wrapper12th = document.getElementById('wrapper-12th-years');
+    if (wrapper12th) {
+        wrapper12th.style.display = currentLevel === '12th' ? 'flex' : 'none';
+    }
+
+    // 7. The "Coming Soon" Firewall
+    const comingSoonMsg = document.getElementById('coming-soon-message');
+    const isActiveState = (currentLevel === '12th' && currentSubLevel === '2nd-year');
+
+    // Hide all major sections safely first to clear the board
     ['chse', 'cbse'].forEach(b => {
         ['papers', 'books', 'lectures'].forEach(m => {
             const el = document.getElementById(`content-${b}-${m}`);
@@ -80,16 +120,22 @@ function updateDisplay() {
         });
     });
 
-    // 5. Show active major section
-    const activeContainerId = `content-${currentBoard}-${currentMaterial}`;
-    const activeContainer = document.getElementById(activeContainerId);
-    if (activeContainer) {
-        activeContainer.style.display = 'block';
-    }
+    if (isActiveState) {
+        // Firewall OPEN: Hide 'coming soon', show active materials
+        if (comingSoonMsg) comingSoonMsg.style.display = 'none';
 
-    // 6. Hide/Show Stream Sub-sections
-    document.querySelectorAll('.stream-section').forEach(el => el.style.display = 'none');
-    document.querySelectorAll(`.stream-${currentStream}`).forEach(el => el.style.display = 'block');
+        const activeContainer = document.getElementById(`content-${currentBoard}-${currentMaterial}`);
+        if (activeContainer) {
+            activeContainer.style.display = 'block';
+        }
+
+        // Hide/Show Stream Sub-sections
+        document.querySelectorAll('.stream-section').forEach(el => el.style.display = 'none');
+        document.querySelectorAll(`.stream-${currentStream}`).forEach(el => el.style.display = 'block');
+    } else {
+        // Firewall CLOSED: Only show the 'coming soon' message
+        if (comingSoonMsg) comingSoonMsg.style.display = 'block';
+    }
 }
 
 function changeYear(selectedYear) {
