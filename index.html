@@ -24,44 +24,154 @@
         }
     </script>
     <style>
-        .subject-card { transition: all 0.3s ease; }
-        .subject-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
+        /* Part 3: 3D Hover & Glowing Borders */
+        .subject-card { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .subject-card:hover { 
+            /* The 3D lift and tilt */
+            transform: translateY(-8px) scale(1.02) rotateX(2deg) rotateY(-2deg); 
+            /* The subtle multi-layered glow */
+            box-shadow: 
+                -10px 15px 25px -5px rgba(0, 0, 0, 0.6),
+                0 0 15px rgba(255, 255, 255, 0.05) inset;
+            border-color: rgba(255, 255, 255, 0.2);
+            z-index: 10;
+        }
+
+        /* Adds a subtle sweeping light reflection across the card on hover */
+        .subject-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            transition: all 0.75s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .subject-card:hover::after {
+            left: 200%;
+            transition: all 0.75s ease-in-out;
+        }
+        /* Skeleton Shimmer Loading Effect */
+        .skeleton-shimmer {
+            background: rgba(30, 41, 59, 0.8); /* Dark card background */
+            background-image: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
+            border-radius: 4px;
+            color: transparent !important;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #475569; }
         
-        /* Modal Animation */
+        /* Refined Modal Animation */
         .modal-overlay {
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: opacity 0.4s ease, visibility 0.4s;
         }
         .modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
         .modal-content {
-            transform: scale(0.95);
-            transition: all 0.3s ease;
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
         }
         .modal-overlay.active .modal-content {
-            transform: scale(1);
+            transform: scale(1) translateY(0);
+            opacity: 1;
         }
         
         /* Custom Scrollbar for Topic List inside Modal */
         .topic-scroll::-webkit-scrollbar { width: 6px; }
         .topic-scroll::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+
+        /* Toast Notification Animations */
+.toast {
+    transform: translateX(120%);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+    opacity: 0;
+}
+.toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+.toast-progress {
+    animation: shrink 3s linear forwards;
+}
+@keyframes shrink {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+/* Part 2: Smart Header Scroll Effects */
+        .nav-scrolled {
+            background-color: rgba(15, 23, 42, 0.85); /* Darkens slightly */
+            border-bottom-color: rgba(51, 65, 85, 0.5); /* Reveals border */
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8); /* Deep shadow */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .nav-scrolled #nav-inner {
+            height: 3.5rem !important; /* Shrinks from h-20 to h-14 */
+        }
+        .nav-scrolled .logo-img {
+            width: 2.25rem; /* Shrinks the logo smoothly */
+            height: 2.25rem;
+            border-width: 1px;
+        }
+
+        /* Part 4: Cinematic Entrance Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Delay classes for staggered effect */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+
     </style>
 </head>
 <body class="bg-darkBg text-gray-200 font-sans min-h-screen flex flex-col relative">
 
-    <nav class="border-b border-gray-800 bg-darkBg/90 backdrop-blur-md sticky top-0 z-40">
+    <nav id="main-nav" class="border-b border-transparent bg-darkBg/40 backdrop-blur-xl sticky top-0 z-50 transition-all duration-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
+            <div id="nav-inner" class="flex items-center justify-between h-20 transition-all duration-500">
                 <div class="flex items-center gap-3">
-                    <img src="logo.png" onerror="this.src='https://placehold.co/100x100/1e293b/38bdf8?text=TP'" alt="TP Technology" class="w-10 h-10 rounded-full border-2 border-accentBlue shadow-[0_0_10px_rgba(56,189,248,0.5)] object-cover">
+                    <img src="logo.png" onerror="this.src='https://placehold.co/100x100/1e293b/38bdf8?text=TP'" alt="TP Technology" class="logo-img w-12 h-12 rounded-full border-2 border-accentBlue shadow-[0_0_15px_rgba(56,189,248,0.6)] object-cover transition-all duration-500">
                     <span class="font-bold text-xl tracking-wide text-white">TP <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentBlue to-accentPurple">Technology</span></span>
                 </div>
                 <div>
@@ -74,16 +184,16 @@
     </nav>
 
     <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-    <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight relative inline-block">
+    <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight relative inline-block fade-in-up">
         The Ultimate Study Material by <br class="hidden md:block" />
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentBlue to-accentPurple">TP Technology</span>
         <span class="absolute -top-4 -right-10 md:-top-2 md:-right-24 bg-accentBlue text-darkBg px-3 py-1 rounded-lg text-sm font-bold shadow-[0_0_15px_rgba(56,189,248,0.5)] rotate-12">+2 2nd Year</span>
     </h1>
-    <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-400 mx-auto">
+    <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-400 mx-auto fade-in-up delay-100">
         Select your Level, Board, Year, and choose between Question Papers, Books, or Video Lectures below. Currently featuring +2 2nd Year Science.
     </p>
 
-    <div class="mt-8 flex justify-center">
+    <div class="mt-8 flex justify-center fade-in-up delay-200">
         <div class="bg-gray-900 border border-gray-700 rounded-full px-6 py-2 flex items-center gap-3 shadow-lg shadow-green-500/10">
             <span class="relative flex h-3 w-3">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -181,9 +291,9 @@
         <div id="content-chse-papers" class="block">
             <div class="stream-section stream-science block">
                 <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Papers & Answers</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 auto-rows-fr items-stretch">
                     
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentBlue"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Physics</h2>
@@ -191,7 +301,7 @@
                                 <svg class="w-6 h-6 text-accentBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -204,7 +314,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Chemistry</h2>
@@ -212,7 +322,7 @@
                                 <svg class="w-6 h-6 text-accentGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -225,7 +335,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Mathematics</h2>
@@ -233,7 +343,7 @@
                                 <svg class="w-6 h-6 text-accentOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -246,7 +356,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Biology</h2>
@@ -254,7 +364,7 @@
                                 <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -267,7 +377,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Comp. Sci</h2>
@@ -275,7 +385,7 @@
                                 <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -288,7 +398,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">English</h2>
@@ -296,7 +406,7 @@
                                 <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -309,7 +419,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-yellow-400"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">M.I.L (Odia)</h2>
@@ -317,7 +427,7 @@
                                 <span class="text-yellow-400 font-bold text-xl">ଅ</span>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -330,7 +440,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-emerald-400"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Statistics</h2>
@@ -338,7 +448,7 @@
                                 <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -351,7 +461,7 @@
                         </div>
                     </div> 
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-indigo-400"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Electronics</h2>
@@ -359,7 +469,7 @@
                                 <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -376,15 +486,15 @@
 
             <div class="stream-section stream-arts hidden">
                 <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-yellow-400 pl-3">CHSE Arts Papers & Answers</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 auto-rows-fr items-stretch">
             
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-yellow-500"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">History</h2>
                             <div class="p-2 bg-yellow-500/10 rounded-lg text-yellow-500 font-bold">🏛️</div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -395,13 +505,13 @@
                         </div>
                     </div> 
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-rose-500"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Pol. Science</h2>
                             <div class="p-2 bg-rose-500/10 rounded-lg text-rose-500 font-bold">⚖️</div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -412,13 +522,13 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Economics</h2>
                             <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-500 font-bold">📈</div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -434,15 +544,15 @@
 
             <div class="stream-section stream-commerce hidden">
                 <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-blue-400 pl-3">CHSE Commerce Papers & Answers</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 auto-rows-fr items-stretch">
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Accountancy</h2>
                             <div class="p-2 bg-blue-500/10 rounded-lg text-blue-500 font-bold">📊</div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -453,13 +563,13 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Business St.</h2>
                             <div class="p-2 bg-purple-500/10 rounded-lg text-purple-500 font-bold">💼</div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Final</h4>
                                 <div class="space-y-2">
@@ -478,7 +588,7 @@
     <!-- SCIENCE STREAM -->
     <div class="stream-section stream-science block">
         <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Books & Textbooks</h2>
-        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             
             <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                 <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
@@ -713,7 +823,7 @@
         <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Video Lectures</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-accentBlue"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Physics</h3>
@@ -729,7 +839,7 @@
                 </div>
             </article>
 
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Chemistry</h3>
@@ -745,7 +855,7 @@
                 </div>
             </article>
 
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Mathematics</h3>
@@ -761,7 +871,7 @@
                 </div>
             </article>
 
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Biology</h3>
@@ -783,7 +893,7 @@
             </article>
 
             <!-- Information Technology -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-cyan-500"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Information Tech</h3>
@@ -800,7 +910,7 @@
             </article>
 
             <!-- English (Upgraded) -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">English</h3>
@@ -828,7 +938,7 @@
             </article>
 
             <!-- M.I.L (Odia) -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-yellow-400"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">M.I.L (Odia)</h3>
@@ -853,10 +963,10 @@
     <!-- SCIENCE STREAM -->
     <div class="stream-section stream-science block">
         <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentBlue pl-3">CHSE Science Video Lectures</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             
             <!-- Physics -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-accentBlue"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Physics</h3>
@@ -873,7 +983,7 @@
             </article>
 
             <!-- Chemistry -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Chemistry</h3>
@@ -890,7 +1000,7 @@
             </article>
 
             <!-- Mathematics -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Mathematics</h3>
@@ -907,7 +1017,7 @@
             </article>
 
             <!-- Biology (Upgraded to Multi-Button Grid) -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Biology</h3>
@@ -929,7 +1039,7 @@
             </article>
 
             <!-- Comp. Sci -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Comp. Sci</h3>
@@ -946,7 +1056,7 @@
             </article>
 
             <!-- English (Upgraded to Multi-Button Grid) -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">English</h3>
@@ -974,7 +1084,7 @@
             </article>
 
             <!-- M.I.L (Odia) -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-yellow-400"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">M.I.L (Odia)</h3>
@@ -991,7 +1101,7 @@
             </article>
 
             <!-- Statistics -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-emerald-400"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Statistics</h3>
@@ -1008,7 +1118,7 @@
             </article>
 
             <!-- Electronics -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-indigo-400"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Electronics</h3>
@@ -1033,7 +1143,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             
             <!-- History -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-yellow-500"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">History</h3>
@@ -1048,7 +1158,7 @@
             </article>
 
             <!-- Political Science -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-rose-500"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Pol. Science</h3>
@@ -1063,7 +1173,7 @@
             </article>
 
             <!-- Economics -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Economics</h3>
@@ -1078,7 +1188,7 @@
             </article>
 
             <!-- English (Upgraded to Multi-Button Grid) -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">English</h3>
@@ -1114,7 +1224,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             
             <!-- Accountancy -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Accountancy</h3>
@@ -1129,7 +1239,7 @@
             </article>
 
             <!-- Business St. -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">Business St.</h3>
@@ -1144,7 +1254,7 @@
             </article>
 
             <!-- English (Upgraded to Multi-Button Grid) -->
-            <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+            <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-white">English</h3>
@@ -1180,7 +1290,7 @@
                 <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentPurple pl-3">CBSE Science Papers & Answers</h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                     
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Physics (042)</h2>
@@ -1189,7 +1299,7 @@
                             </div>
                         </div>
                         
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
                                 <div class="space-y-2">
@@ -1201,7 +1311,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Chemistry (043)</h2>
@@ -1210,7 +1320,7 @@
                             </div>
                         </div>
                         
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
                                 <div class="space-y-2">
@@ -1222,7 +1332,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Mathematics (041)</h2>
@@ -1230,7 +1340,7 @@
                                 <svg class="w-6 h-6 text-accentOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
                                 <div class="space-y-2">
@@ -1242,7 +1352,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Biology (044)</h2>
@@ -1250,7 +1360,7 @@
                                 <svg class="w-6 h-6 text-accentPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
                                 <div class="space-y-2">
@@ -1262,7 +1372,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">English Core</h2>
@@ -1270,7 +1380,7 @@
                                 <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
                                 <div class="space-y-2">
@@ -1282,7 +1392,7 @@
                         </div>
                     </div>
 
-                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden">
+                    <div class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h2 class="text-2xl font-bold text-white">Comp. Sci (083)</h2>
@@ -1290,7 +1400,7 @@
                                 <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             </div>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-auto">
                             <div class="bg-darkBg/50 p-3 rounded-lg border border-gray-700/50">
                                 <h4 class="year-display text-white font-semibold text-sm mb-3 flex items-center gap-2">📅 Year: 2026 Board Exam</h4>
                                 <div class="space-y-2">
@@ -1335,7 +1445,7 @@
                 <h2 class="text-xl font-bold text-white mb-6 border-l-4 border-accentPurple pl-3">CBSE Science Video Lectures</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     
-                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                    <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-xl font-bold text-white">Physics (042)</h3>
@@ -1351,7 +1461,7 @@
                         </div>
                     </article>
 
-                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                    <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentGreen"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-xl font-bold text-white">Chemistry (043)</h3>
@@ -1367,7 +1477,7 @@
                         </div>
                     </article>
 
-                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                    <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentOrange"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-xl font-bold text-white">Mathematics (041)</h3>
@@ -1383,7 +1493,7 @@
                         </div>
                     </article>
 
-                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                    <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-accentPurple"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-xl font-bold text-white">Biology (044)</h3>
@@ -1399,7 +1509,7 @@
                         </div>
                     </article>
 
-                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                    <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-cyan-400"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-xl font-bold text-white">Comp. Sci (083)</h3>
@@ -1415,7 +1525,7 @@
                         </div>
                     </article>
 
-                    <article class="bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
+                    <article class="subject-card bg-cardBg rounded-2xl p-6 border border-gray-700/50 flex flex-col justify-between relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-xl font-bold text-white">English Core</h3>
@@ -1440,14 +1550,15 @@
     <section id="about" class="max-w-5xl mx-auto px-4 py-16">
         <h2 class="text-3xl font-bold text-white mb-10 text-center">Architect Behind the Platform</h2>
         
-        <div class="bg-cardBg rounded-3xl p-8 border border-gray-700/50 shadow-2xl flex flex-col md:flex-row gap-8 items-center">
-            <div class="relative group">
+        <div class="bg-cardBg rounded-3xl p-8 border border-gray-700/50 shadow-2xl flex flex-col md:flex-row gap-8 lg:gap-12 items-center md:items-start mb-8">
+            
+            <div class="relative group shrink-0 w-48 mx-auto md:mx-0">
                 <div class="absolute -inset-1 bg-gradient-to-r from-accentBlue to-accentPurple rounded-2xl blur opacity-50"></div>
                 <img src="profile.jpg" alt="Developer Profile" class="relative w-48 h-48 rounded-2xl object-cover border-2 border-gray-800">
                 <div class="absolute -bottom-3 left-4 bg-accentBlue text-darkBg px-4 py-1 rounded-full font-bold text-sm shadow-lg">TP</div>
             </div>
             
-            <div class="flex-1 w-full">
+            <div class="flex-1 w-full min-w-0">
                 <h2 class="text-3xl font-bold text-white mb-1">Empowering Future Toppers</h2>
                 <p class="text-accentBlue font-semibold mb-4 text-lg">Building the ultimate study ecosystem.</p>
                 <p class="text-gray-400 italic mb-6">"Coding the future of education, one student at a time. I don't just build platforms; I build pathways to success."</p>
@@ -1455,42 +1566,51 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex items-center gap-3">
                         <span class="text-xl">🎓</span>
-                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Background</p><p class="text-sm font-medium">Class 12th (PCM) | Batch: 2024-26</p></div>
+                        <div class="min-w-0">
+                            <p class="text-[10px] text-gray-500 uppercase font-bold">Background</p>
+                            <p class="text-sm font-medium truncate">Class 12th (PCM) | Batch: 2024-26</p>
+                        </div>
                     </div>
                     <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex items-center gap-3">
                         <span class="text-xl">📍</span>
-                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Based In</p><p class="text-sm font-medium">Odisha, India</p></div>
+                        <div class="min-w-0">
+                            <p class="text-[10px] text-gray-500 uppercase font-bold">Based In</p>
+                            <p class="text-sm font-medium truncate">Odisha, India</p>
+                        </div>
                     </div>
                     <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex flex-col justify-center">
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-3 mb-2">
                             <span class="text-xl">🎂</span>
-                            <div>
+                            <div class="min-w-0">
                                 <p class="text-[10px] text-gray-500 uppercase font-bold">Born</p>
-                                <p class="text-sm font-medium">12th April 2009</p>
+                                <p class="text-sm font-medium truncate">12th April 2009</p>
                             </div>
                         </div>
-                        <div id="bday-countdown" class="text-[11px] text-accentBlue mt-2 font-mono bg-cardBg border border-gray-700/50 rounded px-2 py-1 inline-block shadow-inner w-full text-center tracking-wider">
-                            Loading age...
+                        <div id="bday-countdown" class="skeleton-shimmer text-[11px] text-accentBlue font-mono border border-gray-700/50 rounded px-2 py-1 inline-block shadow-inner w-full text-center tracking-wider h-6">
+                            Loading...
                         </div>
                     </div>
                     <div class="bg-darkBg p-4 rounded-xl border border-gray-700/50 flex items-center gap-3">
                         <span class="text-xl">🚀</span>
-                        <div><p class="text-[10px] text-gray-500 uppercase font-bold">Project</p><p class="text-sm font-medium">TP Technology Hub</p></div>
+                        <div class="min-w-0">
+                            <p class="text-[10px] text-gray-500 uppercase font-bold">Project</p>
+                            <p class="text-sm font-medium truncate">TP Technology Hub</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="mt-8 bg-cardBg rounded-3xl p-8 border border-gray-700/50">
+        <div class="bg-cardBg rounded-3xl p-8 border border-gray-700/50">
             <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">🛠️ Skills & Technologies By Ai</h3>
             <div class="flex flex-wrap gap-3">
-                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300">Python</span>
-                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300">Java</span>
-                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300">JavaScript</span>
-                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300">HTML</span>
-                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300">CSS</span>
-                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300">Frida</span>
-                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300">SSL Bypassing</span>
+                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300 hover:border-accentBlue transition-colors cursor-default">Python</span>
+                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300 hover:border-accentBlue transition-colors cursor-default">Java</span>
+                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300 hover:border-accentBlue transition-colors cursor-default">JavaScript</span>
+                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300 hover:border-accentBlue transition-colors cursor-default">HTML</span>
+                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300 hover:border-accentBlue transition-colors cursor-default">CSS</span>
+                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300 hover:border-accentBlue transition-colors cursor-default">Frida</span>
+                <span class="px-4 py-2 bg-darkBg border border-gray-600 rounded-lg text-sm text-gray-300 hover:border-accentBlue transition-colors cursor-default">SSL Bypassing</span>
             </div>
         </div>
     </section>
@@ -1515,12 +1635,12 @@
         <div class="relative bg-cardBg border border-gray-700 shadow-2xl rounded-2xl w-[90%] max-w-4xl max-h-[85vh] flex flex-col overflow-hidden modal-content">
             
             <div class="flex justify-between items-center p-4 border-b border-gray-700 bg-darkBg shrink-0">
-                <div class="flex items-center gap-3">
-                    <button id="backToTopicsBtn" onclick="showTopicList()" class="hidden text-accentBlue hover:text-blue-400 font-bold text-sm bg-gray-800 hover:bg-gray-700 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
-                        <span>←</span> Back to Topics
+                <div class="flex items-center gap-4">
+                    <button id="backToTopicsBtn" onclick="showTopicList()" class="hidden text-accentBlue hover:text-blue-400 font-bold text-sm bg-gray-800 hover:bg-gray-700 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-2 border border-gray-600">
+                        <span>←</span> Back
                     </button>
-                    <h3 id="modalTitle" class="text-lg font-bold text-white flex items-center gap-2">
-                        <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    <h3 id="modalTitle" class="text-lg font-bold text-white flex items-center gap-2 truncate max-w-[200px] sm:max-w-[400px]">
+                        <svg class="w-5 h-5 text-red-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                         Select Topic
                     </h3>
                 </div>
@@ -1545,5 +1665,9 @@
 
     <script src="data.js"></script>
      <script src="app.js"></script>
+
+     <!-- Toast Notification Container -->
+<div id="toast-container" class="fixed bottom-5 right-5 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
 </body>
 </html>
