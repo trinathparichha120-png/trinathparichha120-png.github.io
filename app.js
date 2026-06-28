@@ -288,11 +288,19 @@ function showTopicList() {
 }
 
 function closeVideoModal() {
+    // 1. Remove the active class to trigger the CSS fade out
     document.getElementById('videoModal').classList.remove('active');
+    
+    // 2. Wait for the CSS animation to finish (400ms) before clearing data
     setTimeout(() => {
-        document.getElementById('youtubePlayer').src = "";
+        const player = document.getElementById('youtubePlayer');
+        // Instantly kill the video source to stop audio
+        player.src = ""; 
+        player.style.display = 'none';
+        
+        // Reset the view back to the topic list for next time
         showTopicList(); 
-    }, 300);
+    }, 400); 
 }
 
 function simulateActiveLearners() {
@@ -315,3 +323,123 @@ function simulateActiveLearners() {
 simulateActiveLearners();
 updateAgeTimer();
 updateDisplay();
+
+// --- Advanced Error Handling & Toast System ---
+
+function showToast(message, type = 'error') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    // Define colors based on type
+    const colors = {
+        error: 'bg-red-500/10 border-red-500 text-red-500',
+        info: 'bg-accentBlue/10 border-accentBlue text-accentBlue',
+        success: 'bg-accentGreen/10 border-accentGreen text-accentGreen'
+    };
+
+    const icon = type === 'error' ? '⚠️' : type === 'success' ? '✅' : 'ℹ️';
+
+    // Create Toast Element
+    const toast = document.createElement('div');
+    toast.className = `toast flex items-center justify-between min-w-[300px] p-4 rounded-xl border backdrop-blur-md bg-darkBg/90 shadow-2xl pointer-events-auto overflow-hidden relative ${colors[type]}`;
+    
+    toast.innerHTML = `
+        <div class="flex items-center gap-3 relative z-10">
+            <span class="text-xl">${icon}</span>
+            <span class="font-semibold text-sm text-gray-200">${message}</span>
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-white transition-colors relative z-10">✕</button>
+        <div class="absolute bottom-0 left-0 h-1 ${colors[type].split(' ')[1].replace('border-', 'bg-')} toast-progress"></div>
+    `;
+
+    container.appendChild(toast);
+
+    // Trigger animation
+    setTimeout(() => toast.classList.add('show'), 10);
+
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+    }, 3000);
+}
+
+// Intercept clicks on links that are not ready
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', function(e) {
+        // Find if the clicked element is an anchor tag
+        let target = e.target.closest('a');
+        if (!target) return;
+
+        const href = target.getAttribute('href');
+
+        // Check 1: Is it a placeholder link?
+        if (href === '#') {
+            e.preventDefault(); // Stop the page from jumping
+            showToast("This material is currently being organized. Check back soon!", "info");
+            return;
+        }
+
+        // Check 2: Is it a PDF link that we know might be missing?
+        // (You can remove this check later when ALL your PDFs are uploaded)
+        if (target.classList.contains('pdf-link') && !href.startsWith('http')) {
+            // Optional: You can implement a fetch check here in the future to see if the file actually exists on the server.
+            // For now, if you know certain links are broken, you can change their href to "#" to trigger Check 1.
+        }
+    });
+});
+
+// --- Part 2: Smart Header Scroll Detector ---
+window.addEventListener('scroll', () => {
+    const nav = document.getElementById('main-nav');
+    if (!nav) return;
+    
+    // If user scrolls down more than 20 pixels, trigger the shrink effect
+    if (window.scrollY > 20) {
+        nav.classList.add('nav-scrolled');
+    } else {
+        // If they scroll back to the absolute top, expand it again
+        nav.classList.remove('nav-scrolled');
+    }
+});
+
+// --- Part 4: Cinematic Entrance & Intersection Observer ---
+
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.subject-card');
+    cards.forEach((card, index) => {
+        card.classList.add('fade-in-up');
+        // Create a staggered delay based on their order
+        const delay = (index % 5 + 1) * 100; 
+        card.classList.add(`delay-${delay}`);
+    });
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1 
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Trigger the animation
+                entry.target.classList.add('visible');
+                
+                // Stop observing this element
+                observer.unobserve(entry.target);
+
+                // FIX: Remove the animation classes entirely after they finish (800ms transition + delay)
+                // This prevents the 'transform' conflict and restores the 3D hover effect!
+                const delayMs = parseInt(Array.from(entry.target.classList).find(c => c.startsWith('delay-'))?.split('-')[1] || 0);
+                
+                setTimeout(() => {
+                    entry.target.classList.remove('fade-in-up', 'visible', `delay-${delayMs}`);
+                }, 800 + delayMs + 50); // 800ms duration + delay + 50ms buffer
+            }
+        });
+    }, observerOptions);
+
+    const animatedElements = document.querySelectorAll('.fade-in-up');
+    animatedElements.forEach(el => observer.observe(el));
+});
