@@ -186,6 +186,8 @@ function updateAgeTimer() {
     const countdownEl = document.getElementById('bday-countdown');
     if (countdownEl) {
         countdownEl.innerText = `⏳ Age: ${years}y ${months}m ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        // FIX: Remove the shimmer class so the text actually becomes visible
+        countdownEl.classList.remove('skeleton-shimmer');
     }
 }
 setInterval(updateAgeTimer, 1000);
@@ -501,4 +503,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const animatedElements = document.querySelectorAll('.fade-in-up');
     animatedElements.forEach(el => observer.observe(el));
+});
+
+// --- Custom Fullscreen Overlay Controls Logic ---
+
+let overlayTimeout;
+
+// 1. Function to show the overlay when the user taps the screen
+function showCustomControls() {
+    const controls = document.getElementById('custom-video-controls');
+    const videoContainer = document.querySelector('#modalPlayerView .relative');
+    
+    // Only show controls if we are actually in fullscreen mode
+    if (document.fullscreenElement && controls) {
+        controls.classList.remove('hidden', 'opacity-0');
+        controls.classList.add('opacity-100');
+        
+        // Clear any existing timeout
+        clearTimeout(overlayTimeout);
+        
+        // Auto-hide the controls again after 3 seconds of no interaction
+        overlayTimeout = setTimeout(() => {
+            controls.classList.remove('opacity-100');
+            controls.classList.add('opacity-0');
+            // Wait for fade out animation before fully hiding
+            setTimeout(() => controls.classList.add('hidden'), 300);
+        }, 3000);
+    }
+}
+
+// 2. Listen for clicks on the video container to trigger the menu
+document.addEventListener('DOMContentLoaded', () => {
+    const videoContainer = document.querySelector('#modalPlayerView .relative');
+    if(videoContainer) {
+        videoContainer.addEventListener('click', showCustomControls);
+        videoContainer.addEventListener('mousemove', showCustomControls); // For desktop users
+    }
+});
+
+// 3. Custom Exit Button Logic
+function exitFullScreenAndClose() {
+    // Exit Fullscreen
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
+    
+    // Unlock screen orientation
+    if (screen.orientation && screen.orientation.unlock) {
+        screen.orientation.unlock();
+    }
+    
+    // Immediately hide the custom controls so they don't look weird when returning to normal view
+    const controls = document.getElementById('custom-video-controls');
+    if(controls) {
+        controls.classList.remove('opacity-100');
+        controls.classList.add('opacity-0', 'hidden');
+    }
+}
+
+// 4. Ensure controls hide if the user exits fullscreen using the 'Esc' key
+document.addEventListener('fullscreenchange', () => {
+    const controls = document.getElementById('custom-video-controls');
+    if (!document.fullscreenElement && controls) {
+        controls.classList.remove('opacity-100');
+        controls.classList.add('opacity-0', 'hidden');
+    }
 });
