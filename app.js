@@ -302,7 +302,57 @@ function closeVideoModal() {
         showTopicList(); 
     }, 400); 
 }
+// --- Fullscreen Video Logic ---
+function toggleFullScreen() {
+    const modalContent = document.querySelector('.modal-content');
+    
+    if (!document.fullscreenElement) {
+        // Enter Fullscreen
+        if (modalContent.requestFullscreen) {
+            modalContent.requestFullscreen();
+        } else if (modalContent.webkitRequestFullscreen) { /* Safari */
+            modalContent.webkitRequestFullscreen();
+        } else if (modalContent.msRequestFullscreen) { /* IE11 */
+            modalContent.msRequestFullscreen();
+        }
+        
+        // Attempt to lock screen orientation to Landscape on mobile
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape').catch(err => {
+                console.log("Orientation lock not supported by device/browser:", err);
+            });
+        }
+        
+        // Make the modal fill the screen completely
+        modalContent.classList.add('w-full', 'h-full', 'max-w-none', 'max-h-none', 'rounded-none');
+        document.querySelector('.relative.pt-\\[56\\.25\\%\\]').classList.replace('pt-[56.25%]', 'h-full');
+        
+    } else {
+        // Exit Fullscreen
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+        
+        // Unlock screen orientation
+        if (screen.orientation && screen.orientation.unlock) {
+            screen.orientation.unlock();
+        }
+    }
+}
 
+// Listen for the user hitting 'Escape' or swiping back to exit fullscreen safely
+document.addEventListener('fullscreenchange', () => {
+    const modalContent = document.querySelector('.modal-content');
+    if (!document.fullscreenElement) {
+        // Reset classes when exiting fullscreen
+        modalContent.classList.remove('w-full', 'h-full', 'max-w-none', 'max-h-none', 'rounded-none');
+        document.querySelector('.relative.w-full.h-full').classList.replace('h-full', 'pt-[56.25%]');
+    }
+});
 function simulateActiveLearners() {
     const learnersEl = document.getElementById('active-learners');
     if (!learnersEl) return;
