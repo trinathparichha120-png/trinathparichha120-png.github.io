@@ -303,29 +303,30 @@ function closeVideoModal() {
     }, 400); 
 }
 // --- Fullscreen Video Logic ---
+// --- Fullscreen Video Logic (Refined) ---
 function toggleFullScreen() {
-    const modalContent = document.querySelector('.modal-content');
+    // Target ONLY the video container, not the whole modal
+    const videoContainer = document.querySelector('#modalPlayerView .relative');
     
     if (!document.fullscreenElement) {
-        // Enter Fullscreen
-        if (modalContent.requestFullscreen) {
-            modalContent.requestFullscreen();
-        } else if (modalContent.webkitRequestFullscreen) { /* Safari */
-            modalContent.webkitRequestFullscreen();
-        } else if (modalContent.msRequestFullscreen) { /* IE11 */
-            modalContent.msRequestFullscreen();
+        // Enter Fullscreen on the specific video div
+        if (videoContainer.requestFullscreen) {
+            videoContainer.requestFullscreen();
+        } else if (videoContainer.webkitRequestFullscreen) { /* Safari */
+            videoContainer.webkitRequestFullscreen();
+        } else if (videoContainer.msRequestFullscreen) { /* IE11 */
+            videoContainer.msRequestFullscreen();
         }
         
         // Attempt to lock screen orientation to Landscape on mobile
         if (screen.orientation && screen.orientation.lock) {
             screen.orientation.lock('landscape').catch(err => {
-                console.log("Orientation lock not supported by device/browser:", err);
+                console.log("Orientation lock not supported:", err);
             });
         }
         
-        // Make the modal fill the screen completely
-        modalContent.classList.add('w-full', 'h-full', 'max-w-none', 'max-h-none', 'rounded-none');
-        document.querySelector('.relative.pt-\\[56\\.25\\%\\]').classList.replace('pt-[56.25%]', 'h-full');
+        // Add a class so we can style the internal iframe when in fullscreen
+        videoContainer.classList.add('is-fullscreen');
         
     } else {
         // Exit Fullscreen
@@ -343,6 +344,14 @@ function toggleFullScreen() {
         }
     }
 }
+
+// Ensure the container resets its styling when the user exits fullscreen
+document.addEventListener('fullscreenchange', () => {
+    const videoContainer = document.querySelector('#modalPlayerView .relative');
+    if (!document.fullscreenElement && videoContainer) {
+        videoContainer.classList.remove('is-fullscreen');
+    }
+});
 
 // Listen for the user hitting 'Escape' or swiping back to exit fullscreen safely
 document.addEventListener('fullscreenchange', () => {
