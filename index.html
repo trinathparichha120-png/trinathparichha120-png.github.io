@@ -1654,9 +1654,13 @@
                 <div class="relative pt-[56.25%] w-full">
                     <iframe id="youtubePlayer" class="absolute inset-0 w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
-                <div class="p-4 bg-darkBg text-center border-t border-gray-800">
-                    <a id="searchYoutubeBtn" href="#" target="_blank" class="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold text-sm shadow-lg transition-colors">
-                        Search This Exact Topic on YouTube ↗
+                <div class="p-4 bg-darkBg border-t border-gray-800 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button onclick="toggleFullScreen()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-bold text-sm shadow-lg transition-colors border border-gray-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                        Full Screen
+                    </button>
+                    <a id="searchYoutubeBtn" href="#" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold text-sm shadow-lg transition-colors">
+                        Search on YouTube ↗
                     </a>
                 </div>
             </div>
