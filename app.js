@@ -506,31 +506,56 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- Custom Fullscreen Overlay Controls Logic ---
-
-let overlayTimeout;
-
-// 1. Function to show the overlay when the user taps the screen
-function showCustomControls() {
-    const controls = document.getElementById('custom-video-controls');
+// --- Fullscreen Video Logic (Refined & Professional) ---
+function toggleFullScreen() {
+    // Target the video container
     const videoContainer = document.querySelector('#modalPlayerView .relative');
     
-    // Only show controls if we are actually in fullscreen mode
-    if (document.fullscreenElement && controls) {
-        controls.classList.remove('hidden', 'opacity-0');
-        controls.classList.add('opacity-100');
+    if (!document.fullscreenElement) {
+        // Enter Fullscreen
+        if (videoContainer.requestFullscreen) {
+            videoContainer.requestFullscreen();
+        } else if (videoContainer.webkitRequestFullscreen) { /* Safari */
+            videoContainer.webkitRequestFullscreen();
+        } else if (videoContainer.msRequestFullscreen) { /* IE11 */
+            videoContainer.msRequestFullscreen();
+        }
         
-        // Clear any existing timeout
-        clearTimeout(overlayTimeout);
+        // Attempt orientation lock (Android mostly)
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape').catch(err => {
+                console.log("Orientation lock not supported:", err);
+            });
+        }
         
-        // Auto-hide the controls again after 3 seconds of no interaction
-        overlayTimeout = setTimeout(() => {
-            controls.classList.remove('opacity-100');
-            controls.classList.add('opacity-0');
-            // Wait for fade out animation before fully hiding
-            setTimeout(() => controls.classList.add('hidden'), 300);
-        }, 3000);
+        videoContainer.classList.add('is-fullscreen');
+        
+    } else {
+        exitFullscreenMode();
     }
 }
+
+function exitFullscreenMode() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
+    
+    if (screen.orientation && screen.orientation.unlock) {
+        screen.orientation.unlock();
+    }
+}
+
+// Clean up when the user uses native back buttons or ESC to exit
+document.addEventListener('fullscreenchange', () => {
+    const videoContainer = document.querySelector('#modalPlayerView .relative');
+    if (!document.fullscreenElement && videoContainer) {
+        videoContainer.classList.remove('is-fullscreen');
+    }
+});
 
 // 2. Listen for clicks on the video container to trigger the menu
 document.addEventListener('DOMContentLoaded', () => {
